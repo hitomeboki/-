@@ -372,6 +372,19 @@ localStorage.setItem(
     "lastStudy",
     today
 );
+let studyDays =
+JSON.parse(localStorage.getItem("studyDays")) || [];
+
+if(!studyDays.includes(today)){
+
+    studyDays.push(today);
+
+    localStorage.setItem(
+        "studyDays",
+        JSON.stringify(studyDays)
+    );
+
+}
 
 let percentage = Math.round(score / solved * 100);
 

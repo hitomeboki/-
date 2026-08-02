@@ -181,6 +181,19 @@ localStorage.setItem("todayCorrect", todayCorrect);
 
 // 最終学習日
 localStorage.setItem("lastStudy", today);
+let studyDays =
+JSON.parse(localStorage.getItem("studyDays")) || [];
+
+if(!studyDays.includes(today)){
+
+    studyDays.push(today);
+
+    localStorage.setItem(
+        "studyDays",
+        JSON.stringify(studyDays)
+    );
+
+}
 
 // 連続学習日数
 let lastLogin = localStorage.getItem("streakDate");

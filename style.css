@@ -1841,3 +1841,68 @@ body.hard-mode .answer-area{
     max-width:220px;
     min-width:140px;
 }
+
+/* =========================
+   学習カレンダー
+========================= */
+
+.calendar-table{
+
+    width:100%;
+    max-width:800px;
+
+    margin:30px auto;
+
+    border-collapse:collapse;
+
+}
+
+.calendar-table th{
+
+    background:#4A90E2;
+
+    color:white;
+
+    padding:15px;
+
+    font-size:20px;
+
+}
+
+.calendar-table td{
+
+    width:14.2%;
+
+    height:80px;
+
+    border:1px solid #ddd;
+
+    text-align:center;
+
+    vertical-align:middle;
+
+    font-size:22px;
+
+}
+
+.calendar-table td.today{
+
+    border:3px solid #4A90E2;
+
+    font-weight:bold;
+
+}
+
+.calendar-table td.studied{
+
+    background:rgba(103,197,110,.35);
+
+}
+
+.calendar-table td.today{
+
+    border:3px solid #4A90E2;
+
+    font-weight:bold;
+
+}

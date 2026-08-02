@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学習カレンダー</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="top-container">
+
+    <h1>📅 学習カレンダー</h1>
+
+    <p class="subtitle">
+        学習した日をカレンダーで確認できます
+    </p>
+
+    <div id="calendar"></div>
+
+    <br><br>
+
+    <button id="prevMonth">◀ 前の月</button>
+
+    <button id="nextMonth">次の月 ▶</button>
+
+    <br><br>
+
+    <a href="studyMenu.html">
+        <button>学習管理へ戻る</button>
+    </a>
+
+</div>
+
+<script>
+
+const calendar = document.getElementById("calendar");
+
+const today = new Date();
+
+let year = today.getFullYear();
+let month = today.getMonth();
+
+const week = ["日","月","火","水","木","金","土"];
+
+function createCalendar(){
+const studyDays =
+JSON.parse(localStorage.getItem("studyDays")) || [];
+    calendar.innerHTML = "";
+
+    // タイトル
+    calendar.innerHTML += `
+        <h2>${year}年 ${month + 1}月</h2>
+    `;
+
+    // カレンダー本体
+    let table = "<table class='calendar-table'>";
+
+    // 曜日
+    table += "<tr>";
+
+    for(let w of week){
+        table += `<th>${w}</th>`;
+    }
+
+    table += "</tr>";
+
+    // 月初の曜日
+    const firstDay = new Date(year, month, 1).getDay();
+
+    // 月の日数
+    const lastDate = new Date(year, month + 1, 0).getDate();
+
+    let day = 1;
+
+    // 最大6週
+    for(let i = 0; i < 6; i++){
+
+        table += "<tr>";
+
+        for(let j = 0; j < 7; j++){
+
+            if(i === 0 && j < firstDay){
+
+                table += "<td></td>";
+
+            }else if(day > lastDate){
+
+                table += "<td></td>";
+
+            }else{
+
+                let cls = "";
+
+                const dateString =
+                `${year}/${month+1}/${day}`;
+
+                if(studyDays.includes(dateString)){
+                cls += " studied";
+                }
+
+                if(
+                day === today.getDate() &&
+                month === today.getMonth() &&
+                year === today.getFullYear()
+                ){
+                cls += " today";
+                }
+
+                if(
+                    day === today.getDate() &&
+                    month === today.getMonth() &&
+                    year === today.getFullYear()
+                ){
+                    cls = "today";
+                }
+
+                table += `<td class="${cls}">${day}</td>`;
+
+                day++;
+
+            }
+
+        }
+
+        table += "</tr>";
+
+        if(day > lastDate) break;
+
+    }
+
+    table += "</table>";
+
+    calendar.innerHTML += table;
+
+}
+
+createCalendar();
+
+document.getElementById("prevMonth").onclick = () => {
+
+    month--;
+
+    if(month < 0){
+        month = 11;
+        year--;
+    }
+
+    createCalendar();
+
+};
+
+document.getElementById("nextMonth").onclick = () => {
+
+    month++;
+
+    if(month > 11){
+        month = 0;
+        year++;
+    }
+
+    createCalendar();
+
+};
+
+</script>
+
+</body>
+</html>
