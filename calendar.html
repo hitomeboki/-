@@ -45,8 +45,8 @@ let month = today.getMonth();
 const week = ["日","月","火","水","木","金","土"];
 
 function createCalendar(){
-const studyDays =
-JSON.parse(localStorage.getItem("studyDays")) || [];
+const studyData =
+JSON.parse(localStorage.getItem("studyData")) || {};
     calendar.innerHTML = "";
 
     // タイトル
@@ -93,20 +93,22 @@ JSON.parse(localStorage.getItem("studyDays")) || [];
 
                 let cls = "";
 
-                const dateString =
-                `${year}/${month+1}/${day}`;
+const dateString = `${year}/${month + 1}/${day}`;
 
-                if(studyDays.includes(dateString)){
-                cls += " studied";
-                }
+const count = studyData[dateString] || 0;
 
-                if(
-                day === today.getDate() &&
-                month === today.getMonth() &&
-                year === today.getFullYear()
-                ){
-                cls += " today";
-                }
+if(count >= 50){
+    cls += " level4";
+}
+else if(count >= 30){
+    cls += " level3";
+}
+else if(count >= 10){
+    cls += " level2";
+}
+else if(count >= 1){
+    cls += " level1";
+}
 
                 if(
                     day === today.getDate() &&
