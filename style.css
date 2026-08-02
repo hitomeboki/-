@@ -1824,41 +1824,21 @@ body.hard-mode .answer-area{
     background:#C0392B;
 }
 
-/* ========================= */
-/* 苦手克服モードの分類ボックス */
-/* ========================= */
+/* ===================================
+   分類モード 最終レイアウト
+=================================== */
 
-/* その他なし → 1列 */
-.weak-mode-layout.no-other {
-    grid-template-columns: 1fr;
+.boxes{
+    display:flex !important;
+    justify-content:center;
+    gap:18px;
+    flex-wrap:nowrap;
+    width:95%;
+    margin:30px auto;
 }
 
-/* その他あり → 2列 */
-.weak-mode-layout.has-other {
-    grid-template-columns: repeat(2, 1fr);
-}
-
-/* 一問一答：回答ボタン */
-.answer-area {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
-    justify-content: center;
-}
-
-/* その他あり */
-.answer-area:has(.other[style*="inline-block"]) {
-    grid-template-columns: repeat(3, 1fr);
-}
-
-/* 一問一答：その他なし */
-.answer-area {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
-}
-
-/* 一問一答：その他あり */
-.answer-area.has-other {
-    grid-template-columns: repeat(3, 1fr);
+.box{
+    flex:1;
+    max-width:220px;
+    min-width:140px;
 }
