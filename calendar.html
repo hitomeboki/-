@@ -21,6 +21,18 @@
 
     <br><br>
 
+    <div class="calendar-legend">
+
+    <div><span class="legend level1"></span>1～9問</div>
+
+    <div><span class="legend level2"></span>10～29問</div>
+
+    <div><span class="legend level3"></span>30～49問</div>
+
+    <div><span class="legend level4"></span>50問以上</div>
+
+</div>
+
     <button id="prevMonth">◀ 前の月</button>
 
     <button id="nextMonth">次の月 ▶</button>
@@ -118,7 +130,14 @@ else if(count >= 1){
                     cls = "today";
                 }
 
-                table += `<td class="${cls}">${day}</td>`;
+                table += `
+<td
+class="${cls}"
+title="${count}問学習"
+>
+${day}
+</td>
+`;
 
                 day++;
 

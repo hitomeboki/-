@@ -1960,3 +1960,45 @@ body.hard-mode .answer-area{
 .calendar-table td.today{
     border:3px solid #4A90E2;
 }
+
+/* ========================= */
+/* 学習カレンダー 凡例 */
+/* ========================= */
+
+.calendar-legend{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+    margin:25px 0;
+    font-size:18px;
+}
+
+.calendar-legend div{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.legend{
+    width:22px;
+    height:22px;
+    border-radius:6px;
+    display:inline-block;
+}
+
+.legend.level1{
+    background:rgba(103,197,110,.25);
+}
+
+.legend.level2{
+    background:rgba(103,197,110,.45);
+}
+
+.legend.level3{
+    background:rgba(103,197,110,.7);
+}
+
+.legend.level4{
+    background:#67C56E;
+}
