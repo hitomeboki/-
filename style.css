@@ -1827,9 +1827,8 @@ body.hard-mode .answer-area{
 /* ===================================
    分類モード 最終レイアウト
 =================================== */
-
-.boxes{
-    display:flex !important;
+.normal-layout{
+    display:flex;
     justify-content:center;
     gap:18px;
     flex-wrap:nowrap;
@@ -1837,7 +1836,7 @@ body.hard-mode .answer-area{
     margin:30px auto;
 }
 
-.box{
+.normal-layout .box{
     flex:1;
     max-width:220px;
     min-width:140px;
