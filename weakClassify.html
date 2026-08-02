@@ -64,13 +64,15 @@
 </a>
 
 <script src="data.js"></script>
+<script src="study.js"></script>
 
 <script>
 // モード取得
 const params = new URLSearchParams(window.location.search);
 const mode = params.get("mode");
 
-let selectedItem = "";
+let weakCorrectClassify =
+JSON.parse(localStorage.getItem("weakCorrectClassify")) || {};
 
 // 苦手問題だけ取得
 let weakClassify = JSON.parse(localStorage.getItem("weakClassify")) || [];
@@ -206,9 +208,6 @@ if(userAnswers[item] === accounts[item].category){
 
 score++;
 // 苦手克服カウント
-let weakCorrectClassify =
-JSON.parse(localStorage.getItem("weakCorrectClassify")) || {};
-
 weakCorrectClassify[item] =
 (weakCorrectClassify[item] || 0) + 1;
 
@@ -239,9 +238,6 @@ localStorage.setItem(
 }else{
 
 // 間違えたら連続正解数をリセット
-let weakCorrectClassify =
-JSON.parse(localStorage.getItem("weakCorrectClassify")) || {};
-
 weakCorrectClassify[item] = 0;
 
 localStorage.setItem(
@@ -386,7 +382,7 @@ if(!studyDays.includes(today)){
 
 }
 
-let percentage = Math.round(score / solved * 100);
+let percentage = Math.round(score / selectedItems.length * 100);
 
 let rank="";
 
@@ -434,7 +430,7 @@ document.body.innerHTML=`
 
 <h1>結果発表</h1>
 
-<h2>${score}/${solved}問正解</h2>
+<h2>${score}/${selectedItems.length}問正解</h2>
 
 <h3>全${selectedItems.length}問中 ${solved}問回答</h3>
 

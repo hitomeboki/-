@@ -59,6 +59,7 @@
 </a>
 
 <script src="data.js"></script>
+<script src="study.js"></script>
 
 <script>
 // URLからモードを取得
@@ -102,6 +103,8 @@ console.log(questions);
 
 let currentQuestion = 0;
 let score = 0;
+let weakCorrect = 
+JSON.parse(localStorage.getItem("weakCorrect")) || {};
 
 showQuestion();
 
@@ -130,22 +133,9 @@ function checkAnswer(answer) {
 
 const q = questions[currentQuestion];
 
-// 学習記録更新
-let totalAnswered =
-Number(localStorage.getItem("totalAnswered")) || 0;
+let correct = answer === q.answer;
 
-let totalCorrect =
-Number(localStorage.getItem("totalCorrect")) || 0;
-
-totalAnswered++;
-
-if(answer === q.answer){
-    totalCorrect++;
-}
-
-localStorage.setItem("totalAnswered", totalAnswered);
-localStorage.setItem("totalCorrect", totalCorrect);
-
+saveStudyRecord(1, correct ? 1 : 0);
 
 // 今日の記録
 const today = new Date().toLocaleDateString("ja-JP");
@@ -230,15 +220,46 @@ if(streak > bestStreak){
     localStorage.setItem("bestStreak", bestStreak);
 }
 
-    if (answer === q.answer) {
-         
-        document.getElementById("result").innerHTML =
-            "⭕ 正解！<br><br>" +
-            "解説：<br>" +
-            q.explanation;
+if (answer === q.answer) {
 
-        score++;
-} else {
+    document.getElementById("result").innerHTML =
+        "⭕ 正解！<br><br>" +
+        "解説：<br>" +
+        q.explanation;
+
+    score++;
+
+    let name = q.question.replace("は何に分類される？","");
+
+    weakCorrect[name] =
+    (weakCorrect[name] || 0) + 1;
+
+
+    if(weakCorrect[name] >= 3){
+
+        let weakQuiz =
+        JSON.parse(localStorage.getItem("weakQuiz")) || [];
+
+        weakQuiz = weakQuiz.filter(item =>
+            item !== name
+        );
+
+        localStorage.setItem(
+            "weakQuiz",
+            JSON.stringify(weakQuiz)
+        );
+
+
+        delete weakCorrect[name];
+    }
+
+
+    localStorage.setItem(
+        "weakCorrect",
+        JSON.stringify(weakCorrect)
+    );
+
+}else {
 
     document.getElementById("result").innerHTML =
         "❌ 不正解<br><br>" +

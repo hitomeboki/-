@@ -64,6 +64,7 @@
 </a>
 
 <script src="data.js"></script>
+<script src="study.js"></script>
 
 <script>
 // モード取得
@@ -142,33 +143,6 @@ return;
 }
 
 userAnswers[selectedItem] = category;
-
-}
-
-// 今日の記録
-let savedDate = localStorage.getItem("todayDate");
-
-let todayAnswered =
-Number(localStorage.getItem("todayAnswered")) || 0;
-
-let todayCorrect =
-Number(localStorage.getItem("todayCorrect")) || 0;
-
-// 日付が変わったらリセット
-if(savedDate !== today){
-    todayAnswered = 0;
-    todayCorrect = 0;
-    localStorage.setItem("todayDate", today);
-}
-
-todayAnswered++;
-
-if(category === accounts[selectedItem].category){
-    todayCorrect++;
-}
-
-localStorage.setItem("todayAnswered", todayAnswered);
-localStorage.setItem("todayCorrect", todayCorrect);
 
 let boxId = "";
 
@@ -392,7 +366,7 @@ if(lastLogin !== today){
     localStorage.setItem("streakDate", today);
 }
 
-let percentage = Math.round(score / solved * 100);
+let percentage = Math.round(score / selectedItems.length * 100);
 
 let rank="";
 
@@ -414,7 +388,7 @@ document.body.innerHTML=`
 
 <h1>結果発表</h1>
 
-<h2>${score}/${solved}問正解</h2>
+<h2>${score}/${selectedItems.length}問正解</h2>
 
 <h3>全${selectedItems.length}問中 ${solved}問回答</h3>
 

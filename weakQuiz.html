@@ -59,6 +59,7 @@
 </a>
 
 <script src="data.js"></script>
+<script src="study.js"></script>
 
 <script>
 // URLからモードを取得
@@ -157,23 +158,6 @@ function checkAnswer(answer) {
 
     const q = questions[currentQuestion];
 
-    // 学習記録更新
-let totalAnswered =
-Number(localStorage.getItem("totalAnswered")) || 0;
-
-let totalCorrect =
-Number(localStorage.getItem("totalCorrect")) || 0;
-
-totalAnswered++;
-
-if(answer === q.answer){
-    totalCorrect++;
-}
-
-localStorage.setItem("totalAnswered", totalAnswered);
-localStorage.setItem("totalCorrect", totalCorrect);
-
-
 // 今日の記録
 const today = new Date().toLocaleDateString("ja-JP");
 
@@ -230,11 +214,12 @@ if(!studyDays.includes(today)){
             q.explanation;
 
         score++;
-        weakCorrect[q.question] =
-(weakCorrect[q.question] || 0) + 1;
+        let name = q.question.replace("は何に分類される？","");
 
+weakCorrect[name] =
+(weakCorrect[name] || 0) + 1;
 
-if(weakCorrect[q.question] >= 3){
+if(weakCorrect[name] >= 3){
 
     let weakQuiz =
     JSON.parse(localStorage.getItem("weakQuiz")) || [];
@@ -248,7 +233,7 @@ if(weakCorrect[q.question] >= 3){
         JSON.stringify(weakQuiz)
     );
 
-    delete weakCorrect[q.question];
+    delete weakCorrect[name];
 }
 
 localStorage.setItem(
@@ -257,16 +242,26 @@ localStorage.setItem(
 );
 } else {
 
+    let name = q.question.replace("は何に分類される？","");
+
+    weakCorrect[name] = 0;
+
+    localStorage.setItem(
+        "weakCorrect",
+        JSON.stringify(weakCorrect)
+    );
+
+
     document.getElementById("result").innerHTML =
         "❌ 不正解<br><br>" +
         "正解：" + q.answer + "<br><br>" +
         "解説：<br>" +
         q.explanation;
+        "正解：" + q.answer + "<br><br>" +
+        "解説：<br>" +
+        q.explanation;
 
     // 連続正解数をリセット
-let weakCorrect =
-JSON.parse(localStorage.getItem("weakCorrect")) || {};
-
 weakCorrect[q.question] = 0;
 
 localStorage.setItem(
