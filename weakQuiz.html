@@ -5,7 +5,7 @@
     <title>苦手克服　一問一答</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="easy-mode">
 
 <div class="top-container">
 
@@ -62,15 +62,6 @@
 <script src="study.js"></script>
 
 <script>
-// URLからモードを取得
-const params = new URLSearchParams(window.location.search);
-const mode = params.get("mode");
-if(mode === "easy"){
-    document.body.classList.add("easy-mode");
-}else{
-    document.body.classList.add("hard-mode");
-}
-
 // 苦手問題だけ取得
 let weakQuiz = JSON.parse(localStorage.getItem("weakQuiz")) || [];
 
