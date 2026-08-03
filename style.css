@@ -1028,7 +1028,8 @@ body.hard-mode .answer-area{
 }
 
 body.easy-mode .answer-area{
-    grid-template-columns:repeat(6,1fr) !important;
+    display:grid !important;
+    grid-template-columns:repeat(6,1fr);
     gap:12px;
 }
 
@@ -1044,6 +1045,7 @@ body.easy-mode .answer-btn.equity{
     grid-column:5 / 7;
 }
 
+/* 下段を中央寄せ */
 body.easy-mode .answer-btn.expense{
     grid-column:2 / 4;
 }
@@ -1455,33 +1457,33 @@ body.hard-mode .answer-area{
 /* メニューボタン */
 /* ========================= */
 
-.title-area {
-    position: relative;
+.title-area{
+
+    position:relative;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
 }
 
 .menu-icon{
 
-    position:fixed;
+    position:absolute;
 
-    top:20px;
-    right:20px;
+    right:0;
+    top:50%;
+    transform:translateY(-50%);
 
-    background:white;
-
-    width:52px;
-    height:52px;
-
-    border-radius:50%;
+    background:none;
 
     border:none;
 
     font-size:28px;
 
-    box-shadow:0 4px 12px rgba(0,0,0,.2);
-
-    z-index:2000;
-
-    cursor:pointer;
+    padding:8px;
 }
 
 /* ========================= */
