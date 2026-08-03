@@ -72,6 +72,23 @@ localStorage.setItem(
     today
 );
 
+// 学習カレンダー用
+let studyData =
+JSON.parse(localStorage.getItem("studyData")) || {};
+
+const now = new Date();
+
+const dateString =
+`${now.getFullYear()}/${now.getMonth() + 1}/${now.getDate()}`;
+
+studyData[dateString] =
+(studyData[dateString] || 0) + answered;
+
+localStorage.setItem(
+    "studyData",
+    JSON.stringify(studyData)
+);
+
 }
 
 let lastLogin = localStorage.getItem("streakDate");
