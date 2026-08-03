@@ -1027,31 +1027,16 @@ body.hard-mode .answer-area{
     display:grid !important;
 }
 
+/* その他なし */
 body.easy-mode .answer-area{
-    display:grid !important;
-    grid-template-columns:repeat(6,1fr);
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
     gap:12px;
 }
 
-body.easy-mode .answer-btn.asset{
-    grid-column:1 / 3;
-}
-
-body.easy-mode .answer-btn.liability{
-    grid-column:3 / 5;
-}
-
-body.easy-mode .answer-btn.equity{
-    grid-column:5 / 7;
-}
-
-/* 下段を中央寄せ */
-body.easy-mode .answer-btn.expense{
-    grid-column:2 / 4;
-}
-
-body.easy-mode .answer-btn.revenue{
-    grid-column:4 / 6;
+/* その他あり */
+body.easy-mode .answer-area.has-other{
+    grid-template-columns:repeat(3,1fr);
 }
 
 body.hard-mode .answer-area{
