@@ -73,3 +73,40 @@ localStorage.setItem(
 );
 
 }
+
+let lastLogin = localStorage.getItem("streakDate");
+let streak = Number(localStorage.getItem("streak")) || 0;
+
+if(lastLogin !== today){
+
+    if(lastLogin){
+
+        const last = new Date(lastLogin);
+        const now = new Date(today);
+
+        const diff = Math.floor(
+            (now - last) / (1000 * 60 * 60 * 24)
+        );
+
+        if(diff === 1){
+            streak++;
+        }else if(diff > 1){
+            streak = 1;
+        }
+
+    }else{
+        streak = 1;
+    }
+
+    localStorage.setItem("streak", streak);
+    localStorage.setItem("streakDate", today);
+}
+
+let bestStreak =
+Number(localStorage.getItem("bestStreak")) || 0;
+
+if(streak > bestStreak){
+
+    localStorage.setItem("bestStreak", streak);
+
+}

@@ -295,92 +295,7 @@ return;
 
 }
 
-
-// ========================
-// 学習記録
-// ========================
-
-// 総合記録
-let totalAnswered =
-Number(localStorage.getItem("totalAnswered")) || 0;
-
-let totalCorrect =
-Number(localStorage.getItem("totalCorrect")) || 0;
-
-totalAnswered += solved;
-totalCorrect += score;
-
-localStorage.setItem(
-    "totalAnswered",
-    totalAnswered
-);
-
-localStorage.setItem(
-    "totalCorrect",
-    totalCorrect
-);
-
-
-// 今日の記録
-const today =
-new Date().toLocaleDateString("ja-JP");
-
-let savedDate =
-localStorage.getItem("todayDate");
-
-let todayAnswered =
-Number(localStorage.getItem("todayAnswered")) || 0;
-
-let todayCorrect =
-Number(localStorage.getItem("todayCorrect")) || 0;
-
-
-// 日付が変わったらリセット
-if(savedDate !== today){
-
-    todayAnswered = 0;
-    todayCorrect = 0;
-
-    localStorage.setItem(
-        "todayDate",
-        today
-    );
-
-}
-
-todayAnswered += solved;
-
-todayCorrect += score;
-
-localStorage.setItem(
-    "todayAnswered",
-    todayAnswered
-);
-
-localStorage.setItem(
-    "todayCorrect",
-    todayCorrect
-);
-
-
-// 最終学習日
-localStorage.setItem(
-    "lastStudy",
-    today
-);
-let studyDays =
-JSON.parse(localStorage.getItem("studyDays")) || [];
-
-if(!studyDays.includes(today)){
-
-    studyDays.push(today);
-
-    localStorage.setItem(
-        "studyDays",
-        JSON.stringify(studyDays)
-    );
-
-}
+saveStudyRecord(solved, score);
 
 let percentage = Math.round(score / selectedItems.length * 100);
 
@@ -396,7 +311,6 @@ else rank="📖 Eランク";
 if(wrongList===""){
 
 wrongList="<h3>🎉 間違えた問題はありません！</h3>";
-
 }
 
 let remainingWeak =
