@@ -1459,54 +1459,29 @@ body.hard-mode .answer-area{
     position: relative;
 }
 
-.menu-icon {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
+.menu-icon{
 
-    background: none;
-    border: none;
+    position:fixed;
 
-    font-size: 28px;
-    cursor: pointer;
+    top:20px;
+    right:20px;
 
-    padding: 8px;
-}
+    background:white;
 
-/* スマホ画面用 */
-@media (max-width: 600px) {
+    width:52px;
+    height:52px;
 
-    .title-area {
-        padding-right: 50px;
-    }
+    border-radius:50%;
 
-    .title {
-        font-size: 32px;
-    }
+    border:none;
 
-    .menu-icon {
-        right: 5px;
-    }
+    font-size:28px;
 
-}
+    box-shadow:0 4px 12px rgba(0,0,0,.2);
 
-@media (max-width: 600px) {
+    z-index:2000;
 
-    .title-area {
-        padding-right: 55px;
-    }
-
-    .title {
-        font-size: 30px;
-        line-height: 1.3;
-    }
-
-    .menu-icon {
-        right: 5px;
-        font-size: 26px;
-    }
-
+    cursor:pointer;
 }
 
 /* ========================= */
@@ -1776,10 +1751,14 @@ body.hard-mode .answer-area{
     }
 
     .menu-icon{
-        right: 0 !important;
-        top: 50%;
-        font-size: 26px;
-    }
+    top:15px;
+    right:15px;
+
+    width:48px;
+    height:48px;
+
+    font-size:24px;
+}
 
 }
 
