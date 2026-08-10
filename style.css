@@ -1968,3 +1968,58 @@ body.hard-mode .answer-area{
 .legend.level4{
     background:#67C56E;
 }
+
+/* ========================= */
+/* 苦手克服 一問一答 スマホ */
+/* ========================= */
+
+@media (max-width:599px) and (orientation:portrait){
+
+    /* =================================
+       その他なし
+       資産 負債 純資産 費用 収益
+       ================================= */
+
+    body.easy-mode .answer-area:not(.has-other){
+        display:grid !important;
+        grid-template-columns:repeat(5, 1fr) !important;
+        gap:6px !important;
+    }
+
+    body.easy-mode .answer-area:not(.has-other) .answer-btn{
+        grid-column:auto !important;
+    }
+
+
+    /* =================================
+       その他あり
+       資産 負債 純資産
+       費用 収益 その他
+       ================================= */
+
+    body.easy-mode .answer-area.has-other{
+        display:grid !important;
+        grid-template-columns:repeat(3, 1fr) !important;
+        gap:10px !important;
+    }
+
+    body.easy-mode .answer-area.has-other .answer-btn{
+        grid-column:auto !important;
+    }
+
+
+    /* ボタン */
+    body.easy-mode .answer-btn{
+        width:100% !important;
+        height:90px !important;
+        margin:0 !important;
+        padding:5px !important;
+        font-size:20px !important;
+    }
+
+    body.easy-mode .answer-btn span{
+        font-size:18px !important;
+        margin-top:3px !important;
+    }
+
+}
