@@ -144,135 +144,107 @@ questions[currentQuestion].question;
         button.disabled = false;
     });
 }
-
 function checkAnswer(answer) {
 
     const q = questions[currentQuestion];
 
-// 今日の記録
-const today = new Date().toLocaleDateString("ja-JP");
+    const correct = answer === q.answer;
 
-let savedDate = localStorage.getItem("todayDate");
+    // 学習記録を保存
+    // ここだけで「1問」として記録する
+    saveStudyRecord(1, correct ? 1 : 0);
 
-let todayAnswered =
-Number(localStorage.getItem("todayAnswered")) || 0;
+    // 正解・不正解表示
+    if (correct) {
 
-let todayCorrect =
-Number(localStorage.getItem("todayCorrect")) || 0;
-
-
-if(savedDate !== today){
-
-    todayAnswered = 0;
-    todayCorrect = 0;
-
-    localStorage.setItem("todayDate", today);
-}
-
-// 最終学習日
-let studyDays =
-JSON.parse(localStorage.getItem("studyDays")) || [];
-
-if(!studyDays.includes(today)){
-
-    studyDays.push(today);
-
-    localStorage.setItem(
-        "studyDays",
-        JSON.stringify(studyDays)
-    );
-
-}
-
-    if (answer === q.answer) {
-        saveStudyRecord(1, 1);
         document.getElementById("result").innerHTML =
             "⭕ 正解！<br><br>" +
             "解説：<br>" +
             q.explanation;
 
         score++;
-        let name = q.question.replace("は何に分類される？","");
 
-weakCorrect[name] =
-(weakCorrect[name] || 0) + 1;
+        // 苦手問題の連続正解数
+        const name =
+            q.question.replace("は何に分類される？", "");
 
-if(weakCorrect[name] >= 3){
+        weakCorrect[name] =
+            (weakCorrect[name] || 0) + 1;
 
-    let weakQuiz =
-    JSON.parse(localStorage.getItem("weakQuiz")) || [];
+        // 3回連続正解したら苦手から削除
+        if (weakCorrect[name] >= 3) {
 
-    weakQuiz = weakQuiz.filter(item =>
-        item !== q.question.replace("は何に分類される？","")
-    );
+            let weakQuiz =
+                JSON.parse(
+                    localStorage.getItem("weakQuiz")
+                ) || [];
 
-    localStorage.setItem(
-        "weakQuiz",
-        JSON.stringify(weakQuiz)
-    );
+            weakQuiz = weakQuiz.filter(
+                item => item !== name
+            );
 
-    delete weakCorrect[name];
-}
+            localStorage.setItem(
+                "weakQuiz",
+                JSON.stringify(weakQuiz)
+            );
 
-localStorage.setItem(
-    "weakCorrect",
-    JSON.stringify(weakCorrect)
-);
-} else {
-    saveStudyRecord(1, 0);
-    let name = q.question.replace("は何に分類される？","");
+            delete weakCorrect[name];
+        }
 
-    weakCorrect[name] = 0;
+        localStorage.setItem(
+            "weakCorrect",
+            JSON.stringify(weakCorrect)
+        );
 
-    localStorage.setItem(
-        "weakCorrect",
-        JSON.stringify(weakCorrect)
-    );
+    } else {
 
+        document.getElementById("result").innerHTML =
+            "❌ 不正解<br><br>" +
+            "正解：" + q.answer + "<br><br>" +
+            "解説：<br>" +
+            q.explanation;
 
-    document.getElementById("result").innerHTML =
-        "❌ 不正解<br><br>" +
-        "正解：" + q.answer + "<br><br>" +
-        "解説：<br>" +
-        q.explanation;
-        "正解：" + q.answer + "<br><br>" +
-        "解説：<br>" +
-        q.explanation;
+        const name =
+            q.question.replace("は何に分類される？", "");
 
-    // 連続正解数をリセット
-weakCorrect[q.question] = 0;
+        // 連続正解数をリセット
+        weakCorrect[name] = 0;
 
-localStorage.setItem(
-    "weakCorrect",
-    JSON.stringify(weakCorrect)
-);
+        localStorage.setItem(
+            "weakCorrect",
+            JSON.stringify(weakCorrect)
+        );
 
+        // 苦手問題として保存
+        let weakQuiz =
+            JSON.parse(
+                localStorage.getItem("weakQuiz")
+            ) || [];
 
-    // 苦手問題として保存
-    let weakQuiz = JSON.parse(localStorage.getItem("weakQuiz")) || [];
+        if (!weakQuiz.includes(name)) {
+            weakQuiz.push(name);
+        }
 
-    if(!weakQuiz.includes(q.question.replace("は何に分類される？",""))){
+        localStorage.setItem(
+            "weakQuiz",
+            JSON.stringify(weakQuiz)
+        );
+    }
 
-    weakQuiz.push(
-        q.question.replace("は何に分類される？","")
-    );
+    // 次の問題ボタンを表示
+    document.getElementById("nextBtn").style.display =
+        "inline-block";
 
-}
-
-    localStorage.setItem("weakQuiz", JSON.stringify(weakQuiz));
-
-}
-
-    document.getElementById("nextBtn").style.display = "inline-block";
-
+    // 回答ボタンを押せなくする
     const buttons = document.querySelectorAll(
-    ".asset, .liability, .equity, .expense, .revenue, .other"
-);
+        ".asset, .liability, .equity, .expense, .revenue, .other"
+    );
 
     buttons.forEach(button => {
         button.disabled = true;
     });
 }
+
 
 function nextQuestion() {
 
