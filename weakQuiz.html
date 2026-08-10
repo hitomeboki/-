@@ -169,20 +169,7 @@ if(savedDate !== today){
     localStorage.setItem("todayDate", today);
 }
 
-
-todayAnswered++;
-
-if(answer === q.answer){
-    todayCorrect++;
-}
-
-
-localStorage.setItem("todayAnswered", todayAnswered);
-localStorage.setItem("todayCorrect", todayCorrect);
-
-
 // 最終学習日
-localStorage.setItem("lastStudy", today);
 let studyDays =
 JSON.parse(localStorage.getItem("studyDays")) || [];
 
@@ -198,7 +185,7 @@ if(!studyDays.includes(today)){
 }
 
     if (answer === q.answer) {
-
+        saveStudyRecord(1, 1);
         document.getElementById("result").innerHTML =
             "⭕ 正解！<br><br>" +
             "解説：<br>" +
@@ -232,7 +219,7 @@ localStorage.setItem(
     JSON.stringify(weakCorrect)
 );
 } else {
-
+    saveStudyRecord(1, 0);
     let name = q.question.replace("は何に分類される？","");
 
     weakCorrect[name] = 0;
