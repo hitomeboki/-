@@ -72,6 +72,71 @@ localStorage.setItem(
     today
 );
 
+// =========================
+// 連続学習日数
+// =========================
+
+let lastStudyDate =
+localStorage.getItem("lastStudyDate");
+
+let streak =
+Number(localStorage.getItem("streak")) || 0;
+
+let bestStreak =
+Number(localStorage.getItem("bestStreak")) || 0;
+
+
+// 今日初めて勉強した場合だけ更新
+if(lastStudyDate !== today){
+
+    const yesterday = new Date();
+
+    yesterday.setDate(
+        yesterday.getDate() - 1
+    );
+
+    const yesterdayString =
+    yesterday.toLocaleDateString("ja-JP");
+
+
+    // 昨日も勉強していた場合
+    if(lastStudyDate === yesterdayString){
+
+        streak++;
+
+    }else{
+
+        // 連続が途切れた場合
+        streak = 1;
+
+    }
+
+
+    // 最高記録更新
+    if(streak > bestStreak){
+
+        bestStreak = streak;
+
+    }
+
+
+    localStorage.setItem(
+        "streak",
+        streak
+    );
+
+    localStorage.setItem(
+        "bestStreak",
+        bestStreak
+    );
+
+    localStorage.setItem(
+        "lastStudyDate",
+        today
+    );
+
+}
+
 // 学習カレンダー用
 let studyData =
 JSON.parse(localStorage.getItem("studyData")) || {};
