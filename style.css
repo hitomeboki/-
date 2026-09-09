@@ -2023,3 +2023,8 @@ body.hard-mode .answer-area{
     }
 
 }
+
+/* その他あり：3列×2段 */
+.easy-mode .answer-area.has-other{
+    grid-template-columns:repeat(3, 1fr);
+}
