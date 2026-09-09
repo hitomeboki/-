@@ -1,222 +1,163 @@
 function saveStudyRecord(answered, correct){
 
-let totalAnswered =
-Number(localStorage.getItem("totalAnswered")) || 0;
+    let totalAnswered =
+    Number(localStorage.getItem("totalAnswered")) || 0;
 
-let totalCorrect =
-Number(localStorage.getItem("totalCorrect")) || 0;
-
-
-totalAnswered += answered;
-totalCorrect += correct;
+    let totalCorrect =
+    Number(localStorage.getItem("totalCorrect")) || 0;
 
 
-localStorage.setItem(
-    "totalAnswered",
-    totalAnswered
-);
-
-localStorage.setItem(
-    "totalCorrect",
-    totalCorrect
-);
+    totalAnswered += answered;
+    totalCorrect += correct;
 
 
-
-const today =
-new Date().toLocaleDateString("ja-JP");
-
-
-let savedDate =
-localStorage.getItem("todayDate");
-
-
-let todayAnswered =
-Number(localStorage.getItem("todayAnswered")) || 0;
-
-let todayCorrect =
-Number(localStorage.getItem("todayCorrect")) || 0;
-
-
-if(savedDate !== today){
-
-    todayAnswered = 0;
-    todayCorrect = 0;
-
-}
-
-
-todayAnswered += answered;
-todayCorrect += correct;
-
-
-localStorage.setItem(
-    "todayDate",
-    today
-);
-
-localStorage.setItem(
-    "todayAnswered",
-    todayAnswered
-);
-
-localStorage.setItem(
-    "todayCorrect",
-    todayCorrect
-);
-
-
-
-localStorage.setItem(
-    "lastStudy",
-    today
-);
-
-// =========================
-// 連続学習日数
-// =========================
-
-let streak =
-Number(localStorage.getItem("streak")) || 0;
-
-let bestStreak =
-Number(localStorage.getItem("bestStreak")) || 0;
-
-let lastStudyDate =
-localStorage.getItem("lastStudyDate");
-
-
-// 今日が初めての学習の場合
-if(lastStudyDate !== today){
-
-    const yesterday = new Date();
-
-    yesterday.setDate(
-        yesterday.getDate() - 1
+    localStorage.setItem(
+        "totalAnswered",
+        totalAnswered
     );
 
-    const yesterdayString =
-    yesterday.toLocaleDateString("ja-JP");
+    localStorage.setItem(
+        "totalCorrect",
+        totalCorrect
+    );
 
 
-    // 昨日も勉強していた場合
-    if(lastStudyDate === yesterdayString){
+    const today =
+    new Date().toLocaleDateString("ja-JP");
 
-        streak++;
 
-    }else{
+    let savedDate =
+    localStorage.getItem("todayDate");
 
-        // 連続が途切れている場合
-        streak = 1;
+
+    let todayAnswered =
+    Number(localStorage.getItem("todayAnswered")) || 0;
+
+    let todayCorrect =
+    Number(localStorage.getItem("todayCorrect")) || 0;
+
+
+    if(savedDate !== today){
+
+        todayAnswered = 0;
+        todayCorrect = 0;
 
     }
 
 
-    // 最高記録更新
-    if(streak > bestStreak){
-
-        bestStreak = streak;
-
-    }
+    todayAnswered += answered;
+    todayCorrect += correct;
 
 
     localStorage.setItem(
-        "streak",
-        streak
-    );
-
-    localStorage.setItem(
-        "bestStreak",
-        bestStreak
-    );
-
-    localStorage.setItem(
-        "lastStudyDate",
+        "todayDate",
         today
     );
 
-}
-
-// =========================
-// 連続学習日数
-// =========================
-
-let lastStudyDate =
-localStorage.getItem("lastStudyDate");
-
-let streak =
-Number(localStorage.getItem("streak")) || 0;
-
-let bestStreak =
-Number(localStorage.getItem("bestStreak")) || 0;
-
-
-// 今日初めて勉強した場合だけ更新
-if(lastStudyDate !== today){
-
-    const yesterday = new Date();
-
-    yesterday.setDate(
-        yesterday.getDate() - 1
-    );
-
-    const yesterdayString =
-    yesterday.toLocaleDateString("ja-JP");
-
-
-    // 昨日も勉強していた場合
-    if(lastStudyDate === yesterdayString){
-
-        streak++;
-
-    }else{
-
-        // 連続が途切れた場合
-        streak = 1;
-
-    }
-
-
-    // 最高記録更新
-    if(streak > bestStreak){
-
-        bestStreak = streak;
-
-    }
-
-
     localStorage.setItem(
-        "streak",
-        streak
+        "todayAnswered",
+        todayAnswered
     );
 
     localStorage.setItem(
-        "bestStreak",
-        bestStreak
+        "todayCorrect",
+        todayCorrect
     );
 
+
+    // 最終学習日
     localStorage.setItem(
-        "lastStudyDate",
+        "lastStudy",
         today
     );
 
-}
 
-// 学習カレンダー用
-let studyData =
-JSON.parse(localStorage.getItem("studyData")) || {};
+    // =========================
+    // 連続学習日数
+    // =========================
 
-const now = new Date();
+    let streak =
+    Number(localStorage.getItem("streak")) || 0;
 
-const dateString =
-`${now.getFullYear()}/${now.getMonth() + 1}/${now.getDate()}`;
+    let bestStreak =
+    Number(localStorage.getItem("bestStreak")) || 0;
 
-studyData[dateString] =
-(studyData[dateString] || 0) + answered;
+    let lastStudyDate =
+    localStorage.getItem("lastStudyDate");
 
-localStorage.setItem(
-    "studyData",
-    JSON.stringify(studyData)
-);
+
+    // 今日初めて勉強した場合だけ更新
+    if(lastStudyDate !== today){
+
+        const yesterday = new Date();
+
+        yesterday.setDate(
+            yesterday.getDate() - 1
+        );
+
+        const yesterdayString =
+        yesterday.toLocaleDateString("ja-JP");
+
+
+        // 昨日も勉強していた場合
+        if(lastStudyDate === yesterdayString){
+
+            streak++;
+
+        }else{
+
+            // 連続が途切れていた場合
+            streak = 1;
+
+        }
+
+
+        // 最高記録更新
+        if(streak > bestStreak){
+
+            bestStreak = streak;
+
+        }
+
+
+        localStorage.setItem(
+            "streak",
+            streak
+        );
+
+        localStorage.setItem(
+            "bestStreak",
+            bestStreak
+        );
+
+        localStorage.setItem(
+            "lastStudyDate",
+            today
+        );
+
+    }
+
+
+    // =========================
+    // 学習カレンダー用
+    // =========================
+
+    let studyData =
+    JSON.parse(localStorage.getItem("studyData")) || {};
+
+    const now = new Date();
+
+    const dateString =
+    `${now.getFullYear()}/${now.getMonth() + 1}/${now.getDate()}`;
+
+
+    studyData[dateString] =
+    (studyData[dateString] || 0) + answered;
+
+
+    localStorage.setItem(
+        "studyData",
+        JSON.stringify(studyData)
+    );
 
 }
