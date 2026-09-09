@@ -87,8 +87,12 @@ let hasOther = selectedItems.some(item =>
     accounts[item].category === "その他"
 );
 
+const boxes = document.querySelector(".boxes");
+
 if(hasOther){
     document.getElementById("otherArea").style.display = "block";
+}else{
+    boxes.classList.add("easy-layout");
 }
 
 let userAnswers = {};

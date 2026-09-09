@@ -1801,3 +1801,32 @@ and (orientation:portrait){
     }
 
 }
+
+/* 苦手克服・分類モード：その他なし */
+@media (max-width:999px) and (orientation:portrait){
+
+    .normal-layout.easy-layout{
+        grid-template-columns:repeat(6, 1fr) !important;
+    }
+
+    .normal-layout.easy-layout .asset{
+        grid-column:1 / 3;
+    }
+
+    .normal-layout.easy-layout .liability{
+        grid-column:3 / 5;
+    }
+
+    .normal-layout.easy-layout .equity{
+        grid-column:5 / 7;
+    }
+
+    .normal-layout.easy-layout .expense{
+        grid-column:2 / 4;
+    }
+
+    .normal-layout.easy-layout .revenue{
+        grid-column:4 / 6;
+    }
+
+}
