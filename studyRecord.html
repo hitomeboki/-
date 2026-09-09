@@ -46,6 +46,31 @@ if(totalAnswered > 0){
     Math.round(totalCorrect / totalAnswered * 100);
 }
 
+const today =
+new Date().toLocaleDateString("ja-JP");
+
+const savedDate =
+localStorage.getItem("todayDate");
+
+if(savedDate !== today){
+
+    localStorage.setItem(
+        "todayAnswered",
+        0
+    );
+
+    localStorage.setItem(
+        "todayCorrect",
+        0
+    );
+
+    localStorage.setItem(
+        "todayDate",
+        today
+    );
+
+}
+
 let todayAnswered =
 Number(localStorage.getItem("todayAnswered")) || 0;
 
