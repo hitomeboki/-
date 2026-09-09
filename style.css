@@ -2028,3 +2028,74 @@ body.hard-mode .answer-area{
 .easy-mode .answer-area.has-other{
     grid-template-columns:repeat(3, 1fr);
 }
+
+/* ========================= */
+/* iPad縦 一問一答 */
+/* ========================= */
+
+@media (min-width:768px) and (max-width:999px){
+
+    /* その他なし：上3個・下2個を中央寄せ */
+    body.easy-mode .answer-area:not(.has-other){
+        display:grid !important;
+        grid-template-columns:repeat(6, 1fr);
+        gap:18px;
+    }
+
+    body.easy-mode .answer-area:not(.has-other) .asset{
+        grid-column:1 / 3;
+    }
+
+    body.easy-mode .answer-area:not(.has-other) .liability{
+        grid-column:3 / 5;
+    }
+
+    body.easy-mode .answer-area:not(.has-other) .equity{
+        grid-column:5 / 7;
+    }
+
+    body.easy-mode .answer-area:not(.has-other) .expense{
+        grid-column:2 / 4;
+    }
+
+    body.easy-mode .answer-area:not(.has-other) .revenue{
+        grid-column:4 / 6;
+    }
+
+    /* その他あり：3×2 */
+    body.easy-mode .answer-area.has-other{
+        display:grid !important;
+        grid-template-columns:repeat(3, 1fr);
+        gap:18px;
+    }
+
+    /* ボタン共通 */
+    body.easy-mode .answer-btn{
+        width:100% !important;
+        height:150px;
+        margin:0 !important;
+    }
+
+}
+
+/* ========================= */
+/* 苦手克服 分類 レイアウト */
+/* ========================= */
+
+/* iPad縦・スマホ縦 */
+@media (max-width:999px) and (orientation:portrait){
+
+    .normal-layout{
+        display:grid !important;
+        grid-template-columns:repeat(3, 1fr);
+        gap:15px;
+        width:95%;
+        margin:30px auto;
+    }
+
+    .normal-layout .box{
+        width:100%;
+        min-width:0;
+    }
+
+}
