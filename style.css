@@ -1830,3 +1830,524 @@ and (orientation:portrait){
     }
 
 }
+
+/* ========================================
+   ひとめぼき道場
+   Modern UI Redesign - Home
+======================================== */
+
+/* =========================
+   全体
+========================= */
+
+body.home{
+    background:
+        radial-gradient(circle at top left,
+        #eaf4ff 0%,
+        #f7faff 40%,
+        #eef3f8 100%);
+    
+    color:#1b2d50;
+    padding:0;
+}
+
+
+/* =========================
+   トップコンテナ
+========================= */
+
+.home .top-container{
+    width:min(1100px, calc(100% - 40px));
+    max-width:1100px;
+
+    margin:40px auto;
+
+    padding:45px;
+
+    background:rgba(255,255,255,.78);
+
+    border:1px solid rgba(255,255,255,.8);
+
+    border-radius:32px;
+
+    box-sizing:border-box;
+
+    box-shadow:
+        0 20px 60px rgba(50,80,120,.12);
+
+    backdrop-filter:blur(10px);
+}
+
+
+/* =========================
+   タイトル
+========================= */
+
+.home .title-area{
+    position:relative;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding-bottom:10px;
+}
+
+
+.home .title{
+    font-size:48px;
+
+    font-weight:700;
+
+    letter-spacing:.08em;
+
+    color:#17345f;
+
+    margin:0;
+}
+
+
+/* =========================
+   メニューボタン
+========================= */
+
+.home .menu-icon{
+    position:absolute;
+
+    right:0;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    width:54px;
+
+    height:54px;
+
+    border-radius:50%;
+
+    background:#eef4fb;
+
+    color:#17345f;
+
+    font-size:26px;
+
+    padding:0;
+
+    box-shadow:
+        0 5px 15px rgba(50,80,120,.12);
+
+    transition:.25s;
+}
+
+
+.home .menu-icon:hover{
+    background:#dfeaf7;
+
+    transform:
+        translateY(-50%)
+        scale(1.05);
+}
+
+
+/* =========================
+   サブタイトル
+========================= */
+
+.home .subtitle{
+    font-size:19px;
+
+    color:#61708a;
+
+    margin:18px 0 50px;
+
+    letter-spacing:.05em;
+}
+
+
+/* =========================
+   セクション
+========================= */
+
+.home .section{
+    margin-top:30px;
+
+    padding:32px;
+
+    background:rgba(255,255,255,.72);
+
+    border-radius:26px;
+
+    border:1px solid rgba(220,230,242,.8);
+
+    box-shadow:
+        0 8px 30px rgba(50,80,120,.06);
+}
+
+
+.home .section h2{
+    position:relative;
+
+    text-align:left;
+
+    font-size:30px;
+
+    color:#1b3b68;
+
+    margin:0 0 8px;
+
+    padding-left:18px;
+}
+
+
+.home .section h2::before{
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    top:4px;
+
+    width:4px;
+
+    height:36px;
+
+    border-radius:10px;
+
+    background:#4a90e2;
+}
+
+
+/* セクション説明 */
+
+.home .section-subtitle{
+    text-align:left;
+
+    margin:0 0 25px 18px;
+
+    color:#71809a;
+
+    font-size:16px;
+}
+
+
+/* =========================
+   ボタンエリア
+========================= */
+
+.home .button-row{
+    display:grid;
+
+    grid-template-columns:repeat(2, 1fr);
+
+    gap:20px;
+
+    width:100%;
+}
+
+
+/* =========================
+   モードカード
+========================= */
+
+.home .menu-btn{
+    position:relative;
+
+    display:block;
+
+    min-width:0;
+
+    padding:30px 35px;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    text-decoration:none;
+
+    color:#17345f;
+
+    background:#f8fbff;
+
+    border:1px solid #dce8f5;
+
+    box-shadow:
+        0 8px 20px rgba(50,80,120,.08);
+
+    transition:
+        transform .25s,
+        box-shadow .25s,
+        border-color .25s;
+}
+
+
+.home .menu-btn:hover{
+    transform:translateY(-5px);
+
+    box-shadow:
+        0 16px 35px rgba(50,80,120,.15);
+
+    border-color:#aac9e8;
+}
+
+
+/* 右側の矢印 */
+
+.home .menu-btn::after{
+    content:"›";
+
+    position:absolute;
+
+    right:28px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    width:42px;
+
+    height:42px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.8);
+
+    color:#315d91;
+
+    font-size:34px;
+
+    font-weight:300;
+}
+
+
+/* =========================
+   簡単モード
+========================= */
+
+.home .menu-btn.easy{
+    background:
+        linear-gradient(
+            135deg,
+            #f4fbff,
+            #e5f4ff
+        );
+
+    border-color:#cce6f7;
+}
+
+
+/* =========================
+   発展モード
+========================= */
+
+.home .menu-btn.hard{
+    background:
+        linear-gradient(
+            135deg,
+            #f7f7ff,
+            #e9ecff
+        );
+
+    border-color:#d7dcfa;
+}
+
+
+/* =========================
+   苦手克服
+========================= */
+
+.home .menu-btn.weak{
+    background:
+        linear-gradient(
+            135deg,
+            #fff8f5,
+            #fff0eb
+        );
+
+    border-color:#f4d8cc;
+}
+
+
+/* =========================
+   ボタン文字
+========================= */
+
+.home .btn-title{
+    font-size:26px;
+
+    font-weight:700;
+
+    margin-bottom:8px;
+
+    color:#1b3b68;
+}
+
+
+.home .btn-sub{
+    font-size:16px;
+
+    color:#6d7c93;
+
+    line-height:1.6;
+}
+
+
+/* =========================
+   メニュー
+========================= */
+
+.menu-panel{
+    width:360px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #ffffff,
+            #f5f8fc
+        );
+
+    border-radius:28px 0 0 28px;
+
+    box-shadow:
+        -15px 0 50px rgba(30,50,80,.18);
+}
+
+
+.menu-panel h2{
+    color:#1b3b68;
+}
+
+
+.menu-panel a{
+    background:#ffffff;
+
+    border:1px solid #e3eaf3;
+
+    box-shadow:
+        0 5px 15px rgba(50,80,120,.06);
+}
+
+
+.menu-panel a:hover{
+    background:#f1f7ff;
+
+    transform:translateX(-4px);
+}
+
+
+.menu-title{
+    color:#1b3b68;
+}
+
+
+.menu-sub{
+    color:#77859a;
+}
+
+
+/* =========================
+   スマホ
+========================= */
+
+@media(max-width:767px){
+
+    .home .top-container{
+        width:calc(100% - 24px);
+
+        margin:12px auto;
+
+        padding:25px 16px;
+
+        border-radius:24px;
+    }
+
+
+    .home .title{
+        font-size:30px;
+    }
+
+
+    .home .title-area{
+        padding-right:45px;
+    }
+
+
+    .home .menu-icon{
+        width:46px;
+
+        height:46px;
+
+        font-size:23px;
+    }
+
+
+    .home .subtitle{
+        font-size:15px;
+
+        margin:15px 0 30px;
+    }
+
+
+    .home .section{
+        padding:24px 18px;
+
+        border-radius:22px;
+
+        margin-top:20px;
+    }
+
+
+    .home .section h2{
+        font-size:25px;
+    }
+
+
+    .home .section h2::before{
+        height:30px;
+    }
+
+
+    .home .section-subtitle{
+        font-size:14px;
+
+        margin-left:18px;
+    }
+
+
+    .home .button-row{
+        grid-template-columns:1fr;
+
+        gap:14px;
+    }
+
+
+    .home .menu-btn{
+        width:100%;
+
+        padding:25px;
+
+        box-sizing:border-box;
+    }
+
+
+    .home .btn-title{
+        font-size:23px;
+    }
+
+
+    .home .btn-sub{
+        font-size:14px;
+
+        padding-right:35px;
+    }
+
+}
