@@ -46,7 +46,6 @@
 
 </div>
 
-
 <h2 id="selected">選択中：なし</h2>
 
 <div id="items"></div>
@@ -121,7 +120,6 @@ ${item}
 
 document.getElementById("items").innerHTML = itemsHtml;
 
-
 function selectItem(item){
 
 selectedItem = item;
@@ -130,7 +128,6 @@ document.getElementById("selected").innerHTML =
 "選択中：" + item;
 
 }
-
 
 function classify(category){
 
@@ -152,7 +149,6 @@ if(category==="純資産") boxId="equityBox";
 if(category==="費用") boxId="expenseBox";
 if(category==="収益") boxId="revenueBox";
 if(category==="その他") boxId="otherBox";
-
 
 document.getElementById(boxId).innerHTML +=
 
@@ -204,8 +200,6 @@ document.getElementById("selected").innerHTML=
 "選択中：なし";
 
 }
-
-
 
 function finish(){
 
@@ -300,7 +294,6 @@ if(wrongList===""){
 wrongList="<h3>🎉 間違えた問題はありません！</h3>";
 
 }
-
 
 document.body.innerHTML=`
 
