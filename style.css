@@ -1951,3 +1951,627 @@ body.home .btn-sub{
     font-size:18px;
     line-height:1.6;
 }
+
+/* ========================================
+   新トップページデザイン
+   新しい index.html 専用
+======================================== */
+
+body.home{
+    margin:0;
+    padding:0;
+    background:#edf2f6;
+    color:#263648;
+}
+
+
+/* ========================================
+   アプリ全体
+======================================== */
+
+body.home .app-container{
+    width:100%;
+    max-width:1100px;
+
+    margin:0 auto;
+
+    padding:30px 50px 70px;
+
+    box-sizing:border-box;
+}
+
+
+/* ========================================
+   ヘッダー
+======================================== */
+
+body.home .home-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:15px 0 45px;
+
+}
+
+
+/* ロゴ */
+
+body.home .brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+}
+
+
+body.home .brand-icon{
+
+    width:48px;
+    height:48px;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    background:#24364b;
+
+    color:white;
+
+    border-radius:14px;
+
+    font-size:24px;
+
+    font-weight:bold;
+
+}
+
+
+body.home .brand-name{
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    letter-spacing:.08em;
+
+    color:#24364b;
+
+}
+
+
+/* メニューボタン */
+
+body.home .menu-icon{
+
+    position:static;
+
+    transform:none;
+
+    width:48px;
+    height:48px;
+
+    padding:0;
+
+    border-radius:12px;
+
+    background:white;
+
+    color:#24364b;
+
+    box-shadow:0 4px 15px rgba(30,50,70,.10);
+
+    font-size:25px;
+
+}
+
+
+/* ========================================
+   ヒーロー
+======================================== */
+
+body.home .hero{
+
+    padding:55px 0 80px;
+
+    text-align:left;
+
+}
+
+
+body.home .hero-label{
+
+    display:inline-block;
+
+    margin-bottom:22px;
+
+    font-size:13px;
+
+    font-weight:bold;
+
+    letter-spacing:.18em;
+
+    color:#6f8192;
+
+}
+
+
+body.home .hero h1{
+
+    margin:0 0 25px;
+
+    font-size:54px;
+
+    line-height:1.35;
+
+    letter-spacing:.03em;
+
+    color:#24364b;
+
+}
+
+
+body.home .hero p{
+
+    margin:0;
+
+    font-size:18px;
+
+    line-height:1.9;
+
+    color:#718096;
+
+}
+
+
+/* ========================================
+   各モード
+======================================== */
+
+body.home .mode-section{
+
+    margin-top:80px;
+
+}
+
+
+/* セクション見出し */
+
+body.home .section-heading{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:end;
+
+    gap:30px;
+
+    margin-bottom:28px;
+
+}
+
+
+body.home .section-heading > div{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+
+}
+
+
+body.home .section-number{
+
+    font-size:14px;
+
+    font-weight:bold;
+
+    letter-spacing:.1em;
+
+    color:#9aa8b5;
+
+}
+
+
+body.home .section-heading h2{
+
+    margin:0;
+
+    font-size:32px;
+
+    color:#24364b;
+
+}
+
+
+body.home .section-heading p{
+
+    margin:0;
+
+    font-size:15px;
+
+    color:#718096;
+
+}
+
+
+/* ========================================
+   モードカード
+======================================== */
+
+body.home .mode-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:22px;
+
+}
+
+
+body.home .mode-card{
+
+    position:relative;
+
+    min-height:150px;
+
+    padding:28px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:22px;
+
+    box-sizing:border-box;
+
+    text-decoration:none;
+
+    color:#24364b;
+
+    background:white;
+
+    border-radius:22px;
+
+    box-shadow:
+        0 8px 25px rgba(40,60,80,.08);
+
+    border:1px solid rgba(30,50,70,.05);
+
+    transition:
+        transform .25s,
+        box-shadow .25s;
+
+}
+
+
+body.home .mode-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:
+        0 16px 35px rgba(40,60,80,.14);
+
+}
+
+
+/* ========================================
+   カードアイコン
+======================================== */
+
+body.home .card-icon{
+
+    width:64px;
+    height:64px;
+
+    flex-shrink:0;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    border-radius:18px;
+
+    font-size:25px;
+
+    font-weight:bold;
+
+}
+
+
+/* 簡単 */
+
+body.home .easy-card .card-icon{
+
+    background:#e5f2e6;
+
+    color:#5a9b62;
+
+}
+
+
+/* 発展 */
+
+body.home .hard-card .card-icon{
+
+    background:#fff0dc;
+
+    color:#d8892d;
+
+}
+
+
+/* 苦手克服 */
+
+body.home .weak-card .card-icon{
+
+    background:#e7edf8;
+
+    color:#5575a5;
+
+}
+
+
+/* ========================================
+   カード文字
+======================================== */
+
+body.home .card-content{
+
+    flex:1;
+
+}
+
+
+body.home .card-label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    font-size:11px;
+
+    font-weight:bold;
+
+    letter-spacing:.15em;
+
+    color:#9aa8b5;
+
+}
+
+
+body.home .card-content h3{
+
+    margin:0 0 8px;
+
+    font-size:23px;
+
+    color:#24364b;
+
+}
+
+
+body.home .card-content p{
+
+    margin:0;
+
+    font-size:14px;
+
+    color:#718096;
+
+}
+
+
+/* 矢印 */
+
+body.home .card-arrow{
+
+    font-size:26px;
+
+    color:#9aa8b5;
+
+    transition:.2s;
+
+}
+
+
+body.home .mode-card:hover .card-arrow{
+
+    transform:translateX(5px);
+
+}
+
+
+/* ========================================
+   苦手克服
+======================================== */
+
+body.home .weak-section{
+
+    padding-bottom:30px;
+
+}
+
+
+/* 無効ボタン */
+
+body.home .mode-card.disabled{
+
+    opacity:.45;
+
+    pointer-events:none;
+
+    filter:grayscale(.4);
+
+}
+
+
+/* ========================================
+   スマホ
+======================================== */
+
+@media(max-width:700px){
+
+    body.home .app-container{
+
+        padding:20px 20px 50px;
+
+    }
+
+
+    /* ヘッダー */
+
+    body.home .home-header{
+
+        padding-bottom:30px;
+
+    }
+
+
+    body.home .brand-icon{
+
+        width:42px;
+        height:42px;
+
+        font-size:21px;
+
+        border-radius:12px;
+
+    }
+
+
+    body.home .brand-name{
+
+        font-size:19px;
+
+    }
+
+
+    /* ヒーロー */
+
+    body.home .hero{
+
+        padding:35px 0 50px;
+
+    }
+
+
+    body.home .hero h1{
+
+        font-size:36px;
+
+        line-height:1.4;
+
+    }
+
+
+    body.home .hero p{
+
+        font-size:15px;
+
+    }
+
+
+    /* セクション */
+
+    body.home .mode-section{
+
+        margin-top:55px;
+
+    }
+
+
+    body.home .section-heading{
+
+        display:block;
+
+        margin-bottom:20px;
+
+    }
+
+
+    body.home .section-heading > div{
+
+        margin-bottom:10px;
+
+    }
+
+
+    body.home .section-heading h2{
+
+        font-size:27px;
+
+    }
+
+
+    body.home .section-heading p{
+
+        font-size:14px;
+
+        line-height:1.6;
+
+    }
+
+
+    /* カード */
+
+    body.home .mode-grid{
+
+        grid-template-columns:1fr;
+
+        gap:15px;
+
+    }
+
+
+    body.home .mode-card{
+
+        min-height:120px;
+
+        padding:20px;
+
+        gap:16px;
+
+        border-radius:18px;
+
+    }
+
+
+    body.home .card-icon{
+
+        width:52px;
+        height:52px;
+
+        border-radius:15px;
+
+        font-size:21px;
+
+    }
+
+
+    body.home .card-content h3{
+
+        font-size:19px;
+
+    }
+
+
+    body.home .card-content p{
+
+        font-size:13px;
+
+    }
+
+}
