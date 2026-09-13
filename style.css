@@ -3252,3 +3252,59 @@ and (orientation:portrait){
     }
 
 }
+
+/* ========================================
+   使い方ページ：中央揃え
+======================================== */
+
+.howto-info-card,
+.howto-purpose-card,
+.howto-tip-card {
+    text-align: center;
+}
+
+
+/* 使い方の各項目も中央寄せ */
+.howto-step {
+    text-align: center;
+    justify-content: center;
+}
+
+
+/* 番号と文章を縦方向にまとめる */
+.howto-step {
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* 狙いのタイトル */
+.purpose-title {
+    text-align: center;
+}
+
+
+/* ポイントのタイトル */
+.tip-title {
+    text-align: center;
+}
+
+
+/* 注意書き */
+.howto-warning {
+    justify-content: center;
+    text-align: center;
+}
+
+
+/* 苦手克服の条件 */
+.howto-clear-box {
+    justify-content: center;
+    text-align: center;
+}
+
+
+/* ご意見の項目 */
+.feedback-example {
+    text-align: center;
+}
