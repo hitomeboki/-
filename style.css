@@ -1905,3 +1905,393 @@ and (orientation:portrait){
     }
 
 }
+
+/* ========================================
+   使い方ページ 強化デザイン
+======================================== */
+
+.howto-page{
+    max-width:950px;
+}
+
+/* ヘッダー */
+
+.howto-header{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.howto-icon{
+    font-size:55px;
+    margin-bottom:5px;
+}
+
+.howto-header h1{
+    margin:0 0 5px;
+}
+
+.howto-header .subtitle{
+    margin:0 0 20px;
+    color:#4A90E2;
+    font-weight:bold;
+}
+
+.howto-intro{
+    font-size:20px;
+    line-height:1.8;
+    color:#555;
+    margin:0;
+}
+
+
+/* 学習の流れ */
+
+.howto-flow{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:18px;
+
+    margin:30px auto 45px;
+    padding:20px;
+
+    background:#f5f8fc;
+    border-radius:20px;
+
+    max-width:750px;
+}
+
+.flow-item{
+    text-align:center;
+    min-width:130px;
+}
+
+.flow-item span{
+    display:block;
+
+    width:45px;
+    height:45px;
+
+    line-height:45px;
+
+    margin:0 auto 8px;
+
+    border-radius:50%;
+
+    background:#4A90E2;
+    color:white;
+
+    font-size:20px;
+    font-weight:bold;
+}
+
+.flow-item p{
+    margin:0;
+
+    font-size:17px;
+    font-weight:bold;
+    color:#333;
+}
+
+.flow-arrow{
+    font-size:28px;
+    color:#4A90E2;
+    font-weight:bold;
+}
+
+
+/* 説明カード */
+
+.howto-card{
+    position:relative;
+
+    display:flex;
+
+    gap:25px;
+
+    max-width:800px;
+
+    margin:25px auto;
+
+    padding:30px;
+
+    box-sizing:border-box;
+
+    background:white;
+
+    border-radius:24px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+    border-left:8px solid #4A90E2;
+
+    text-align:left;
+
+    transition:.2s;
+}
+
+.howto-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 12px 25px rgba(0,0,0,.12);
+}
+
+
+/* カード番号 */
+
+.howto-number{
+    flex-shrink:0;
+
+    font-size:20px;
+    font-weight:bold;
+
+    color:#4A90E2;
+
+    padding-top:5px;
+}
+
+
+/* カード内容 */
+
+.howto-card-content{
+    flex:1;
+}
+
+.howto-card-title{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    margin-bottom:15px;
+}
+
+.howto-card-title h2{
+    margin:0;
+
+    font-size:28px;
+    color:#1b2d50;
+}
+
+.howto-emoji{
+    font-size:35px;
+}
+
+.howto-card p{
+    margin:0;
+
+    font-size:18px;
+    line-height:1.8;
+
+    color:#555;
+}
+
+
+/* ポイント */
+
+.howto-point{
+    margin-top:20px;
+
+    padding:15px 18px;
+
+    background:#f5f8fc;
+
+    border-radius:14px;
+
+    font-size:16px !important;
+    line-height:1.7 !important;
+
+    color:#444 !important;
+}
+
+
+/* モードごとのアクセント */
+
+.howto-quiz{
+    border-left-color:#4A90E2;
+}
+
+.howto-classify{
+    border-left-color:#F39C12;
+}
+
+.howto-weak{
+    border-left-color:#67C56E;
+}
+
+.howto-record{
+    border-left-color:#7B2FF7;
+}
+
+
+/* ご意見 */
+
+.howto-feedback{
+    display:flex;
+    align-items:flex-start;
+    gap:20px;
+
+    max-width:800px;
+
+    margin:40px auto 30px;
+
+    padding:25px;
+
+    box-sizing:border-box;
+
+    background:#fff8dc;
+
+    border-radius:20px;
+
+    text-align:left;
+}
+
+.feedback-icon{
+    font-size:40px;
+}
+
+.howto-feedback h2{
+    margin:0 0 10px;
+
+    font-size:24px;
+    color:#1b2d50;
+}
+
+.howto-feedback p{
+    margin:0 0 10px;
+
+    font-size:17px;
+    line-height:1.7;
+    color:#555;
+}
+
+.howto-feedback .feedback-note{
+    margin:0;
+
+    font-size:15px;
+    color:#777;
+}
+
+
+/* 戻るボタン */
+
+.howto-back-btn{
+    min-width:280px;
+    min-height:65px;
+
+    margin-top:15px;
+
+    font-size:22px;
+    font-weight:bold;
+
+    background:#4A90E2;
+    color:white;
+
+    border-radius:16px;
+}
+
+
+/* ========================================
+   スマホ
+======================================== */
+
+@media (max-width:599px){
+
+    .howto-page{
+        padding:25px 15px;
+    }
+
+    .howto-icon{
+        font-size:45px;
+    }
+
+    .howto-header h1{
+        font-size:32px;
+    }
+
+    .howto-intro{
+        font-size:17px;
+    }
+
+
+    .howto-flow{
+        gap:5px;
+        padding:15px 5px;
+    }
+
+    .flow-item{
+        min-width:0;
+        flex:1;
+    }
+
+    .flow-item span{
+        width:38px;
+        height:38px;
+        line-height:38px;
+        font-size:17px;
+    }
+
+    .flow-item p{
+        font-size:13px;
+    }
+
+    .flow-arrow{
+        font-size:20px;
+    }
+
+
+    .howto-card{
+        gap:12px;
+        padding:22px 18px;
+
+        border-left-width:6px;
+    }
+
+    .howto-number{
+        font-size:16px;
+    }
+
+    .howto-card-title{
+        gap:8px;
+    }
+
+    .howto-emoji{
+        font-size:28px;
+    }
+
+    .howto-card-title h2{
+        font-size:22px;
+    }
+
+    .howto-card p{
+        font-size:16px;
+        line-height:1.7;
+    }
+
+    .howto-point{
+        font-size:14px !important;
+    }
+
+
+    .howto-feedback{
+        padding:20px 15px;
+        gap:12px;
+    }
+
+    .feedback-icon{
+        font-size:30px;
+    }
+
+    .howto-feedback h2{
+        font-size:20px;
+    }
+
+    .howto-feedback p{
+        font-size:15px;
+    }
+
+    .howto-back-btn{
+        width:90%;
+        min-height:60px;
+        font-size:20px;
+    }
+
+}
