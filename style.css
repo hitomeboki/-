@@ -3308,3 +3308,374 @@ and (orientation:portrait){
 .feedback-example {
     text-align: center;
 }
+
+/* ========================================
+   使い方ページ：C「狙いを主役にする型」
+   ======================================== */
+
+/* ページ全体 */
+.howto-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 28px 60px;
+    text-align: left;
+}
+
+/* ----------------
+   ページタイトル
+   ---------------- */
+
+.howto-page-header {
+    text-align: left;
+    margin-bottom: 35px;
+}
+
+.howto-page-header .howto-en-title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #9aa7b8;
+    margin-bottom: 8px;
+}
+
+.howto-page-header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    margin: 0;
+    color: #17233c;
+}
+
+.howto-page-header p {
+    margin-top: 12px;
+    color: #65748b;
+    font-size: 16px;
+}
+
+
+/* ----------------
+   狙い
+   ---------------- */
+
+.howto-purpose-card {
+    position: relative;
+    overflow: hidden;
+
+    margin: 0 0 32px;
+    padding: 34px 40px;
+
+    border-radius: 24px;
+
+    background: linear-gradient(
+        135deg,
+        #eef6ff 0%,
+        #f5f3ff 100%
+    );
+
+    border: 1px solid #dce8fa;
+
+    box-shadow: 0 8px 25px rgba(80, 110, 160, 0.08);
+
+    text-align: left;
+}
+
+/* 背景の丸 */
+.howto-purpose-card::before {
+    content: "";
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    right: -70px;
+    bottom: -80px;
+
+    border-radius: 50%;
+
+    background: rgba(130, 180, 255, 0.12);
+}
+
+.howto-purpose-card::after {
+    content: "";
+    position: absolute;
+
+    width: 110px;
+    height: 110px;
+
+    left: -45px;
+    top: -45px;
+
+    border-radius: 50%;
+
+    background: rgba(170, 160, 255, 0.08);
+}
+
+/* 狙いタイトル */
+.howto-purpose-card .purpose-title {
+    position: relative;
+    z-index: 1;
+
+    display: inline-block;
+
+    margin: 0 0 16px;
+    padding: 7px 18px;
+
+    border-radius: 999px;
+
+    background: linear-gradient(135deg, #5d8df5, #7b8ff5);
+
+    color: white;
+
+    font-size: 15px;
+    font-weight: 700;
+}
+
+/* 狙い本文 */
+.howto-purpose-card p {
+    position: relative;
+    z-index: 1;
+
+    margin: 0;
+
+    font-size: 23px;
+    line-height: 1.7;
+
+    font-weight: 800;
+
+    color: #17233c;
+}
+
+
+/* ----------------
+   使い方カード
+   ---------------- */
+
+.howto-info-card {
+    padding: 32px 36px;
+    margin-bottom: 28px;
+
+    border-radius: 24px;
+
+    background: #ffffff;
+
+    box-shadow: 0 8px 25px rgba(50, 70, 100, 0.07);
+
+    text-align: left;
+}
+
+.howto-info-card > h2 {
+    margin: 0 0 28px;
+
+    font-size: 24px;
+    font-weight: 800;
+
+    color: #17233c;
+}
+
+/* ステップ */
+.howto-step {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 22px;
+
+    padding: 22px 0;
+
+    text-align: left;
+}
+
+.howto-step + .howto-step {
+    border-top: 1px solid #edf0f5;
+}
+
+/* 01 / 02 */
+.howto-step-number {
+    flex: 0 0 58px;
+
+    width: 58px;
+    height: 58px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #eef5ff;
+
+    color: #2864bd;
+
+    font-size: 18px;
+    font-weight: 800;
+}
+
+/* ステップ本文 */
+.howto-step-content {
+    flex: 1;
+}
+
+.howto-step-content h3 {
+    margin: 2px 0 8px;
+
+    font-size: 19px;
+    font-weight: 800;
+
+    color: #17233c;
+}
+
+.howto-step-content p {
+    margin: 0;
+
+    font-size: 15px;
+    line-height: 1.8;
+
+    color: #65748b;
+}
+
+
+/* ----------------
+   ポイント
+   ---------------- */
+
+.howto-tip-card {
+    padding: 30px 36px;
+
+    border-radius: 24px;
+
+    background: linear-gradient(
+        135deg,
+        #f8f7ff 0%,
+        #f2f5ff 100%
+    );
+
+    box-shadow: 0 8px 25px rgba(70, 70, 120, 0.06);
+
+    text-align: left;
+}
+
+.howto-tip-card .tip-title {
+    margin: 0 0 16px;
+
+    font-size: 20px;
+    font-weight: 800;
+
+    color: #4d5fc5;
+}
+
+.howto-tip-card strong {
+    display: block;
+
+    margin-bottom: 10px;
+
+    font-size: 18px;
+
+    color: #17233c;
+}
+
+.howto-tip-card p {
+    margin: 0;
+
+    font-size: 15px;
+    line-height: 1.8;
+
+    color: #65748b;
+}
+
+
+/* ----------------
+   下の戻るボタン
+   ---------------- */
+
+.howto-bottom-nav {
+    display: flex;
+    gap: 16px;
+
+    margin-top: 32px;
+}
+
+.howto-bottom-nav a {
+    flex: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 60px;
+
+    border-radius: 16px;
+
+    background: #f1f5fb;
+
+    color: #17233c;
+
+    text-decoration: none;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    transition: 0.2s;
+}
+
+.howto-bottom-nav a:hover {
+    transform: translateY(-2px);
+    background: #e9f0fa;
+}
+
+
+/* ----------------
+   スマホ
+   ---------------- */
+
+@media (max-width: 600px) {
+
+    .howto-page {
+        padding: 28px 18px 45px;
+    }
+
+    .howto-page-header h1 {
+        font-size: 27px;
+    }
+
+    .howto-purpose-card {
+        padding: 28px 24px;
+        border-radius: 20px;
+    }
+
+    .howto-purpose-card p {
+        font-size: 20px;
+    }
+
+    .howto-info-card {
+        padding: 26px 22px;
+        border-radius: 20px;
+    }
+
+    .howto-step {
+        gap: 15px;
+    }
+
+    .howto-step-number {
+        flex-basis: 48px;
+
+        width: 48px;
+        height: 48px;
+
+        font-size: 15px;
+    }
+
+    .howto-step-content h3 {
+        font-size: 17px;
+    }
+
+    .howto-tip-card {
+        padding: 26px 22px;
+    }
+
+    .howto-bottom-nav {
+        gap: 10px;
+    }
+
+    .howto-bottom-nav a {
+        font-size: 14px;
+    }
+}
