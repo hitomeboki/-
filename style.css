@@ -2770,3 +2770,485 @@ and (orientation:portrait){
     }
 
 }
+
+ /* ========================================
+    HOWTO PAGE
+ ======================================== */
+
+.howto-page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 35px 20px 55px;
+}
+
+
+/* ---------- 共通ヘッダー ---------- */
+
+.howto-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.howto-icon {
+    font-size: 48px;
+    margin-bottom: 8px;
+}
+
+.howto-header h1 {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.howto-intro {
+    margin: 12px 0 0;
+    font-size: 15px;
+    line-height: 1.8;
+    opacity: 0.7;
+}
+
+
+/* ---------- 機能一覧 ---------- */
+
+.howto-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+
+.howto-menu-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    min-height: 82px;
+    padding: 14px 18px;
+
+    background: #fff;
+    border: 2px solid #e5e7eb;
+    border-radius: 18px;
+
+    color: inherit;
+    text-decoration: none;
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        border-color 0.15s ease;
+}
+
+
+.howto-menu-card:hover {
+    transform: translateY(-2px);
+    border-color: #b8c5d6;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+
+.howto-menu-icon {
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 14px;
+    background: #f1f5f9;
+
+    font-size: 25px;
+}
+
+
+.howto-menu-text {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+
+.howto-menu-text strong {
+    font-size: 16px;
+}
+
+
+.howto-menu-text small {
+    font-size: 12px;
+    opacity: 0.55;
+}
+
+
+.howto-menu-arrow {
+    font-size: 30px;
+    opacity: 0.3;
+}
+
+
+/* ---------- 詳細ページ ---------- */
+
+.howto-detail-page {
+    max-width: 700px;
+}
+
+
+.howto-detail-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+
+.howto-detail-icon {
+    width: 70px;
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 12px;
+
+    border-radius: 20px;
+    background: #f1f5f9;
+
+    font-size: 36px;
+}
+
+
+.howto-detail-label {
+    display: block;
+
+    margin-bottom: 5px;
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+
+    opacity: 0.4;
+}
+
+
+.howto-detail-header h1 {
+    margin: 0;
+    font-size: 27px;
+    font-weight: 800;
+}
+
+
+/* ---------- 情報カード ---------- */
+
+.howto-info-card,
+.howto-purpose-card,
+.howto-tip-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 16px;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+}
+
+
+.howto-info-card > h2 {
+    margin: 0 0 22px;
+    font-size: 18px;
+}
+
+
+/* ---------- ステップ ---------- */
+
+.howto-step {
+    display: flex;
+    gap: 16px;
+
+    padding: 17px 0;
+
+    border-top: 1px solid #edf0f3;
+}
+
+
+.howto-step:first-of-type {
+    border-top: none;
+}
+
+
+.howto-step > span {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 11px;
+    background: #f1f5f9;
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+
+.howto-step h3 {
+    margin: 0 0 5px;
+    font-size: 15px;
+}
+
+
+.howto-step p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.75;
+    opacity: 0.7;
+}
+
+
+/* ---------- 狙い ---------- */
+
+.howto-purpose-card {
+    border-left: 5px solid #4f7cff;
+}
+
+
+.purpose-title {
+    margin-bottom: 10px;
+
+    font-size: 14px;
+    font-weight: 800;
+}
+
+
+.howto-purpose-card p {
+    margin: 0;
+
+    font-size: 14px;
+    line-height: 1.85;
+}
+
+
+/* ---------- ポイント ---------- */
+
+.howto-tip-card {
+    background: #f8fafc;
+}
+
+
+.tip-title {
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+
+.howto-tip-card p {
+    margin: 7px 0 0;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+
+/* ---------- 注意 ---------- */
+
+.howto-warning {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+
+    margin-top: 15px;
+    padding: 15px;
+
+    border-radius: 13px;
+    background: #fff8e8;
+}
+
+
+.howto-warning > :first-child {
+    font-size: 20px;
+}
+
+
+.howto-warning strong {
+    font-size: 13px;
+}
+
+
+.howto-warning p {
+    margin: 4px 0 0;
+
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+
+/* ---------- 苦手克服 ---------- */
+
+.howto-clear-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+
+    margin-top: 15px;
+    padding: 16px;
+
+    border-radius: 13px;
+    background: #f3faf5;
+}
+
+
+.howto-clear-box > span {
+    font-size: 22px;
+    font-weight: 800;
+}
+
+
+.howto-clear-box strong {
+    font-size: 13px;
+}
+
+
+.howto-clear-box p {
+    margin: 4px 0 0;
+
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+
+/* ---------- ご意見 ---------- */
+
+.feedback-example {
+    padding: 13px 15px;
+    margin-top: 9px;
+
+    border-radius: 12px;
+    background: #f8fafc;
+
+    font-size: 13px;
+}
+
+
+/* ---------- ナビゲーション ---------- */
+
+.howto-navigation {
+    display: flex;
+    gap: 10px;
+
+    margin-top: 25px;
+}
+
+
+.howto-nav-button {
+    flex: 1;
+
+    padding: 13px 10px;
+
+    border-radius: 13px;
+
+    background: #f1f5f9;
+
+    color: inherit;
+    text-decoration: none;
+
+    text-align: center;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    transition: transform 0.15s ease;
+}
+
+
+.howto-nav-button:hover {
+    transform: translateY(-2px);
+}
+
+
+.howto-back-link {
+    display: block;
+
+    width: fit-content;
+
+    margin: 25px auto 0;
+    padding: 12px 24px;
+
+    border-radius: 13px;
+
+    background: #f1f5f9;
+
+    color: inherit;
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+/* ---------- スマホ ---------- */
+
+@media (max-width: 600px) {
+
+    .howto-page {
+        padding: 25px 14px 45px;
+    }
+
+
+    .howto-header h1 {
+        font-size: 26px;
+    }
+
+
+    .howto-menu-card {
+        min-height: 74px;
+        padding: 11px 13px;
+    }
+
+
+    .howto-menu-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 22px;
+    }
+
+
+    .howto-menu-text strong {
+        font-size: 14px;
+    }
+
+
+    .howto-menu-text small {
+        font-size: 11px;
+    }
+
+
+    .howto-detail-header h1 {
+        font-size: 23px;
+    }
+
+
+    .howto-info-card,
+    .howto-purpose-card,
+    .howto-tip-card {
+        padding: 20px 17px;
+    }
+
+
+    .howto-step {
+        gap: 12px;
+    }
+
+
+    .howto-step h3 {
+        font-size: 14px;
+    }
+
+
+    .howto-navigation {
+        flex-direction: column;
+    }
+
+}

@@ -19,9 +19,7 @@
 
         <div class="howto-icon">📖</div>
 
-        <h1>ひとめぼき道場</h1>
-
-        <p class="subtitle">使い方ガイド</p>
+        <h1>使い方</h1>
 
         <p class="howto-intro">
             知りたい機能を選んで、<br>
@@ -31,295 +29,65 @@
     </div>
 
 
-    <!-- 機能選択 -->
+    <!-- 機能一覧 -->
     <div class="howto-menu">
 
-        <p class="howto-menu-title">
-            <span>🔍</span>
-            知りたい機能を選んでください
-        </p>
+        <a href="howto-quiz.html" class="howto-menu-card">
+            <span class="howto-menu-icon">🎯</span>
 
-        <button class="howto-select active" onclick="showHowto('quiz', this)">
-            <span class="select-icon">🎯</span>
-            <span class="select-text">
+            <span class="howto-menu-text">
                 <strong>一問一答モード</strong>
-                <small>勘定科目を5つの分類から答える</small>
+                <small>勘定科目を分類して答える</small>
             </span>
-            <span class="select-arrow">›</span>
-        </button>
+
+            <span class="howto-menu-arrow">›</span>
+        </a>
 
 
-        <button class="howto-select" onclick="showHowto('classify', this)">
-            <span class="select-icon">📂</span>
-            <span class="select-text">
+        <a href="howto-classify.html" class="howto-menu-card">
+            <span class="howto-menu-icon">📂</span>
+
+            <span class="howto-menu-text">
                 <strong>分類モード</strong>
-                <small>勘定科目を正しい箱に分類する</small>
+                <small>勘定科目を分類の箱に入れる</small>
             </span>
-            <span class="select-arrow">›</span>
-        </button>
+
+            <span class="howto-menu-arrow">›</span>
+        </a>
 
 
-        <button class="howto-select" onclick="showHowto('weak', this)">
-            <span class="select-icon">🔥</span>
-            <span class="select-text">
+        <a href="howto-weak.html" class="howto-menu-card">
+            <span class="howto-menu-icon">🔥</span>
+
+            <span class="howto-menu-text">
                 <strong>苦手克服モード</strong>
-                <small>間違えた問題を繰り返し復習する</small>
+                <small>間違えた勘定科目を復習する</small>
             </span>
-            <span class="select-arrow">›</span>
-        </button>
+
+            <span class="howto-menu-arrow">›</span>
+        </a>
 
 
-        <button class="howto-select" onclick="showHowto('feedback', this)">
-            <span class="select-icon">💬</span>
-            <span class="select-text">
+        <a href="howto-feedback.html" class="howto-menu-card">
+            <span class="howto-menu-icon">💬</span>
+
+            <span class="howto-menu-text">
                 <strong>ご意見・不具合報告</strong>
-                <small>意見やバグを報告する</small>
+                <small>意見・感想・不具合を送る</small>
             </span>
-            <span class="select-arrow">›</span>
-        </button>
+
+            <span class="howto-menu-arrow">›</span>
+        </a>
 
     </div>
 
 
-    <!-- 説明エリア -->
-    <div class="howto-detail" id="howtoDetail">
-
-
-        <!-- 一問一答 -->
-        <div class="howto-detail-content" id="detail-quiz">
-
-            <div class="detail-heading">
-                <span class="detail-icon">🎯</span>
-
-                <div>
-                    <span class="detail-number">01</span>
-                    <h2>一問一答モード</h2>
-                </div>
-            </div>
-
-
-            <div class="detail-section">
-                <h3>📌 何をするモード？</h3>
-
-                <p>
-                    表示された勘定科目が、
-                    <strong>「資産・負債・純資産・費用・収益」</strong>
-                    のどれに分類されるかを答えるモードです。
-                </p>
-            </div>
-
-
-            <div class="detail-section">
-                <h3>💡 使い方</h3>
-
-                <ol class="detail-steps">
-                    <li>表示された勘定科目を確認する</li>
-                    <li>正しい分類のボタンを選ぶ</li>
-                    <li>正解・不正解を確認する</li>
-                    <li>解説を読んで理解する</li>
-                </ol>
-            </div>
-
-
-            <div class="detail-tip">
-                <span>💡</span>
-                <div>
-                    <strong>ポイント</strong>
-                    <p>
-                        分からない問題でも、解説を読んで
-                        「なぜその分類になるのか」を確認しよう！
-                    </p>
-                </div>
-            </div>
-
-        </div>
-
-
-        <!-- 分類 -->
-        <div class="howto-detail-content" id="detail-classify">
-
-            <div class="detail-heading">
-                <span class="detail-icon">📂</span>
-
-                <div>
-                    <span class="detail-number">02</span>
-                    <h2>分類モード</h2>
-                </div>
-            </div>
-
-
-            <div class="detail-section">
-                <h3>📌 何をするモード？</h3>
-
-                <p>
-                    表示された勘定科目を、
-                    <strong>正しい分類の箱へ入れていく</strong>
-                    モードです。
-                </p>
-            </div>
-
-
-            <div class="detail-section">
-                <h3>💡 使い方</h3>
-
-                <ol class="detail-steps">
-                    <li>表示された勘定科目を確認する</li>
-                    <li>正しい分類の箱を選ぶ</li>
-                    <li>分類結果を確認する</li>
-                    <li>間違えた科目を覚え直す</li>
-                </ol>
-            </div>
-
-
-            <div class="detail-tip">
-                <span>💡</span>
-                <div>
-                    <strong>ポイント</strong>
-                    <p>
-                        それぞれのグループにどんな勘定科目が
-                        入るのかを意識して分類してみよう！
-                    </p>
-                </div>
-            </div>
-
-        </div>
-
-
-        <!-- 苦手克服 -->
-        <div class="howto-detail-content" id="detail-weak">
-
-            <div class="detail-heading">
-                <span class="detail-icon">🔥</span>
-
-                <div>
-                    <span class="detail-number">03</span>
-                    <h2>苦手克服モード</h2>
-                </div>
-            </div>
-
-
-            <div class="detail-section">
-                <h3>📌 何をするモード？</h3>
-
-                <p>
-                    一問一答モードや分類モードで
-                    <strong>間違えた問題を中心に復習</strong>
-                    できるモードです。
-                </p>
-            </div>
-
-
-            <div class="detail-section">
-                <h3>💡 使い方</h3>
-
-                <ol class="detail-steps">
-                    <li>これまでに間違えた問題を確認する</li>
-                    <li>もう一度問題を解く</li>
-                    <li>間違えた理由を確認する</li>
-                    <li>繰り返し解いて苦手を減らす</li>
-                </ol>
-            </div>
-
-
-            <div class="detail-tip">
-                <span>🔥</span>
-                <div>
-                    <strong>ポイント</strong>
-                    <p>
-                        一度間違えた問題をそのままにせず、
-                        繰り返し解いて確実に覚えよう！
-                    </p>
-                </div>
-            </div>
-
-        </div>
-
-
-        <!-- ご意見・不具合 -->
-        <div class="howto-detail-content" id="detail-feedback">
-
-            <div class="detail-heading">
-                <span class="detail-icon">💬</span>
-
-                <div>
-                    <span class="detail-number">04</span>
-                    <h2>ご意見・不具合報告</h2>
-                </div>
-            </div>
-
-
-            <div class="detail-section">
-                <h3>📌 何ができる？</h3>
-
-                <p>
-                    ひとめぼき道場を使っていて感じたことや、
-                    <strong>改善してほしいこと・不具合</strong>
-                    などを送ることができます。
-                </p>
-            </div>
-
-
-            <div class="feedback-examples">
-
-                <div>💡 こんな機能が欲しい！</div>
-
-                <div>🔧 ここが使いにくい！</div>
-
-                <div>🐛 バグを見つけた！</div>
-
-            </div>
-
-
-            <div class="detail-tip">
-                <span>💬</span>
-                <div>
-                    <strong>送信方法</strong>
-                    <p>
-                        メニューの
-                        「ご意見・不具合報告」から送信してください。
-                    </p>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- トップへ -->
+    <!-- TOPへ -->
     <a href="index.html" class="howto-back-link">
-        🏠 トップへ戻る
+        🏠 TOPに戻る
     </a>
 
 </div>
-
-
-<script>
-
-function showHowto(type, button) {
-
-    // ボタンの選択状態を変更
-    document.querySelectorAll('.howto-select').forEach(function(btn) {
-        btn.classList.remove('active');
-    });
-
-    button.classList.add('active');
-
-
-    // 説明を切り替える
-    document.querySelectorAll('.howto-detail-content').forEach(function(content) {
-        content.classList.remove('show');
-    });
-
-    const target = document.getElementById('detail-' + type);
-
-    if (target) {
-        target.classList.add('show');
-    }
-
-}
-
-</script>
 
 </body>
 </html>
