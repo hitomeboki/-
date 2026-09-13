@@ -2349,3 +2349,424 @@ and (orientation:portrait){
     }
 
 }
+
+/* ========================================
+   使い方ページ LEVEL UP
+======================================== */
+
+.howto-page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 30px 20px 50px;
+}
+
+
+/* ---------- ヘッダー ---------- */
+
+.howto-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.howto-icon {
+    font-size: 48px;
+    margin-bottom: 8px;
+}
+
+.howto-header h1 {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.howto-header .subtitle {
+    margin: 4px 0 12px;
+    font-size: 16px;
+    font-weight: 700;
+    opacity: 0.65;
+}
+
+.howto-intro {
+    margin: 0;
+    line-height: 1.8;
+    font-size: 15px;
+}
+
+
+/* ---------- 機能選択 ---------- */
+
+.howto-menu {
+    margin-bottom: 20px;
+}
+
+.howto-menu-title {
+    margin: 0 0 12px;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+
+.howto-select {
+    width: 100%;
+    min-height: 76px;
+
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    margin-bottom: 10px;
+    padding: 12px 16px;
+
+    border: 2px solid #e5e7eb;
+    border-radius: 16px;
+
+    background: #ffffff;
+
+    cursor: pointer;
+    text-align: left;
+
+    transition:
+        transform 0.15s ease,
+        border-color 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+
+.howto-select:hover {
+    transform: translateY(-2px);
+    border-color: #b8c5d6;
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.07);
+}
+
+
+.howto-select.active {
+    border-color: #4f7cff;
+    box-shadow: 0 5px 18px rgba(79, 124, 255, 0.15);
+}
+
+
+.select-icon {
+    width: 46px;
+    height: 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 13px;
+
+    background: #f1f5f9;
+
+    font-size: 24px;
+}
+
+
+.howto-select.active .select-icon {
+    background: #eef3ff;
+}
+
+
+.select-text {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+
+.select-text strong {
+    font-size: 16px;
+}
+
+
+.select-text small {
+    font-size: 12px;
+    opacity: 0.6;
+}
+
+
+.select-arrow {
+    font-size: 28px;
+    line-height: 1;
+    opacity: 0.35;
+}
+
+
+/* ---------- 説明エリア ---------- */
+
+.howto-detail {
+    margin-top: 18px;
+}
+
+
+.howto-detail-content {
+    display: none;
+
+    padding: 25px;
+
+    border-radius: 20px;
+
+    background: #ffffff;
+
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+
+    animation: howtoFadeIn 0.22s ease;
+}
+
+
+.howto-detail-content.show {
+    display: block;
+}
+
+
+@keyframes howtoFadeIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* ---------- 説明タイトル ---------- */
+
+.detail-heading {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+
+.detail-icon {
+    width: 58px;
+    height: 58px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 16px;
+
+    background: #f1f5f9;
+
+    font-size: 30px;
+}
+
+
+.detail-number {
+    display: block;
+
+    margin-bottom: 2px;
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+
+    opacity: 0.45;
+}
+
+
+.detail-heading h2 {
+    margin: 0;
+    font-size: 22px;
+}
+
+
+/* ---------- 説明 ---------- */
+
+.detail-section {
+    margin-bottom: 22px;
+}
+
+
+.detail-section h3 {
+    margin: 0 0 9px;
+
+    font-size: 15px;
+}
+
+
+.detail-section p {
+    margin: 0;
+
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+
+.detail-steps {
+    margin: 0;
+    padding-left: 28px;
+
+    font-size: 14px;
+    line-height: 2;
+}
+
+
+.detail-steps li {
+    padding-left: 4px;
+}
+
+
+/* ---------- ポイント ---------- */
+
+.detail-tip {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+
+    margin-top: 24px;
+    padding: 16px;
+
+    border-radius: 14px;
+
+    background: #f8fafc;
+}
+
+
+.detail-tip > span {
+    font-size: 21px;
+}
+
+
+.detail-tip strong {
+    font-size: 14px;
+}
+
+
+.detail-tip p {
+    margin: 4px 0 0;
+
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+
+/* ---------- ご意見 ---------- */
+
+.feedback-examples {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+
+    margin: 20px 0;
+}
+
+
+.feedback-examples div {
+    padding: 12px 14px;
+
+    border-radius: 12px;
+
+    background: #f8fafc;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* ---------- 戻るボタン ---------- */
+
+.howto-back-link {
+    display: block;
+
+    width: fit-content;
+
+    margin: 25px auto 0;
+    padding: 12px 22px;
+
+    border-radius: 12px;
+
+    background: #f1f5f9;
+
+    color: inherit;
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    transition: transform 0.15s ease;
+}
+
+
+.howto-back-link:hover {
+    transform: translateY(-2px);
+}
+
+
+/* ---------- スマホ ---------- */
+
+@media (max-width: 600px) {
+
+    .howto-page {
+        padding: 24px 14px 40px;
+    }
+
+
+    .howto-header h1 {
+        font-size: 25px;
+    }
+
+
+    .howto-icon {
+        font-size: 42px;
+    }
+
+
+    .howto-select {
+        min-height: 70px;
+        padding: 10px 12px;
+    }
+
+
+    .select-icon {
+        width: 42px;
+        height: 42px;
+        font-size: 21px;
+    }
+
+
+    .select-text strong {
+        font-size: 14px;
+    }
+
+
+    .select-text small {
+        font-size: 11px;
+    }
+
+
+    .howto-detail-content {
+        padding: 20px 17px;
+        border-radius: 17px;
+    }
+
+
+    .detail-heading h2 {
+        font-size: 19px;
+    }
+
+
+    .detail-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 26px;
+    }
+
+}
