@@ -1830,3 +1830,78 @@ and (orientation:portrait){
     }
 
 }
+
+/* ========================================
+   一問一答モード iPad横向き 最終調整
+======================================== */
+
+@media (min-width:900px) and (orientation:landscape){
+
+    /* 全体 */
+    body{
+        padding:20px;
+    }
+
+    .top-container{
+        width:95%;
+        max-width:1100px;
+        margin:20px auto;
+        padding:30px 20px 40px;
+        box-sizing:border-box;
+    }
+
+    /* タイトル */
+    .top-container h1{
+        font-size:48px;
+        margin:10px 0 20px;
+        text-align:center;
+    }
+
+    /* 問題番号 */
+    .progress-tag{
+        font-size:26px;
+        padding:12px 35px;
+        margin-bottom:30px;
+    }
+
+    /* 問題 */
+    #question{
+        font-size:32px;
+        margin:25px 0 35px;
+        text-align:center;
+    }
+
+    /* 回答ボタン全体 */
+    .answer-area{
+        display:grid !important;
+        grid-template-columns:repeat(3, 1fr) !important;
+
+        width:100%;
+        max-width:900px;
+
+        margin:0 auto 30px;
+
+        gap:25px;
+    }
+
+    /* 回答ボタン */
+    .answer-btn{
+        width:100% !important;
+        height:210px !important;
+
+        margin:0 !important;
+
+        border-radius:25px;
+
+        font-size:34px;
+
+        box-shadow:0 10px 22px rgba(0,0,0,.18);
+    }
+
+    /* 絵文字 */
+    .answer-btn span{
+        font-size:30px;
+        margin-top:12px;
+    }
+
+}
