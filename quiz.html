@@ -1,283 +1,206 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>一問一答モード</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+/* =================================
+   一問一答 結果オーバーレイ
+================================= */
 
-<div class="top-container">
+#resultOverlay {
+    position: fixed;
+    inset: 0;
 
-<h1>🎯 一問一答モード</h1>
+    background: rgba(0, 0, 0, 0.68);
 
-<div class="progress-tag" id="progressTag">
-問題 1 / 23
-</div>
+    display: none;
 
-<div class="question-card">
+    align-items: center;
+    justify-content: center;
 
-<h2 id="question"></h2>
-<div class="answer-area" id="answerArea">
-<button class="asset answer-btn" onclick="checkAnswer('資産')">
-📁<br>
-<span>資産</span>
-</button>
-<button class="liability answer-btn" onclick="checkAnswer('負債')">
-🏦<br>
-<span>負債</span>
-</button>
-<button class="equity answer-btn" onclick="checkAnswer('純資産')">
-🌱<br>
-<span>純資産</span>
-</button>
-<button class="expense answer-btn" onclick="checkAnswer('費用')">
-📈<br>
-<span>費用</span>
-</button>
-<button class="revenue answer-btn" onclick="checkAnswer('収益')">
-💴<br>
-<span>収益</span>
-</button>
-<button id="otherBtn" class="other answer-btn" onclick="checkAnswer('その他')" style="display:none;">
-📌<br>
-<span>その他</span>
-</button>
-</div>
-<h2 id="result"></h2>
+    z-index: 99999;
 
-<br>
+    padding: 25px;
 
-<button id="nextBtn" onclick="nextQuestion()" style="display:none;">
-次の問題へ
-</button>
-
-<br><br>
-
-<a href="index.html">
-    <button>トップへ戻る</button>
-</a>
-
-<script src="data.js"></script>
-<script src="study.js"></script>
-
-<script>
-// URLからモードを取得
-const params = new URLSearchParams(window.location.search);
-const mode = params.get("mode");
-if(mode === "easy"){
-    document.body.classList.add("easy-mode");
-}else{
-    document.body.classList.add("hard-mode");
+    box-sizing: border-box;
 }
 
-console.log(document.body.className);
-console.log(mode);
 
-if (mode !== "easy") {
-    document.getElementById("otherBtn").style.display = "inline-block";
-    document.querySelector(".answer-area").classList.add("has-other");
+#resultBox {
+    width: min(850px, 92vw);
+
+    max-height: 88vh;
+
+    overflow-y: auto;
+
+    background: white;
+
+    border-radius: 30px;
+
+    padding: 45px 50px;
+
+    box-sizing: border-box;
+
+    text-align: center;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.35);
 }
 
-// 出題する勘定科目を決定
-const questionNames = Object.keys(accounts).filter(name => {
-    if (mode === "easy") {
-        return accounts[name].easy;
-    }
-    return true;
-});
 
-// 問題データを作成
-const questions = questionNames.map(name => ({
-    question: `${name}は何に分類される？`,
-    answer: accounts[name].category,
-    explanation: accounts[name].explanation
-}));
+/* 正解・不正解 */
 
-// 順番だけランダム
-questions.sort(() => Math.random() - 0.5);
+#resultMain {
 
-console.log("mode =", mode);
-console.log("questions =", questions.length);
-console.log(questions);
+    font-size: clamp(55px, 9vw, 100px);
 
-let currentQuestion = 0;
-let score = 0;
-let weakCorrect = 
-JSON.parse(localStorage.getItem("weakCorrect")) || {};
+    font-weight: 900;
 
-showQuestion();
+    line-height: 1.1;
 
-function showQuestion() {
-
-document.getElementById("progressTag").innerHTML =
-"問題 " + (currentQuestion + 1) + " / " + questions.length;
-
-document.getElementById("question").innerHTML =
-questions[currentQuestion].question;
-
-    document.getElementById("result").innerHTML = "";
-
-    document.getElementById("nextBtn").style.display = "none";
-
-    const buttons = document.querySelectorAll(
-    ".asset, .liability, .equity, .expense, .revenue, .other"
-);
-  
-    buttons.forEach(button => {
-        button.disabled = false;
-    });
+    margin-bottom: 35px;
 }
 
-function checkAnswer(answer) {
 
-const q = questions[currentQuestion];
+.result-correct {
+    color: #20a464;
+}
 
-let correct = answer === q.answer;
 
-saveStudyRecord(1, correct ? 1 : 0);
+.result-wrong {
+    color: #e54848;
+}
 
-if (answer === q.answer) {
 
-    document.getElementById("result").innerHTML =
-        "⭕ 正解！<br><br>" +
-        "解説：<br>" +
-        q.explanation;
+/* 解説 */
 
-    score++;
+#resultExplanation {
 
-    let name = q.question.replace("は何に分類される？","");
+    font-size: clamp(20px, 3vw, 30px);
 
-    weakCorrect[name] =
-    (weakCorrect[name] || 0) + 1;
+    line-height: 1.7;
 
-    if(weakCorrect[name] >= 3){
+    text-align: left;
 
-        let weakQuiz =
-        JSON.parse(localStorage.getItem("weakQuiz")) || [];
+    margin-bottom: 35px;
+}
 
-        weakQuiz = weakQuiz.filter(item =>
-            item !== name
-        );
 
-        localStorage.setItem(
-            "weakQuiz",
-            JSON.stringify(weakQuiz)
-        );
+/* 次の問題 */
 
-        delete weakCorrect[name];
-    }
+#overlayNextBtn {
 
-    localStorage.setItem(
-        "weakCorrect",
-        JSON.stringify(weakCorrect)
-    );
+    display: block;
 
-}else {
+    width: 100%;
 
-    document.getElementById("result").innerHTML =
-        "❌ 不正解<br><br>" +
-        "正解：" + q.answer + "<br><br>" +
-        "解説：<br>" +
-        q.explanation;
+    max-width: 500px;
 
-    // 苦手問題として保存
-    let weakQuiz = JSON.parse(localStorage.getItem("weakQuiz")) || [];
+    margin: 0 auto 15px;
 
-    if(!weakQuiz.includes(q.question)){
-        weakQuiz.push(q.question.replace("は何に分類される？",""));
+    padding: 18px 25px;
+
+    border: none;
+
+    border-radius: 18px;
+
+    background: #4a90e2;
+
+    color: white;
+
+    font-size: 25px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+
+/* 終了する */
+
+#finishBtn {
+
+    display: block;
+
+    margin: 0 auto;
+
+    padding: 8px 20px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #666;
+
+    font-size: 19px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+
+/* 問題画面の終了する */
+
+#quitBtn {
+
+    margin-top: 25px;
+
+    padding: 8px 20px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #666;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+
+#finishBtn:hover,
+#quitBtn:hover {
+
+    text-decoration: underline;
+
+}
+
+
+/* スマホ */
+
+@media (max-width: 700px) {
+
+    #resultBox {
+
+        width: 94vw;
+
+        padding: 35px 25px;
+
+        border-radius: 25px;
+
     }
 
-    localStorage.setItem("weakQuiz", JSON.stringify(weakQuiz));
-    let weakClassify = JSON.parse(localStorage.getItem("weakClassify")) || [];
 
-if(!weakClassify.includes(q.question.replace("は何に分類される？",""))){
-    weakClassify.push(q.question.replace("は何に分類される？",""));
-}
+    #resultMain {
 
-localStorage.setItem(
-    "weakClassify",
-    JSON.stringify(weakClassify)
-);
+        font-size: 60px;
 
-}
-
-    document.getElementById("nextBtn").style.display = "inline-block";
-
-    const buttons = document.querySelectorAll(
-    ".asset, .liability, .equity, .expense, .revenue, .other"
-);
-
-    buttons.forEach(button => {
-        button.disabled = true;
-    });
-}
-
-function nextQuestion() {
-
-    currentQuestion++;
-
-    if (currentQuestion < questions.length) {
-
-        showQuestion();
-
-    } else {
-
-        let percentage =
-        Math.round(score / questions.length * 100);
-
-        let rank = "";
-
-        if (percentage === 100) {
-            rank = "🏆 Sランク";
-        }
-        else if (percentage >= 90) {
-            rank = "🥇 Aランク";
-        }
-        else if (percentage >= 80) {
-            rank = "🥈 Bランク";
-        }
-        else if (percentage >= 70) {
-            rank = "🥉 Cランク";
-        }
-        else {
-            rank = "📖 Dランク";
-        }
-
-        document.body.innerHTML = `
-
-        <div class="top-container">
-
-            <h1>結果発表</h1>
-
-            <h2>${score} / ${questions.length}問正解</h2>
-
-            <h2>正答率 ${percentage}%</h2>
-
-            <h2>${rank}</h2>
-
-            <br><br>
-
-            <a href="index.html">
-
-                <button class="menu-btn easy">
-
-                    トップへ戻る
-
-                </button>
-
-            </a>
-
-        </div>
-
-        `;
     }
+
+
+    #resultExplanation {
+
+        font-size: 20px;
+
+    }
+
+
+    #overlayNextBtn {
+
+        font-size: 21px;
+
+    }
+
 }
-</script>
-
-</div>
-
-</div>
-
-</body>
-</html>
