@@ -3802,3 +3802,210 @@ and (orientation:portrait){
     }
 
 }
+
+/* =================================
+   一問一答 結果オーバーレイ
+================================= */
+
+#resultOverlay {
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.68);
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    z-index: 99999;
+
+    padding: 25px;
+
+    box-sizing: border-box;
+}
+
+
+#resultBox {
+    width: min(850px, 92vw);
+
+    max-height: 88vh;
+
+    overflow-y: auto;
+
+    background: white;
+
+    border-radius: 30px;
+
+    padding: 45px 50px;
+
+    box-sizing: border-box;
+
+    text-align: center;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+
+/* 正解・不正解 */
+
+#resultMain {
+
+    font-size: clamp(55px, 9vw, 100px);
+
+    font-weight: 900;
+
+    line-height: 1.1;
+
+    margin-bottom: 35px;
+}
+
+
+.result-correct {
+    color: #20a464;
+}
+
+
+.result-wrong {
+    color: #e54848;
+}
+
+
+/* 解説 */
+
+#resultExplanation {
+
+    font-size: clamp(20px, 3vw, 30px);
+
+    line-height: 1.7;
+
+    text-align: left;
+
+    margin-bottom: 35px;
+}
+
+
+/* 次の問題 */
+
+#overlayNextBtn {
+
+    display: block;
+
+    width: 100%;
+
+    max-width: 500px;
+
+    margin: 0 auto 15px;
+
+    padding: 18px 25px;
+
+    border: none;
+
+    border-radius: 18px;
+
+    background: #4a90e2;
+
+    color: white;
+
+    font-size: 25px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+
+/* 終了する */
+
+#finishBtn {
+
+    display: block;
+
+    margin: 0 auto;
+
+    padding: 8px 20px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #666;
+
+    font-size: 19px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+
+/* 問題画面の終了する */
+
+#quitBtn {
+
+    margin-top: 25px;
+
+    padding: 8px 20px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #666;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+
+#finishBtn:hover,
+#quitBtn:hover {
+
+    text-decoration: underline;
+
+}
+
+
+/* スマホ */
+
+@media (max-width: 700px) {
+
+    #resultBox {
+
+        width: 94vw;
+
+        padding: 35px 25px;
+
+        border-radius: 25px;
+
+    }
+
+
+    #resultMain {
+
+        font-size: 60px;
+
+    }
+
+
+    #resultExplanation {
+
+        font-size: 20px;
+
+    }
+
+
+    #overlayNextBtn {
+
+        font-size: 21px;
+
+    }
+
+}
