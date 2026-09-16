@@ -177,6 +177,7 @@ console.log(questions);
 
 let currentQuestion = 0;
 let score = 0;
+let answeredCount = 0;
 
 let weakCorrect =
     JSON.parse(
@@ -238,7 +239,7 @@ function checkAnswer(answer) {
     const correct =
         answer === q.answer;
 
-
+    answeredCount++;
     // 学習記録
     saveStudyRecord(
         1,
@@ -474,7 +475,7 @@ function showResult() {
 
     // 実際に回答した問題数
     const answered =
-        currentQuestion;
+    answeredCount;
 
 
     // 念のため0問防止

@@ -5,6 +5,7 @@
     <title>苦手克服　一問一答</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="easy-mode">
 
 <div class="top-container">
@@ -18,81 +19,191 @@
 <div class="question-card">
 
 <h2 id="question"></h2>
+
 <div class="answer-area" id="answerArea">
-<button class="asset answer-btn" onclick="checkAnswer('資産')">
+
+<button class="asset answer-btn"
+onclick="checkAnswer('資産')">
 📁<br>
 <span>資産</span>
 </button>
-<button class="liability answer-btn" onclick="checkAnswer('負債')">
+
+<button class="liability answer-btn"
+onclick="checkAnswer('負債')">
 🏦<br>
 <span>負債</span>
 </button>
-<button class="equity answer-btn" onclick="checkAnswer('純資産')">
+
+<button class="equity answer-btn"
+onclick="checkAnswer('純資産')">
 🌱<br>
 <span>純資産</span>
 </button>
-<button class="expense answer-btn" onclick="checkAnswer('費用')">
+
+<button class="expense answer-btn"
+onclick="checkAnswer('費用')">
 📈<br>
 <span>費用</span>
 </button>
-<button class="revenue answer-btn" onclick="checkAnswer('収益')">
+
+<button class="revenue answer-btn"
+onclick="checkAnswer('収益')">
 💴<br>
 <span>収益</span>
 </button>
-<button id="otherBtn" class="other answer-btn" onclick="checkAnswer('その他')" style="display:none;">
-    📌<br>
-    <span>その他</span>
+
+<button id="otherBtn"
+class="other answer-btn"
+onclick="checkAnswer('その他')"
+style="display:none;">
+📌<br>
+<span>その他</span>
 </button>
+
 </div>
-<h2 id="result"></h2>
 
-<br>
 
-<button id="nextBtn" onclick="nextQuestion()" style="display:none;">
-次の問題へ
+<!-- =========================
+     結果オーバーレイ
+========================= -->
+
+<div id="resultOverlay">
+
+    <div id="resultBox">
+
+        <div id="resultMain"></div>
+
+        <div id="resultExplanation"></div>
+
+        <button id="overlayNextBtn"
+                onclick="nextQuestion()">
+            次の問題へ →
+        </button>
+
+        <button id="finishBtn"
+                onclick="finishQuiz()">
+            ✕ 終了する
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     回答前の終了ボタン
+========================= -->
+
+<button id="quitBtn"
+        onclick="finishQuiz()">
+    ✕ 終了する
 </button>
 
-<br><br>
 
-<a href="index.html">
-    <button>トップへ戻る</button>
-</a>
+</div>
+
 
 <script src="data.js"></script>
 <script src="study.js"></script>
 
 <script>
+
+// =========================
 // 苦手問題だけ取得
-let weakQuiz = JSON.parse(localStorage.getItem("weakQuiz")) || [];
+// =========================
 
-const questionNames = weakQuiz.map(item => {
-    return item.replace("は何に分類される？","");
-});
+let weakQuiz =
+    JSON.parse(
+        localStorage.getItem("weakQuiz")
+    ) || [];
 
-// 問題データを作成
-const questions = questionNames.map(name => ({
-    question: `${name}は何に分類される？`,
-    answer: accounts[name].category,
-    explanation: accounts[name].explanation
-}));
 
+// =========================
+// 問題名を取得
+// =========================
+
+const questionNames =
+    weakQuiz.map(item => {
+
+        return item.replace(
+            "は何に分類される？",
+            ""
+        );
+
+    });
+
+
+// =========================
+// 問題データ作成
+// =========================
+
+const questions =
+    questionNames.map(name => ({
+
+        question:
+            `${name}は何に分類される？`,
+
+        answer:
+            accounts[name].category,
+
+        explanation:
+            accounts[name].explanation
+
+    }));
+
+
+// =========================
 // その他表示判定
-let hasOther = questions.some(q => q.answer === "その他");
+// =========================
+
+let hasOther =
+    questions.some(
+        q => q.answer === "その他"
+    );
+
 
 if(hasOther){
-    document.getElementById("otherBtn").style.display = "inline-block";
-    document.querySelector(".answer-area").classList.add("has-other");
+
+    document.getElementById("otherBtn")
+        .style.display = "inline-block";
+
+    document
+        .querySelector(".answer-area")
+        .classList.add("has-other");
+
 }
 
-// 順番だけランダム
-questions.sort(() => Math.random() - 0.5);
 
-console.log("questions =", questions.length);
-console.log(questions);
+// =========================
+// 問題をランダムにする
+// =========================
+
+questions.sort(
+    () => Math.random() - 0.5
+);
+
+
+// =========================
+// 変数
+// =========================
 
 let currentQuestion = 0;
+
 let score = 0;
-let weakCorrect = JSON.parse(localStorage.getItem("weakCorrect")) || {};
+
+// 実際に回答した問題数
+let answeredCount = 0;
+
+// 連続正解記録
+let weakCorrect =
+    JSON.parse(
+        localStorage.getItem("weakCorrect")
+    ) || {};
+
+
+// =========================
+// 苦手問題がない場合
+// =========================
 
 if(questions.length === 0){
 
@@ -104,13 +215,17 @@ if(questions.length === 0){
 
         <h2>🎉 苦手問題はありません！</h2>
 
-        <p>通常モードで問題を解いて<br>
-        苦手を作るとここに表示されます。</p>
+        <p>
+        通常モードで問題を解いて<br>
+        苦手を作るとここに表示されます。
+        </p>
 
         <br>
 
         <a href="index.html">
-            <button>トップへ戻る</button>
+            <button>
+                🏠 トップへ戻る
+            </button>
         </a>
 
     </div>
@@ -123,193 +238,418 @@ if(questions.length === 0){
 
 }
 
-function showQuestion() {
 
-document.getElementById("progressTag").innerHTML =
-"問題 " + (currentQuestion + 1) + " / " + questions.length;
+// =========================
+// 問題表示
+// =========================
 
-document.getElementById("question").innerHTML =
-questions[currentQuestion].question;
+function showQuestion(){
 
-    document.getElementById("result").innerHTML = "";
+    document.getElementById("progressTag")
+        .innerHTML =
+        "問題 " +
+        (currentQuestion + 1) +
+        " / " +
+        questions.length;
 
-    document.getElementById("nextBtn").style.display = "none";
 
-    const buttons = document.querySelectorAll(
-    ".asset, .liability, .equity, .expense, .revenue, .other"
-);
+    document.getElementById("question")
+        .innerHTML =
+        questions[currentQuestion].question;
+
+
+    // 結果画面を閉じる
+    document.getElementById("resultOverlay")
+        .style.display = "none";
+
+
+    // 回答ボタンを有効化
+    const buttons =
+        document.querySelectorAll(
+            ".asset, .liability, .equity, .expense, .revenue, .other"
+        );
+
 
     buttons.forEach(button => {
+
         button.disabled = false;
+
     });
+
 }
-function checkAnswer(answer) {
 
-    const q = questions[currentQuestion];
 
-    const correct = answer === q.answer;
+// =========================
+// 回答
+// =========================
 
-    // 学習記録を保存
-    // ここだけで「1問」として記録する
-    saveStudyRecord(1, correct ? 1 : 0);
+function checkAnswer(answer){
 
-    // 正解・不正解表示
-    if (correct) {
+    const q =
+        questions[currentQuestion];
 
-        document.getElementById("result").innerHTML =
-            "⭕ 正解！<br><br>" +
-            "解説：<br>" +
+
+    const correct =
+        answer === q.answer;
+
+
+    // 実際に回答した問題数を増やす
+    answeredCount++;
+
+
+    // =========================
+    // 学習記録
+    // =========================
+
+    saveStudyRecord(
+        1,
+        correct ? 1 : 0
+    );
+
+
+    // =========================
+    // 正解
+    // =========================
+
+    if(correct){
+
+        document.getElementById("resultMain")
+            .innerHTML =
+            "⭕ 正解！！";
+
+
+        document.getElementById("resultMain")
+            .className =
+            "result-correct";
+
+
+        document.getElementById("resultExplanation")
+            .innerHTML =
+            "<strong>解説</strong><br><br>" +
             q.explanation;
+
 
         score++;
 
-        // 苦手問題の連続正解数
+
+        // =========================
+        // 連続正解
+        // =========================
+
         const name =
-            q.question.replace("は何に分類される？", "");
+            q.question.replace(
+                "は何に分類される？",
+                ""
+            );
+
 
         weakCorrect[name] =
             (weakCorrect[name] || 0) + 1;
 
-        // 3回連続正解したら苦手から削除
-        if (weakCorrect[name] >= 3) {
 
-            let weakQuiz =
+        // =========================
+        // 3回連続正解
+        // =========================
+
+        if(weakCorrect[name] >= 3){
+
+            let currentWeakQuiz =
                 JSON.parse(
                     localStorage.getItem("weakQuiz")
                 ) || [];
 
-            weakQuiz = weakQuiz.filter(
-                item => item !== name
-            );
+
+            currentWeakQuiz =
+                currentWeakQuiz.filter(
+                    item => item !== name
+                );
+
 
             localStorage.setItem(
                 "weakQuiz",
-                JSON.stringify(weakQuiz)
+                JSON.stringify(currentWeakQuiz)
             );
 
+
             delete weakCorrect[name];
+
         }
 
+
         localStorage.setItem(
             "weakCorrect",
             JSON.stringify(weakCorrect)
         );
 
-    } else {
+    }
 
-        document.getElementById("result").innerHTML =
-            "❌ 不正解<br><br>" +
-            "正解：" + q.answer + "<br><br>" +
-            "解説：<br>" +
+
+    // =========================
+    // 不正解
+    // =========================
+
+    else{
+
+        document.getElementById("resultMain")
+            .innerHTML =
+            "❌ 不正解";
+
+
+        document.getElementById("resultMain")
+            .className =
+            "result-wrong";
+
+
+        document.getElementById("resultExplanation")
+            .innerHTML =
+            "<strong>正解：" +
+            q.answer +
+            "</strong><br><br>" +
+            "<strong>解説</strong><br><br>" +
             q.explanation;
 
-        const name =
-            q.question.replace("は何に分類される？", "");
 
-        // 連続正解数をリセット
+        const name =
+            q.question.replace(
+                "は何に分類される？",
+                ""
+            );
+
+
+        // =========================
+        // 連続正解をリセット
+        // =========================
+
         weakCorrect[name] = 0;
+
 
         localStorage.setItem(
             "weakCorrect",
             JSON.stringify(weakCorrect)
         );
 
+
+        // =========================
         // 苦手問題として保存
-        let weakQuiz =
+        // =========================
+
+        let currentWeakQuiz =
             JSON.parse(
                 localStorage.getItem("weakQuiz")
             ) || [];
 
-        if (!weakQuiz.includes(name)) {
-            weakQuiz.push(name);
+
+        if(!currentWeakQuiz.includes(name)){
+
+            currentWeakQuiz.push(name);
+
         }
+
 
         localStorage.setItem(
             "weakQuiz",
-            JSON.stringify(weakQuiz)
+            JSON.stringify(currentWeakQuiz)
         );
+
     }
 
-    // 次の問題ボタンを表示
-    document.getElementById("nextBtn").style.display =
-        "inline-block";
 
-    // 回答ボタンを押せなくする
-    const buttons = document.querySelectorAll(
-        ".asset, .liability, .equity, .expense, .revenue, .other"
-    );
+    // =========================
+    // 回答ボタン無効化
+    // =========================
+
+    const buttons =
+        document.querySelectorAll(
+            ".asset, .liability, .equity, .expense, .revenue, .other"
+        );
+
 
     buttons.forEach(button => {
+
         button.disabled = true;
+
     });
+
+
+    // =========================
+    // 次のボタン
+    // =========================
+
+    if(
+        currentQuestion ===
+        questions.length - 1
+    ){
+
+        document.getElementById(
+            "overlayNextBtn"
+        ).innerHTML =
+            "結果を見る →";
+
+    }else{
+
+        document.getElementById(
+            "overlayNextBtn"
+        ).innerHTML =
+            "次の問題へ →";
+
+    }
+
+
+    // =========================
+    // 結果オーバーレイ表示
+    // =========================
+
+    document.getElementById(
+        "resultOverlay"
+    ).style.display = "flex";
+
 }
 
 
-function nextQuestion() {
+// =========================
+// 次の問題
+// =========================
+
+function nextQuestion(){
 
     currentQuestion++;
 
-    if (currentQuestion < questions.length) {
+
+    if(
+        currentQuestion <
+        questions.length
+    ){
 
         showQuestion();
 
-    } else {
+    }else{
 
-        let percentage =
-        Math.round(score / questions.length * 100);
+        showResult();
 
-        let rank = "";
+    }
 
-        if (percentage === 100) {
-            rank = "🏆 Sランク";
-        }
-        else if (percentage >= 90) {
-            rank = "🥇 Aランク";
-        }
-        else if (percentage >= 80) {
-            rank = "🥈 Bランク";
-        }
-        else if (percentage >= 70) {
-            rank = "🥉 Cランク";
-        }
-        else {
-            rank = "📖 Dランク";
-        }
+}
 
-        document.body.innerHTML = `
+
+// =========================
+// 途中終了
+// =========================
+
+function finishQuiz(){
+
+    // 1問も回答していない
+    if(answeredCount === 0){
+
+        location.href = "index.html";
+
+        return;
+
+    }
+
+
+    showResult();
+
+}
+
+
+// =========================
+// 結果発表
+// =========================
+
+function showResult(){
+
+    // 実際に回答した問題数
+    const answered =
+        answeredCount;
+
+
+    // 念のため
+    if(answered === 0){
+
+        location.href = "index.html";
+
+        return;
+
+    }
+
+
+    const percentage =
+        Math.round(
+            score / answered * 100
+        );
+
+
+    let rank = "";
+
+
+    if(percentage === 100){
+
+        rank = "🏆 Sランク";
+
+    }
+    else if(percentage >= 90){
+
+        rank = "🥇 Aランク";
+
+    }
+    else if(percentage >= 80){
+
+        rank = "🥈 Bランク";
+
+    }
+    else if(percentage >= 70){
+
+        rank = "🥉 Cランク";
+
+    }
+    else{
+
+        rank = "📖 Dランク";
+
+    }
+
+
+    // =========================
+    // 結果画面
+    // =========================
+
+    document.body.innerHTML = `
 
         <div class="top-container">
 
-            <h1>結果発表</h1>
+            <h1>🎯 結果発表</h1>
 
-            <h2>${score} / ${questions.length}問正解</h2>
+            <br>
 
-            <h2>正答率 ${percentage}%</h2>
+            <h2>
+                ${answered}問中 ${score}問正解
+            </h2>
 
-            <h2>${rank}</h2>
+            <h2>
+                正答率 ${percentage}%
+            </h2>
+
+            <h2>
+                ${rank}
+            </h2>
 
             <br><br>
 
             <a href="index.html">
 
                 <button class="menu-btn weak">
-
-                    トップへ戻る
-
+                    🏠 トップへ戻る
                 </button>
 
             </a>
 
         </div>
 
-        `;
-    }
+    `;
+
 }
+
 </script>
-
-</div>
-
-</div>
 
 </body>
 </html>
