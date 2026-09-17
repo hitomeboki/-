@@ -4009,3 +4009,31 @@ and (orientation:portrait){
     }
 
 }
+
+/* ========================================
+   一問一答：タイトルと問題の大きさ調整
+======================================== */
+
+.top-container > h1{
+    font-size:36px;
+    margin-bottom:20px;
+}
+
+#question{
+    font-size:40px;
+    line-height:1.5;
+    margin:25px 0 35px;
+}
+
+@media (max-width:599px){
+
+    .top-container > h1{
+        font-size:30px;
+    }
+
+    #question{
+        font-size:30px;
+        line-height:1.5;
+    }
+
+}
