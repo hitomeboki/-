@@ -445,15 +445,10 @@ function nextQuestion() {
 
 }
 
-
-// =========================
-// 途中終了
-// =========================
-
 function finishQuiz() {
 
     // まだ1問も回答していない場合
-    if(currentQuestion === 0 && score === 0){
+    if(answeredCount === 0){
 
         // そのままトップへ
         location.href = "index.html";
