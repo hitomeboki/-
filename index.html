@@ -10,7 +10,42 @@
 <body class="home">
 
 <div class="top-container">
+    <!-- ホーム画面追加の案内 -->
+<div id="addHomeOverlay">
 
+    <div id="addHomeBox">
+
+        <h2>📱 ホーム画面への追加を推奨しています</h2>
+
+        <p>
+            ホーム画面に追加すると、
+        </p>
+
+        <ul>
+            <li>QRコードが手元になくても、すぐに開ける</li>
+            <li>学習記録を継続して残せる</li>
+            <li>毎回QRコードを読み取る手間がなくなる</li>
+        </ul>
+
+        <p class="add-home-note">
+            ※ホーム画面への追加は任意です。
+        </p>
+
+        <div class="add-home-buttons">
+
+            <button id="showAddMethodBtn">
+                追加方法を見る
+            </button>
+
+            <button id="closeAddHomeBtn">
+                閉じる
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
     <div class="title-area">
 
         <h1 class="title">📖 ひとめぼき道場 ✏️</h1>
@@ -199,6 +234,58 @@ function toggleMenu(){
     overlay.classList.toggle("open");
 
 }
+
+</script>
+
+<script>
+
+// ========================================
+// ホーム画面追加案内
+// ========================================
+
+const addHomeOverlay =
+    document.getElementById("addHomeOverlay");
+
+const closeAddHomeBtn =
+    document.getElementById("closeAddHomeBtn");
+
+const showAddMethodBtn =
+    document.getElementById("showAddMethodBtn");
+
+
+// ホーム画面から起動しているか確認
+const isHomeScreen =
+    window.matchMedia("(display-mode: standalone)").matches;
+
+
+// ホーム画面からの起動ではない場合、案内を表示
+if(!isHomeScreen){
+
+    addHomeOverlay.style.display = "flex";
+
+}
+
+
+// 閉じる
+closeAddHomeBtn.addEventListener("click", function(){
+
+    addHomeOverlay.style.display = "none";
+
+});
+
+
+// 追加方法を見る
+showAddMethodBtn.addEventListener("click", function(){
+
+    alert(
+        "【ホーム画面への追加方法】\n\n" +
+        "① Safariで「共有」ボタンをタップ\n\n" +
+        "② 「ホーム画面に追加」を選択\n\n" +
+        "③ 「追加」をタップ\n\n" +
+        "これでホーム画面からひとめぼきを開けます。"
+    );
+
+});
 
 </script>
 
