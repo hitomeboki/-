@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ひとめぼき</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="icon" href="favicon-32.png">
+</head>
+
+<body class="home">
+
+<div class="top-container">
+    <!-- ホーム画面追加の案内 -->
+<div id="addHomeOverlay">
+
+    <div id="addHomeBox">
+
+        <h2>📱 ホーム画面への追加を推奨しています</h2>
+
+        <p>
+            ホーム画面に追加すると、
+        </p>
+
+        <ul>
+            <li>QRコードが手元になくても、すぐに開ける</li>
+            <li>学習記録を継続して残せる</li>
+            <li>毎回QRコードを読み取る手間がなくなる</li>
+        </ul>
+
+        <p class="add-home-note">
+            ※ホーム画面への追加は任意です。
+        </p>
+
+        <div class="add-home-buttons">
+
+            <button id="showAddMethodBtn">
+                追加方法を見る
+            </button>
+
+            <button id="closeAddHomeBtn">
+                閉じる
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ホーム画面追加方法 -->
+<div id="addMethodOverlay">
+
+    <div id="addMethodBox">
+
+        <h2>📱 ホーム画面への追加方法</h2>
+
+        <div class="add-step">
+            <div class="step-number">①</div>
+            <div>
+                <strong>Safariの「共有」ボタンをタップ</strong>
+                <p>画面上部または下部にある共有ボタンをタップします。</p>
+            </div>
+        </div>
+
+        <div class="add-step">
+            <div class="step-number">②</div>
+            <div>
+                <strong>「ホーム画面に追加」をタップ</strong>
+                <p>共有メニューから「ホーム画面に追加」を選択します。</p>
+            </div>
+        </div>
+
+        <div class="add-step">
+            <div class="step-number">③</div>
+            <div>
+                <strong>「追加」をタップ</strong>
+                <p>右上の「追加」をタップすると完了です。</p>
+            </div>
+        </div>
+
+        <button id="closeAddMethodBtn">
+            閉じる
+        </button>
+
+    </div>
+
+</div>
+
+    <div class="title-area">
+
+        <h1 class="title">📖 ひとめぼき道場 ✏️</h1>
+
+        <button class="menu-icon" onclick="toggleMenu()">☰</button>
+
+    </div>
+
+    <div id="menu-panel" class="menu-panel">
+
+        <button class="close-menu" onclick="toggleMenu()">✕</button>
+
+        <h2>メニュー</h2>
+
+        <a href="studyMenu.html">
+            <div class="menu-title">
+                📊 学習記録
+            </div>
+
+            <div class="menu-sub">
+                あなたの学習状況を確認
+            </div>
+        </a>
+
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfGSNfm3tJsbWlLm6s2yy_lsI6mr4tnhuS8mkYZwfYfmLCiqg/viewform?usp=sharing&ouid=110908671960601680120"
+           target="_blank">
+
+            <div class="menu-title">
+                📝 ご意見・不具合報告
+            </div>
+
+            <div class="menu-sub">
+                ご意見や不具合をお知らせください
+            </div>
+
+        </a>
+
+        <a href="howto.html">
+
+            <div class="menu-title">
+                📖 使い方
+            </div>
+
+            <div class="menu-sub">
+                アプリの使い方を確認
+            </div>
+
+        </a>
+
+    </div>
+
+    <div id="menu-overlay" onclick="toggleMenu()"></div>
+
+    <p class="subtitle">
+        勘定科目をゲーム感覚で楽しくマスター！
+    </p>
+
+    <div class="section">
+
+        <h2>🎯 一問一答モード</h2>
+
+        <div class="button-row">
+
+            <a href="quiz.html?mode=easy" class="menu-btn easy">
+                <div class="btn-title">🌱 簡単モード</div>
+                <div class="btn-sub">
+                    基礎からしっかり学ぼう！
+                </div>
+            </a>
+
+            <a href="quiz.html?mode=hard" class="menu-btn hard">
+                <div class="btn-title">🔥 発展モード</div>
+                <div class="btn-sub">
+                    実力を試してレベルアップ！
+                </div>
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="section">
+
+        <h2>📂 分類モード</h2>
+
+        <div class="button-row">
+
+            <a href="classify.html?mode=easy" class="menu-btn easy">
+                <div class="btn-title">🌱 簡単モード</div>
+                <div class="btn-sub">
+                    基礎からしっかり学ぼう！
+                </div>
+            </a>
+
+            <a href="classify.html?mode=hard" class="menu-btn hard">
+                <div class="btn-title">🔥 発展モード</div>
+                <div class="btn-sub">
+                    実力を試してレベルアップ！
+                </div>
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="section">
+
+        <h2>🔥 苦手克服モード</h2>
+
+        <div class="button-row">
+
+            <a href="weakQuiz.html" class="menu-btn weak" id="weakQuizBtn">
+                <div class="btn-title">
+                    🎯 一問一答形式
+                </div>
+
+                <div class="btn-sub">
+                    間違えた問題を克服しよう！
+                </div>
+            </a>
+
+            <a href="weakClassify.html" class="menu-btn weak" id="weakClassifyBtn">
+
+                <div class="btn-title">
+                    📂 分類形式
+                </div>
+
+                <div class="btn-sub">
+                    苦手な勘定科目を復習しよう！
+                </div>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+let weakQuiz =
+JSON.parse(localStorage.getItem("weakQuiz")) || [];
+
+let weakQuizBtn =
+document.getElementById("weakQuizBtn");
+
+let weakClassify =
+JSON.parse(localStorage.getItem("weakClassify")) || [];
+
+let weakClassifyBtn =
+document.getElementById("weakClassifyBtn");
+
+if(weakClassify.length > 0){
+
+    weakClassifyBtn.classList.remove("disabled");
+
+}else{
+
+    weakClassifyBtn.classList.add("disabled");
+    weakClassifyBtn.removeAttribute("href");
+
+}
+
+if(weakQuiz.length > 0){
+
+    weakQuizBtn.classList.remove("disabled");
+
+}else{
+
+    weakQuizBtn.classList.add("disabled");
+    weakQuizBtn.removeAttribute("href");
+
+}
+
+</script>
+
+<script>
+
+function toggleMenu(){
+
+    const menu = document.getElementById("menu-panel");
+    const overlay = document.getElementById("menu-overlay");
+
+    menu.classList.toggle("open");
+    overlay.classList.toggle("open");
+
+}
+
+</script>
+
+<script>
+
+// ========================================
+// ホーム画面追加案内
+// ========================================
+
+const addHomeOverlay =
+    document.getElementById("addHomeOverlay");
+
+const closeAddHomeBtn =
+    document.getElementById("closeAddHomeBtn");
+
+const showAddMethodBtn =
+    document.getElementById("showAddMethodBtn");
+
+const isHomeScreen =
+    window.matchMedia("(display-mode: standalone)").matches ||
+    window.navigator.standalone === true;
+
+if(!isHomeScreen){
+    addHomeOverlay.style.display = "flex";
+}
+
+// 閉じる
+closeAddHomeBtn.addEventListener("click", function(){
+
+    addHomeOverlay.style.display = "none";
+
+});
+
+const addMethodOverlay =
+    document.getElementById("addMethodOverlay");
+
+const closeAddMethodBtn =
+    document.getElementById("closeAddMethodBtn");
+
+// 追加方法を見る
+showAddMethodBtn.addEventListener("click", function(){
+
+    addMethodOverlay.style.display = "flex";
+
+});
+
+// 追加方法を閉じる
+closeAddMethodBtn.addEventListener("click", function(){
+
+    addMethodOverlay.style.display = "none";
+
+});
+
+</script>
+
+</body>
+</html>
