@@ -4289,3 +4289,82 @@ and (orientation:portrait){
     }
 
 }
+
+/* ========================================
+   ホーム画面追加方法 レイアウト修正
+======================================== */
+
+#addMethodBox{
+    max-width:700px;
+    padding:35px 45px;
+}
+
+.add-step{
+    display:grid;
+    grid-template-columns:55px 1fr;
+    column-gap:15px;
+    margin-bottom:28px;
+    align-items:start;
+}
+
+.step-number{
+    font-size:26px;
+    font-weight:bold;
+    line-height:1.4;
+    min-width:0;
+}
+
+.add-step strong{
+    display:block;
+    font-size:21px;
+    line-height:1.4;
+    text-align:left;
+}
+
+.add-step p{
+    font-size:17px;
+    line-height:1.6;
+    margin:6px 0 0;
+    text-align:left;
+}
+
+#addMethodBox h2{
+    text-align:center;
+    font-size:30px;
+    margin-bottom:32px;
+}
+
+#closeAddMethodBtn{
+    margin-top:5px;
+}
+
+@media(max-width:599px){
+
+    #addMethodBox{
+        padding:25px 20px;
+    }
+
+    #addMethodBox h2{
+        font-size:23px;
+        margin-bottom:25px;
+    }
+
+    .add-step{
+        grid-template-columns:40px 1fr;
+        column-gap:10px;
+        margin-bottom:22px;
+    }
+
+    .step-number{
+        font-size:22px;
+    }
+
+    .add-step strong{
+        font-size:17px;
+    }
+
+    .add-step p{
+        font-size:14px;
+        line-height:1.5;
+    }
+}
