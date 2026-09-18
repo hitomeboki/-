@@ -292,19 +292,13 @@ const closeAddHomeBtn =
 const showAddMethodBtn =
     document.getElementById("showAddMethodBtn");
 
-
-// ホーム画面から起動しているか確認
 const isHomeScreen =
-    window.matchMedia("(display-mode: standalone)").matches;
+    window.matchMedia("(display-mode: standalone)").matches ||
+    window.navigator.standalone === true;
 
-
-// ホーム画面からの起動ではない場合、案内を表示
 if(!isHomeScreen){
-
     addHomeOverlay.style.display = "flex";
-
 }
-
 
 // 閉じる
 closeAddHomeBtn.addEventListener("click", function(){
