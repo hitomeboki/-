@@ -4166,3 +4166,126 @@ and (orientation:portrait){
     }
 
 }
+
+/* ========================================
+   ホーム画面追加方法
+======================================== */
+
+#addMethodOverlay{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+
+    background:rgba(0,0,0,0.5);
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    z-index:10000;
+
+    padding:20px;
+    box-sizing:border-box;
+}
+
+
+#addMethodBox{
+    width:100%;
+    max-width:650px;
+
+    background:white;
+
+    border-radius:25px;
+
+    padding:35px 40px;
+
+    box-sizing:border-box;
+
+    box-shadow:0 10px 30px rgba(0,0,0,0.25);
+}
+
+
+#addMethodBox h2{
+    text-align:center;
+
+    font-size:30px;
+
+    margin-top:0;
+    margin-bottom:30px;
+}
+
+
+.add-step{
+    display:flex;
+
+    gap:18px;
+
+    margin-bottom:25px;
+}
+
+
+.step-number{
+    font-size:24px;
+    font-weight:bold;
+
+    min-width:35px;
+}
+
+
+.add-step strong{
+    font-size:20px;
+}
+
+
+.add-step p{
+    font-size:16px;
+
+    line-height:1.6;
+
+    margin:6px 0 0;
+}
+
+
+#closeAddMethodBtn{
+    display:block;
+
+    width:100%;
+
+    border:none;
+    border-radius:15px;
+
+    background:#eeeeee;
+
+    padding:15px;
+
+    font-size:18px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    margin-top:10px;
+}
+
+
+@media(max-width:599px){
+
+    #addMethodBox{
+        padding:25px 20px;
+    }
+
+    #addMethodBox h2{
+        font-size:23px;
+    }
+
+    .add-step strong{
+        font-size:17px;
+    }
+
+    .add-step p{
+        font-size:14px;
+    }
+
+}

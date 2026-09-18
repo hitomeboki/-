@@ -46,6 +46,46 @@
     </div>
 
 </div>
+
+<!-- ホーム画面追加方法 -->
+<div id="addMethodOverlay">
+
+    <div id="addMethodBox">
+
+        <h2>📱 ホーム画面への追加方法</h2>
+
+        <div class="add-step">
+            <div class="step-number">①</div>
+            <div>
+                <strong>Safariの「共有」ボタンをタップ</strong>
+                <p>画面上部または下部にある共有ボタンをタップします。</p>
+            </div>
+        </div>
+
+        <div class="add-step">
+            <div class="step-number">②</div>
+            <div>
+                <strong>「ホーム画面に追加」をタップ</strong>
+                <p>共有メニューから「ホーム画面に追加」を選択します。</p>
+            </div>
+        </div>
+
+        <div class="add-step">
+            <div class="step-number">③</div>
+            <div>
+                <strong>「追加」をタップ</strong>
+                <p>右上の「追加」をタップすると完了です。</p>
+            </div>
+        </div>
+
+        <button id="closeAddMethodBtn">
+            閉じる
+        </button>
+
+    </div>
+
+</div>
+
     <div class="title-area">
 
         <h1 class="title">📖 ひとめぼき道場 ✏️</h1>
@@ -273,17 +313,25 @@ closeAddHomeBtn.addEventListener("click", function(){
 
 });
 
+const addMethodOverlay =
+    document.getElementById("addMethodOverlay");
+
+const closeAddMethodBtn =
+    document.getElementById("closeAddMethodBtn");
+
 
 // 追加方法を見る
 showAddMethodBtn.addEventListener("click", function(){
 
-    alert(
-        "【ホーム画面への追加方法】\n\n" +
-        "① Safariで「共有」ボタンをタップ\n\n" +
-        "② 「ホーム画面に追加」を選択\n\n" +
-        "③ 「追加」をタップ\n\n" +
-        "これでホーム画面からひとめぼきを開けます。"
-    );
+    addMethodOverlay.style.display = "flex";
+
+});
+
+
+// 追加方法を閉じる
+closeAddMethodBtn.addEventListener("click", function(){
+
+    addMethodOverlay.style.display = "none";
 
 });
 
