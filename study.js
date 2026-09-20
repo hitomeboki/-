@@ -1,3 +1,72 @@
+// =========================
+// Supabase
+// =========================
+
+const SUPABASE_URL =
+"https://atntpiskoizpysukygcb.supabase.co";
+
+const SUPABASE_KEY =
+"ここに自分のPublishable keyを貼る";
+
+
+// ユーザー識別用ID
+let userId =
+localStorage.getItem("userId");
+
+if(!userId){
+
+    userId =
+    crypto.randomUUID();
+
+    localStorage.setItem(
+        "userId",
+        userId
+    );
+
+}
+
+
+// Supabaseへ学習記録を送信
+async function sendToSupabase(answered, correct){
+
+    try{
+
+        await fetch(
+            `${SUPABASE_URL}/rest/v1/study_records`,
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json",
+                    "apikey": SUPABASE_KEY,
+                    "Authorization": `Bearer ${SUPABASE_KEY}`,
+                    "Prefer": "return=minimal"
+                },
+
+                body: JSON.stringify({
+
+                    user_id: userId,
+                    mode: "unknown",
+                    questions: answered,
+                    correct: correct,
+                    accessed_at: new Date().toISOString()
+
+                })
+
+            }
+        );
+
+    }catch(error){
+
+        console.log(
+            "Supabase送信エラー:",
+            error
+        );
+
+    }
+
+}
+
 function saveStudyRecord(answered, correct){
 
     let totalAnswered =
@@ -159,5 +228,7 @@ function saveStudyRecord(answered, correct){
         "studyData",
         JSON.stringify(studyData)
     );
+
+    sendToSupabase(answered, correct);
 
 }
