@@ -42,16 +42,16 @@ async function sendToSupabase(answered, correct){
                     "Authorization": `Bearer ${SUPABASE_KEY}`,
                     "Prefer": "return=minimal"
                 },
+body: JSON.stringify({
 
-                body: JSON.stringify({
+    id: crypto.randomUUID(),
+    user_id: userId,
+    mode: "unknown",
+    questions: answered,
+    correct: correct,
+    accessed_at: new Date().toISOString()
 
-                    user_id: userId,
-                    mode: "unknown",
-                    questions: answered,
-                    correct: correct,
-                    accessed_at: new Date().toISOString()
-
-                })
+})
 
             }
         );
