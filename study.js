@@ -31,7 +31,7 @@ async function sendToSupabase(answered, correct){
 
     try{
 
-        await fetch(
+        const response = await fetch(
             `${SUPABASE_URL}/rest/v1/study_records`,
             {
                 method: "POST",
@@ -42,23 +42,30 @@ async function sendToSupabase(answered, correct){
                     "Authorization": `Bearer ${SUPABASE_KEY}`,
                     "Prefer": "return=minimal"
                 },
-body: JSON.stringify({
 
-    id: crypto.randomUUID(),
-    user_id: userId,
-    mode: "unknown",
-    questions: answered,
-    correct: correct,
-    accessed_at: new Date().toISOString()
+                body: JSON.stringify({
 
-})
+                    id: crypto.randomUUID(),
+                    user_id: userId,
+                    mode: "unknown",
+                    questions: answered,
+                    correct: correct,
+                    accessed_at: new Date().toISOString()
+
+                })
 
             }
         );
 
+        console.log(
+            "Supabase:",
+            response.status,
+            await response.text()
+        );
+
     }catch(error){
 
-        console.log(
+        console.error(
             "Supabase送信エラー:",
             error
         );
