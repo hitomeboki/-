@@ -243,8 +243,8 @@ async function sendAnswerToSupabase(
 
     try{
 
-        await fetch(
-            `${SUPABASE_URL}/rest/v1/answer_records`,
+        const response = await fetch(
+    `${SUPABASE_URL}/rest/v1/answer_records`,
             {
                 method: "POST",
 
@@ -268,6 +268,11 @@ async function sendAnswerToSupabase(
 
             }
         );
+
+        console.log(
+    "answer_records:",
+    response.status
+);
 
     }catch(error){
 
