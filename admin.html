@@ -224,49 +224,6 @@ id="totalCorrect">
 
 </div>
 
-<script>
-
-const SUPABASE_URL =
-"https://atntpiskoizpysukygcb.supabase.co";
-
-const SUPABASE_KEY =
-"sb_publishable_y1wlMl-CRMTt-6us0M-P4Q_8OPouULn";
-
-
-async function loadStats(){
-
-    try{
-
-        const response = await fetch(
-            `${SUPABASE_URL}/rest/v1/admin_period_stats?select=*`,
-            {
-                headers:{
-                    "apikey": SUPABASE_KEY,
-                    "Authorization":
-                    `Bearer ${SUPABASE_KEY}`
-                }
-            }
-        );
-
-        const data = await response.json();
-
-        console.log(data);
-
-    }catch(error){
-
-        console.error(
-            "Supabase取得エラー:",
-            error
-        );
-
-    }
-
-}
-
-loadStats();
-
-</script>
-
 </body>
 
 </html>
