@@ -496,6 +496,147 @@ async function loadAllTimeRecords(){
 
 loadAllTimeRecords();
 
+const calendarTitle =
+    document.getElementById("calendarTitle");
+
+const calendarDays =
+    document.getElementById("calendarDays");
+
+let calendarDate = new Date();
+
+
+function renderCalendar(){
+
+    const year =
+        calendarDate.getFullYear();
+
+    const month =
+        calendarDate.getMonth();
+
+    calendarTitle.textContent =
+        `${year}年${month + 1}月`;
+
+    calendarDays.innerHTML = "";
+
+    const firstDay =
+        new Date(
+            year,
+            month,
+            1
+        ).getDay();
+
+    const lastDate =
+        new Date(
+            year,
+            month + 1,
+            0
+        ).getDate();
+
+
+    // 月初までの空白
+    for(
+        let i = 0;
+        i < firstDay;
+        i++
+    ){
+
+        const empty =
+            document.createElement("div");
+
+        calendarDays.appendChild(empty);
+
+    }
+
+
+    // 日付
+    for(
+        let day = 1;
+        day <= lastDate;
+        day++
+    ){
+
+        const button =
+            document.createElement("button");
+
+        button.textContent = day;
+
+        button.addEventListener(
+            "click",
+            function(){
+
+                document
+                    .querySelectorAll(
+                        ".calendar-days button"
+                    )
+                    .forEach(
+                        btn =>
+                            btn.classList.remove(
+                                "selected"
+                            )
+                    );
+
+                button.classList.add(
+                    "selected"
+                );
+
+                const selectedDate =
+                    `${year}-${String(
+                        month + 1
+                    ).padStart(2,"0")}-${String(
+                        day
+                    ).padStart(2,"0")}`;
+
+                console.log(
+                    "選択日：",
+                    selectedDate
+                );
+
+            }
+        );
+
+        calendarDays.appendChild(
+            button
+        );
+
+    }
+
+}
+
+
+document.getElementById(
+    "prevMonth"
+).addEventListener(
+    "click",
+    function(){
+
+        calendarDate.setMonth(
+            calendarDate.getMonth() - 1
+        );
+
+        renderCalendar();
+
+    }
+);
+
+
+document.getElementById(
+    "nextMonth"
+).addEventListener(
+    "click",
+    function(){
+
+        calendarDate.setMonth(
+            calendarDate.getMonth() + 1
+        );
+
+        renderCalendar();
+
+    }
+);
+
+
+renderCalendar();
+
 </script>
 
 </body>
