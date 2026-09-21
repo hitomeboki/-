@@ -268,10 +268,6 @@ async function sendAnswerToSupabase(
             }
         );
 
-  alert(
-    "answer_records: " +
-    response.status
-);
 }catch(error){
 
     alert(
