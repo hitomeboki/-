@@ -246,6 +246,8 @@ function checkAnswer(answer) {
         correct ? 1 : 0
     );
 
+    alert("① 回答データ送信処理を開始");
+
     sendAnswerToSupabase(
     q.question.replace(
         "は何に分類される？",
