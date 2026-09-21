@@ -57,11 +57,11 @@ async function sendToSupabase(answered, correct){
             }
         );
 
-        console.log(
-            "Supabase:",
-            response.status,
-            await response.text()
-        );
+        const result = await response.text();
+
+alert(
+    `Supabase: ${response.status}\n${result}`
+);
 
     }catch(error){
 
