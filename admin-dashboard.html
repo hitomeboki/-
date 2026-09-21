@@ -163,6 +163,10 @@ h1{
 <div class="number" id="totalCorrect">-</div>
 </div>
 
+<div class="card">
+<h2>累計正解率</h2>
+<div class="number" id="totalAccuracy">-</div>
+</div>
 
 </div>
 
@@ -287,6 +291,15 @@ async function loadDashboard(){
         ).textContent =
         stats.total_correct;
 
+        const accuracy =
+stats.total_questions > 0
+? (stats.total_correct / stats.total_questions * 100).toFixed(1)
+: 0;
+
+document.getElementById(
+    "totalAccuracy"
+).textContent =
+accuracy + "%";
 
     }catch(error){
 
