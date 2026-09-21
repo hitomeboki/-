@@ -9,18 +9,118 @@ content="width=device-width, initial-scale=1.0">
 
 <title>利用状況 | ひとめぼき道場</title>
 
+<style>
+
+.calendar{
+    max-width:500px;
+    margin:30px auto;
+    background:white;
+    padding:20px;
+    border-radius:16px;
+    box-shadow:0 3px 12px rgba(0,0,0,0.08);
+}
+
+.calendar-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:20px;
+}
+
+.calendar-header h2{
+    margin:0;
+    font-size:22px;
+}
+
+.calendar-header button{
+    width:44px;
+    height:44px;
+    border:none;
+    border-radius:10px;
+    background:#f1f1f1;
+    font-size:20px;
+    cursor:pointer;
+}
+
+.calendar-week,
+.calendar-days{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:6px;
+}
+
+.calendar-week div{
+    text-align:center;
+    font-weight:bold;
+    padding:8px 0;
+}
+
+.calendar-days button{
+    min-height:44px;
+    border:none;
+    border-radius:10px;
+    background:#f5f5f5;
+    font-size:15px;
+    cursor:pointer;
+}
+
+.calendar-days button:hover{
+    background:#e8e8e8;
+}
+
+.calendar-days button.selected{
+    background:#222;
+    color:white;
+}
+
+.calendar-days button.today{
+    outline:2px solid #222;
+}
+
+</style>
+
 </head>
 
 <body>
 
 <h1>📊 利用状況</h1>
 
-<div>
+<div class="calendar">
 
-    <label>
-        日付：
-        <input type="date" id="usageDate">
-    </label>
+    <div class="calendar-header">
+
+        <button id="prevMonth">←</button>
+
+        <h2 id="calendarTitle"></h2>
+
+        <button id="nextMonth">→</button>
+
+    </div>
+
+    <div class="calendar-week">
+
+        <div>日</div>
+        <div>月</div>
+        <div>火</div>
+        <div>水</div>
+        <div>木</div>
+        <div>金</div>
+        <div>土</div>
+
+    </div>
+
+    <div
+        id="calendarDays"
+        class="calendar-days">
+    </div>
+
+</div>
+
+<div
+    id="dailyResult"
+    style="margin-top:20px;">
+
+    <p>日付を選択してください。</p>
 
 </div>
 
