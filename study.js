@@ -6,7 +6,7 @@ const SUPABASE_URL =
 "https://atntpiskoizpysukygcb.supabase.co";
 
 const SUPABASE_KEY =
-"ここに自分のPublishable keyを貼る";
+"sb_publishable_y1wlMl-CRMTt-6us0M-P4Q_8OPouULn";
 
 
 // ユーザー識別用ID
