@@ -240,13 +240,14 @@ function checkAnswer(answer) {
         answer === q.answer;
 
     answeredCount++;
-    // 学習記録
-    saveStudyRecord(
-        1,
-        correct ? 1 : 0
-    );
 
-    alert("① 回答データ送信処理を開始");
+alert("① 回答データ送信処理を開始");
+
+// 学習記録
+saveStudyRecord(
+    1,
+    correct ? 1 : 0
+);
 
     sendAnswerToSupabase(
     q.question.replace(
