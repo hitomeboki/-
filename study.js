@@ -57,12 +57,6 @@ async function sendToSupabase(answered, correct){
             }
         );
 
-        const result = await response.text();
-
-alert(
-    `Supabase: ${response.status}\n${result}`
-);
-
     }catch(error){
 
         console.error(
