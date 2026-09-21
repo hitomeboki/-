@@ -317,6 +317,11 @@ accuracy + "%";
 
 }
 
+document.getElementById(
+    "lastUpdated"
+).textContent =
+"最終更新：" +
+new Date().toLocaleString("ja-JP");
 
 loadDashboard();
 
