@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>ひとめぼき道場 管理画面</title>
+
+<style>
+
+body{
+    font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Helvetica Neue",
+    sans-serif;
+
+    background:#f5f5f5;
+
+    margin:0;
+    padding:30px 20px;
+
+    color:#222;
+}
+
+.container{
+    max-width:900px;
+    margin:0 auto;
+}
+
+h1{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.stats{
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:16px;
+}
+
+.card{
+    background:white;
+
+    border-radius:16px;
+
+    padding:22px;
+
+    box-shadow:
+    0 3px 12px
+    rgba(0,0,0,0.08);
+}
+
+.card h2{
+    font-size:16px;
+
+    margin:0 0 10px;
+
+    color:#666;
+}
+
+.number{
+    font-size:32px;
+
+    font-weight:bold;
+}
+
+@media(max-width:600px){
+
+    body{
+        padding:20px 14px;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+<h1>ひとめぼき道場 管理画面</h1>
+
+
+<div class="stats">
+
+
+<div class="card">
+
+<h2>今日の利用者</h2>
+
+<div class="number"
+id="todayUsers">
+-</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>今日の学習記録</h2>
+
+<div class="number"
+id="todayRecords">
+-</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>昨日の利用者</h2>
+
+<div class="number"
+id="yesterdayUsers">
+-</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>昨日の学習記録</h2>
+
+<div class="number"
+id="yesterdayRecords">
+-</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>今週の利用者</h2>
+
+<div class="number"
+id="weekUsers">
+-</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>今週の学習記録</h2>
+
+<div class="number"
+id="weekRecords">
+-</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>今月の利用者</h2>
+
+<div class="number"
+id="monthUsers">
+-</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>今月の学習記録</h2>
+
+<div class="number"
+id="monthRecords">
+-</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>累計利用者</h2>
+
+<div class="number"
+id="totalUsers">
+-</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>累計問題数</h2>
+
+<div class="number"
+id="totalQuestions">
+-</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>累計正解数</h2>
+
+<div class="number"
+id="totalCorrect">
+-</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</body>
+
+</html>
