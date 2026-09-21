@@ -93,7 +93,7 @@ h1{
 
 <div id="loginArea">
 
-    <h2>管理者ログイン</h2>
+    <h1>管理者ログイン</h1>
 
     <input
         type="email"
@@ -115,139 +115,6 @@ h1{
 
 </div>
 
-<div class="container">
-
-<h1>ひとめぼき道場 管理画面</h1>
-
-
-<div class="stats">
-
-
-<div class="card">
-
-<h2>今日の利用者</h2>
-
-<div class="number"
-id="todayUsers">
--</div>
-
-</div>
-
-
-<div class="card">
-
-<h2>今日の学習記録</h2>
-
-<div class="number"
-id="todayRecords">
--</div>
-
-</div>
-
-
-<div class="card">
-
-<h2>昨日の利用者</h2>
-
-<div class="number"
-id="yesterdayUsers">
--</div>
-
-</div>
-
-
-<div class="card">
-
-<h2>昨日の学習記録</h2>
-
-<div class="number"
-id="yesterdayRecords">
--</div>
-
-</div>
-
-
-<div class="card">
-
-<h2>今週の利用者</h2>
-
-<div class="number"
-id="weekUsers">
--</div>
-
-</div>
-
-
-<div class="card">
-
-<h2>今週の学習記録</h2>
-
-<div class="number"
-id="weekRecords">
--</div>
-
-</div>
-
-
-<div class="card">
-
-<h2>今月の利用者</h2>
-
-<div class="number"
-id="monthUsers">
--</div>
-
-</div>
-
-
-<div class="card">
-
-<h2>今月の学習記録</h2>
-
-<div class="number"
-id="monthRecords">
--</div>
-
-</div>
-
-
-<div class="card">
-
-<h2>累計利用者</h2>
-
-<div class="number"
-id="totalUsers">
--</div>
-
-</div>
-
-
-<div class="card">
-
-<h2>累計問題数</h2>
-
-<div class="number"
-id="totalQuestions">
--</div>
-
-</div>
-
-
-<div class="card">
-
-<h2>累計正解数</h2>
-
-<div class="number"
-id="totalCorrect">
--</div>
-
-</div>
-
-
-</div>
-
-</div>
-
 <script>
 
 const SUPABASE_URL =
@@ -255,6 +122,7 @@ const SUPABASE_URL =
 
 const SUPABASE_KEY =
 "sb_publishable_y1wlMl-CRMTt-6us0M-P4Q_8OPouULn";
+
 
 const emailInput =
 document.getElementById("email");
@@ -274,49 +142,76 @@ loginBtn.addEventListener(
     async function(){
 
         const email =
-        emailInput.value;
+        emailInput.value.trim();
 
         const password =
         passwordInput.value;
 
 
-        const response =
-        await fetch(
-            `${SUPABASE_URL}/auth/v1/token?grant_type=password`,
-            {
-                method:"POST",
+        if(!email || !password){
 
-                headers:{
-                    "Content-Type":
-                    "application/json",
+            loginMessage.textContent =
+            "メールアドレスとパスワードを入力してください。";
 
-                    "apikey":
-                    SUPABASE_KEY
-                },
+            return;
 
-                body:JSON.stringify({
-                    email:email,
-                    password:password
-                })
+        }
+
+
+        try{
+
+            const response =
+            await fetch(
+                `${SUPABASE_URL}/auth/v1/token?grant_type=password`,
+                {
+                    method:"POST",
+
+                    headers:{
+                        "Content-Type":
+                        "application/json",
+
+                        "apikey":
+                        SUPABASE_KEY
+                    },
+
+                    body:JSON.stringify({
+                        email:email,
+                        password:password
+                    })
+                }
+            );
+
+
+            const data =
+            await response.json();
+
+
+            if(!response.ok){
+
+                loginMessage.textContent =
+                "メールアドレスまたはパスワードが違います。";
+
+                return;
+
             }
-        );
 
 
-        const data =
-        await response.json();
+            localStorage.setItem(
+                "admin_access_token",
+                data.access_token
+            );
 
 
-        if(response.ok){
+            location.href =
+            "admin-dashboard.html";
 
-            loginMessage.textContent =
-            "ログイン成功！";
 
-            console.log(data);
-
-        }else{
+        }catch(error){
 
             loginMessage.textContent =
-            "メールアドレスまたはパスワードが違います。";
+            "ログインに失敗しました。";
+
+            console.error(error);
 
         }
 
