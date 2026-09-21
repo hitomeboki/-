@@ -241,6 +241,8 @@ async function sendAnswerToSupabase(
     mode
 ){
 
+    alert("② sendAnswerToSupabaseが動いた");
+
     try{
 
         const response = await fetch(
