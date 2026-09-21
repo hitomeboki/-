@@ -273,14 +273,13 @@ async function sendAnswerToSupabase(
     "answer_records:",
     response.status
 );
+}catch(error){
 
-    }catch(error){
+    alert(
+        "answer_records送信エラー:\n" +
+        error
+    );
 
-        console.error(
-            "answer_records送信エラー:",
-            error
-        );
-
-    }
+}
 
 }
