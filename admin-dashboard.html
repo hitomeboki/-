@@ -95,6 +95,26 @@ h1{
 
 <h1>ひとめぼき道場 管理ダッシュボード</h1>
 
+<button id="logoutBtn">
+    ログアウト
+</button>
+
+<style>
+
+#logoutBtn{
+    display:block;
+    margin:0 auto 25px;
+    padding:10px 20px;
+    border:none;
+    border-radius:10px;
+    background:#222;
+    color:white;
+    font-size:15px;
+    cursor:pointer;
+}
+
+</style>
+
 <p id="lastUpdated" style="text-align:center;color:#666;margin-bottom:25px;">
     データを読み込み中…
 </p>
@@ -305,6 +325,12 @@ document.getElementById(
 ).textContent =
 accuracy + "%";
 
+document.getElementById(
+    "lastUpdated"
+).textContent =
+"最終更新：" +
+new Date().toLocaleString("ja-JP");
+
     }catch(error){
 
         console.error(error);
@@ -317,13 +343,27 @@ accuracy + "%";
 
 }
 
-document.getElementById(
-    "lastUpdated"
-).textContent =
-"最終更新：" +
-new Date().toLocaleString("ja-JP");
-
 loadDashboard();
+
+</script>
+
+<script>
+
+document.getElementById(
+    "logoutBtn"
+).addEventListener(
+    "click",
+    function(){
+
+        localStorage.removeItem(
+            "admin_access_token"
+        );
+
+        location.href =
+        "admin.html";
+
+    }
+);
 
 </script>
 
