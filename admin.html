@@ -248,6 +248,83 @@ id="totalCorrect">
 
 </div>
 
+<script>
+
+const SUPABASE_URL =
+"https://atntpiskoizpysukygcb.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_y1wlMl-CRMTt-6us0M-P4Q_8OPouULn";
+
+const emailInput =
+document.getElementById("email");
+
+const passwordInput =
+document.getElementById("password");
+
+const loginBtn =
+document.getElementById("loginBtn");
+
+const loginMessage =
+document.getElementById("loginMessage");
+
+
+loginBtn.addEventListener(
+    "click",
+    async function(){
+
+        const email =
+        emailInput.value;
+
+        const password =
+        passwordInput.value;
+
+
+        const response =
+        await fetch(
+            `${SUPABASE_URL}/auth/v1/token?grant_type=password`,
+            {
+                method:"POST",
+
+                headers:{
+                    "Content-Type":
+                    "application/json",
+
+                    "apikey":
+                    SUPABASE_KEY
+                },
+
+                body:JSON.stringify({
+                    email:email,
+                    password:password
+                })
+            }
+        );
+
+
+        const data =
+        await response.json();
+
+
+        if(response.ok){
+
+            loginMessage.textContent =
+            "ログイン成功！";
+
+            console.log(data);
+
+        }else{
+
+            loginMessage.textContent =
+            "メールアドレスまたはパスワードが違います。";
+
+        }
+
+    }
+);
+
+</script>
+
 </body>
 
 </html>
