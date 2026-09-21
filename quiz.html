@@ -246,6 +246,16 @@ function checkAnswer(answer) {
         correct ? 1 : 0
     );
 
+    sendAnswerToSupabase(
+    q.question.replace(
+        "は何に分類される？",
+        ""
+    ),
+    q.answer,
+    correct,
+    "一問一答"
+);
+
 
     // =========================
     // 正解

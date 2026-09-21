@@ -233,3 +233,49 @@ function saveStudyRecord(answered, correct){
     sendToSupabase(answered, correct);
 
 }
+
+async function sendAnswerToSupabase(
+    question,
+    category,
+    isCorrect,
+    mode
+){
+
+    try{
+
+        await fetch(
+            `${SUPABASE_URL}/rest/v1/answer_records`,
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json",
+                    "apikey": SUPABASE_KEY,
+                    "Authorization": `Bearer ${SUPABASE_KEY}`,
+                    "Prefer": "return=minimal"
+                },
+
+                body: JSON.stringify({
+
+                    id: crypto.randomUUID(),
+                    user_id: userId,
+                    mode: mode,
+                    question: question,
+                    category: category,
+                    is_correct: isCorrect
+
+                })
+
+            }
+        );
+
+    }catch(error){
+
+        console.error(
+            "answer_records送信エラー:",
+            error
+        );
+
+    }
+
+}
