@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>利用状況 | ひとめぼき道場</title>
+
+</head>
+
+<body>
+
+<h1>📊 利用状況</h1>
+
+<div>
+
+    <label>
+        日付：
+        <input type="date" id="usageDate">
+    </label>
+
+</div>
+
+<div id="usageResult">
+
+    <p>日付を選択してください。</p>
+
+</div>
+
+<a href="admin-dashboard.html">
+    ← 管理メニューに戻る
+</a>
+
+<script>
+
+const SUPABASE_URL =
+"https://atntpiskoizpysukygcb.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_y1wlMl-CRMTt-6us0M-P4Q_8OPouULn";
+
+const token =
+localStorage.getItem("admin_access_token");
+
+
+document.getElementById(
+    "usageDate"
+).addEventListener(
+    "change",
+    async function(){
+
+        const selectedDate =
+        this.value;
+
+        const response =
+        await fetch(
+            `${SUPABASE_URL}/rest/v1/rpc/get_daily_usage`,
+            {
+                method:"POST",
+
+                headers:{
+                    "Content-Type":
+                    "application/json",
+
+                    "apikey":
+                    SUPABASE_KEY,
+
+                    "Authorization":
+                    `Bearer ${token}`
+                },
+
+                body:JSON.stringify({
+                    target_date:
+                    selectedDate
+                })
+            }
+        );
+
+
+        if(!response.ok){
+
+            alert(
+                "データ取得に失敗しました"
+            );
+
+            return;
+
+        }
+
+
+        const data =
+        await response.json();
+
+        const stats =
+        data[0];
+
+
+        const accuracy =
+        stats.questions > 0
+        ? (
+            stats.correct /
+            stats.questions *
+            100
+          ).toFixed(1)
+        : 0;
+
+
+        document.getElementById(
+            "usageResult"
+        ).innerHTML = `
+
+            <div>
+                <h2>利用者数</h2>
+                <p>${stats.users}人</p>
+            </div>
+
+            <div>
+                <h2>学習記録</h2>
+                <p>${stats.records}回</p>
+            </div>
+
+            <div>
+                <h2>問題数</h2>
+                <p>${stats.questions}問</p>
+            </div>
+
+            <div>
+                <h2>正解数</h2>
+                <p>${stats.correct}問</p>
+            </div>
+
+            <div>
+                <h2>正解率</h2>
+                <p>${accuracy}%</p>
+            </div>
+
+        `;
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>

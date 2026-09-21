@@ -66,6 +66,38 @@ h1{
     color:#666;
 }
 
+.menu{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
+    margin-bottom:30px;
+}
+
+.menu-btn{
+    display:block;
+    background:white;
+    padding:22px;
+    border-radius:16px;
+    box-shadow:0 3px 12px rgba(0,0,0,0.08);
+    text-decoration:none;
+    color:#222;
+    font-size:17px;
+    font-weight:bold;
+    text-align:center;
+}
+
+.menu-btn:active{
+    transform:scale(0.98);
+}
+
+@media(max-width:600px){
+
+    .menu{
+        grid-template-columns:1fr;
+    }
+
+}
+
 .number{
     font-size:32px;
 
@@ -115,6 +147,29 @@ h1{
 
 <div class="stats">
 
+<div class="menu">
+
+    <a href="admin-usage.html" class="menu-btn">
+        📊 利用状況
+    </a>
+
+    <a href="admin-learning.html" class="menu-btn">
+        📚 学習状況
+    </a>
+
+    <a href="admin-trends.html" class="menu-btn">
+        📈 利用推移
+    </a>
+
+    <a href="admin-modes.html" class="menu-btn">
+        🎯 モード別分析
+    </a>
+
+    <a href="admin-weak.html" class="menu-btn">
+        📕 苦手分析
+    </a>
+
+</div>
 
 <div class="card">
 <h2>今日の利用者</h2>
