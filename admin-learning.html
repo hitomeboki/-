@@ -97,79 +97,67 @@ async function loadLearningStats(){
 
     const response =
         await fetch(
-            `${SUPABASE_URL}/rest/v1/study_records?select=questions,correct`,
+            `${SUPABASE_URL}/rest/v1/rpc/get_learning_stats`,
             {
+                method:"POST",
+
                 headers:{
-                    "apikey":SUPABASE_KEY,
+                    "Content-Type":
+                        "application/json",
+
+                    "apikey":
+                        SUPABASE_KEY,
+
                     "Authorization":
                         `Bearer ${token}`
                 }
             }
         );
 
+
     const data =
         await response.json();
 
+
     if(!response.ok){
 
-        console.error(data);
+        console.error(
+            "学習状況取得エラー：",
+            data
+        );
 
         return;
     }
 
 
-    let totalQuestions = 0;
-    let totalCorrect = 0;
-
-
-    data.forEach(record => {
-
-        totalQuestions +=
-            Number(record.questions);
-
-        totalCorrect +=
-            Number(record.correct);
-
-    });
-
-
-    const totalIncorrect =
-        totalQuestions -
-        totalCorrect;
-
-
-    const totalAccuracy =
-        totalQuestions > 0
-        ? (
-            totalCorrect /
-            totalQuestions *
-            100
-          ).toFixed(1)
-        : "0.0";
+    const result =
+        data[0];
 
 
     document.getElementById(
         "totalQuestions"
     ).textContent =
-        totalQuestions + "問";
+        result.total_questions + "問";
 
 
     document.getElementById(
         "totalCorrect"
     ).textContent =
-        totalCorrect + "問";
+        result.total_correct + "問";
 
 
     document.getElementById(
         "totalIncorrect"
     ).textContent =
-        totalIncorrect + "問";
+        result.total_incorrect + "問";
 
 
     document.getElementById(
         "totalAccuracy"
     ).textContent =
-        totalAccuracy + "%";
+        Number(
+            result.total_accuracy
+        ).toFixed(1) + "%";
 
 }
 
@@ -177,6 +165,5 @@ async function loadLearningStats(){
 loadLearningStats();
 
 </script>
-
 </body>
 </html>
