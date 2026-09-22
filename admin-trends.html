@@ -3,9 +3,403 @@
 <head>
     <meta charset="UTF-8">
     <title>ひとめぼき道場 管理画面</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+
+        body{
+            font-family:Arial,sans-serif;
+            background:#f7f7f7;
+            margin:0;
+            padding:30px;
+        }
+
+        h1{
+            text-align:center;
+            margin-bottom:30px;
+        }
+
+        .trends-card{
+            max-width:1000px;
+            margin:30px auto;
+            padding:30px;
+            background:white;
+            border-radius:16px;
+            box-shadow:0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .trends-card h2{
+            margin-top:0;
+            margin-bottom:20px;
+        }
+
+        .period-buttons{
+            display:flex;
+            gap:12px;
+            margin-bottom:20px;
+        }
+
+        .period-buttons button{
+            padding:12px 20px;
+            border:none;
+            border-radius:10px;
+            background:#f1f1f1;
+            font-size:16px;
+            cursor:pointer;
+        }
+
+        .period-buttons button.active{
+            background:#222;
+            color:white;
+        }
+
+        .custom-period{
+            display:flex;
+            align-items:center;
+            gap:15px;
+            margin-top:20px;
+        }
+
+        .custom-period input{
+            width:220px;
+            height:48px;
+            padding:0 12px;
+            font-size:16px;
+            box-sizing:border-box;
+            border:1px solid #ccc;
+            border-radius:10px;
+        }
+
+        .custom-period span{
+            font-size:20px;
+            font-weight:bold;
+        }
+
+        .chart-box{
+            margin-top:30px;
+        }
+
+        canvas{
+            max-height:400px;
+        }
+
+        .back-btn{
+            display:block;
+            width:300px;
+            margin:40px auto 20px;
+            padding:16px;
+            background:#222;
+            color:white;
+            text-align:center;
+            text-decoration:none;
+            font-size:17px;
+            font-weight:bold;
+            border-radius:12px;
+        }
+
+        .back-btn:active{
+            transform:scale(0.98);
+        }
+
+    </style>
 </head>
 
 <body>
+
+<h1>📈 利用推移</h1>
+
+<section class="trends-card">
+
+    <h2>📊 利用状況の推移</h2>
+
+    <div class="period-buttons">
+
+        <button id="days7">7日</button>
+
+        <button id="days30" class="active">30日</button>
+
+        <button id="days90">90日</button>
+
+        <button id="customBtn">期間指定</button>
+
+    </div>
+
+    <div
+        class="custom-period"
+        id="customPeriod"
+        style="display:none;"
+    >
+
+        <input
+            type="date"
+            id="trendStart"
+        >
+
+        <span>〜</span>
+
+        <input
+            type="date"
+            id="trendEnd"
+        >
+
+    </div>
+
+    <div class="chart-box">
+
+        <canvas id="usersChart"></canvas>
+
+    </div>
+
+</section>
+
+<section class="trends-card">
+
+    <h2>📚 学習記録数の推移</h2>
+
+    <div class="chart-box">
+
+        <canvas id="recordsChart"></canvas>
+
+    </div>
+
+</section>
+
+<section class="trends-card">
+
+    <h2>📝 問題数の推移</h2>
+
+    <div class="chart-box">
+
+        <canvas id="questionsChart"></canvas>
+
+    </div>
+
+</section>
+
+<section class="trends-card">
+
+    <h2>🎯 正解率の推移</h2>
+
+    <div class="chart-box">
+
+        <canvas id="accuracyChart"></canvas>
+
+    </div>
+
+</section>
+
+<a
+    href="admin-dashboard.html"
+    class="back-btn"
+>
+    ← 管理メニューに戻る
+</a>
+
+<script>
+
+const SUPABASE_URL =
+"https://atntpiskoizpysukygcb.supabase.co";
+
+const SUPABASE_KEY =
+"USER PUBLISHABLE KEY";
+
+const token =
+localStorage.getItem("admin_access_token");
+
+async function loadTrendData(start, end){
+
+    
+
+    const response =
+        await fetch(
+            `${SUPABASE_URL}/rest/v1/rpc/get_usage_daily_stats`,
+            {
+                method:"POST",
+
+                headers:{
+                    "Content-Type":
+                        "application/json",
+
+                    "apikey":
+                        SUPABASE_KEY,
+
+                    "Authorization":
+                        `Bearer ${token}`
+                },
+
+                body:JSON.stringify({
+                    start_date:start,
+                    end_date:end
+                })
+            }
+        );
+
+    
+
+    const data =
+        await response.json();
+
+    if(!response.ok){
+        console.error(
+            "利用推移取得エラー：",
+            data
+        );
+        return;
+    }
+
+    const labels =
+    data.map(row => row.study_date);
+
+const users =
+    data.map(row => row.users);
+
+if(window.usersChartInstance){
+    window.usersChartInstance.destroy();
+}
+
+const ctx =
+    document
+        .getElementById("usersChart")
+        .getContext("2d");
+
+window.usersChartInstance =
+    new Chart(
+        ctx,
+        {
+            type:"line",
+
+            data:{
+                labels:labels,
+
+                datasets:[
+                    {
+                        label:"利用者数",
+
+                        data:users,
+
+                        borderWidth:2,
+
+                        tension:0.3
+                    }
+                ]
+            },
+
+            options:{
+                responsive:true,
+
+                scales:{
+                    y:{
+                        beginAtZero:true,
+
+                        ticks:{
+                            stepSize:1
+                        }
+                    }
+                }
+            }
+        }
+    );
+}
+
+// 期間を指定してグラフを読み込む
+function setTrendPeriod(days){
+
+    const end =
+        new Date();
+
+    const start =
+        new Date();
+
+    start.setDate(
+        end.getDate() - (days - 1)
+    );
+
+    const startText =
+        start.toISOString().slice(0,10);
+
+    const endText =
+        end.toISOString().slice(0,10);
+
+    document.getElementById("trendStart").value =
+        startText;
+
+    document.getElementById("trendEnd").value =
+        endText;
+
+    loadTrendData(
+        startText,
+        endText
+    );
+}
+
+document.getElementById("days7").addEventListener(
+    "click",
+    function(){
+
+        document
+            .querySelectorAll(".period-buttons button")
+            .forEach(btn => {
+                btn.classList.remove("active");
+            });
+
+        this.classList.add("active");
+
+        setTrendPeriod(7);
+    }
+);
+
+document.getElementById("days30").addEventListener(
+    "click",
+    function(){
+
+        document
+            .querySelectorAll(".period-buttons button")
+            .forEach(btn => {
+                btn.classList.remove("active");
+            });
+
+        this.classList.add("active");
+
+        setTrendPeriod(30);
+    }
+);
+
+document.getElementById("days90").addEventListener(
+    "click",
+    function(){
+
+        document
+            .querySelectorAll(".period-buttons button")
+            .forEach(btn => {
+                btn.classList.remove("active");
+            });
+
+        this.classList.add("active");
+
+        setTrendPeriod(90);
+    }
+);
+
+document.getElementById("customBtn").addEventListener(
+    "click",
+    function(){
+
+        document
+            .querySelectorAll(".period-buttons button")
+            .forEach(btn => {
+                btn.classList.remove("active");
+            });
+
+        this.classList.add("active");
+
+        document.getElementById("customPeriod").style.display =
+            "flex";
+    }
+);
+
+setTrendPeriod(30);
+</script>
 
 </body>
 </html>
