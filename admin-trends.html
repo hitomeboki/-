@@ -300,8 +300,108 @@ window.usersChartInstance =
             }
         }
     );
+const records =
+    data.map(row => row.records);
+
+if(window.recordsChartInstance){
+    window.recordsChartInstance.destroy();
 }
 
+const recordsCtx =
+    document
+        .getElementById("recordsChart")
+        .getContext("2d");
+
+window.recordsChartInstance =
+    new Chart(
+        recordsCtx,
+        {
+            type:"line",
+
+            data:{
+                labels:labels,
+
+                datasets:[
+                    {
+                        label:"学習記録数",
+
+                        data:records,
+
+                        borderWidth:2,
+
+                        tension:0.3
+                    }
+                ]
+            },
+
+            options:{
+                responsive:true,
+
+                scales:{
+                    y:{
+                        beginAtZero:true,
+
+                        ticks:{
+                            stepSize:1
+                        }
+                    }
+                }
+            }
+        }
+    );
+
+    const questions =
+    data.map(row => row.questions);
+
+if(window.questionsChartInstance){
+    window.questionsChartInstance.destroy();
+}
+
+const questionsCtx =
+    document
+        .getElementById("questionsChart")
+        .getContext("2d");
+
+window.questionsChartInstance =
+    new Chart(
+        questionsCtx,
+        {
+            type:"line",
+
+            data:{
+                labels:labels,
+
+                datasets:[
+                    {
+                        label:"問題数",
+
+                        data:questions,
+
+                        borderWidth:2,
+
+                        tension:0.3
+                    }
+                ]
+            },
+
+            options:{
+                responsive:true,
+
+                scales:{
+                    y:{
+                        beginAtZero:true,
+
+                        ticks:{
+                            stepSize:1
+                        }
+                    }
+                }
+            }
+               }
+    );
+
+}
+    
 // 期間を指定してグラフを読み込む
 function setTrendPeriod(days){
 
