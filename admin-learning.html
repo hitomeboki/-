@@ -85,26 +85,6 @@
 
 <section class="learning-card">
 
-    <h2>📈 1回あたりの学習量</h2>
-
-    <div class="learning-stats">
-
-        <div>
-            <span>1回平均問題数</span>
-            <strong id="avgQuestions">-</strong>
-        </div>
-
-        <div>
-            <span>1回平均正解数</span>
-            <strong id="avgCorrect">-</strong>
-        </div>
-
-    </div>
-
-</section>
-
-<section class="learning-card">
-
     <h2>📈 学習量の推移</h2>
 
     <div class="chart-inputs">
@@ -207,75 +187,7 @@ async function loadLearningStats(){
 
 }
 
-async function loadLearningAverage(){
-
-    const response =
-        await fetch(
-            `${SUPABASE_URL}/rest/v1/rpc/get_learning_average`,
-            {
-                method:"POST",
-
-                headers:{
-                    "Content-Type":
-                        "application/json",
-
-                    "apikey":
-                        SUPABASE_KEY,
-
-                    "Authorization":
-                        `Bearer ${token}`
-                }
-            }
-        );
-
-
-    const data =
-        await response.json();
-
-
-    if(!response.ok){
-
-        console.error(
-            "平均学習状況取得エラー：",
-            data
-        );
-
-        return;
-    }
-
-
-    const result =
-        data[0];
-
-
-    document.getElementById(
-        "avgQuestions"
-    ).textContent =
-        Number(
-            result.avg_questions
-        ).toFixed(1) + "問";
-
-
-    document.getElementById(
-        "avgCorrect"
-    ).textContent =
-        Number(
-            result.avg_correct
-        ).toFixed(1) + "問";
-
-}
-
-
-loadLearningAverage();
-
 loadLearningStats();
-
-document.getElementById(
-    "learningEnd"
-).addEventListener(
-    "change",
-    loadLearningPeriod
-);
 
 async function loadLearningChart(){
 
