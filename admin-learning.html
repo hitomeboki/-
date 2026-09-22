@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>ひとめぼき道場 管理画面</title>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
     <style>
 
         .learning-card{
@@ -131,6 +133,30 @@
         <p>期間を選択してください。</p>
 
     </div>
+
+</section>
+
+<section class="learning-card">
+
+    <h2>📈 学習量の推移</h2>
+
+    <div class="chart-inputs">
+
+        <input
+            type="date"
+            id="chartStart"
+        >
+
+        <span>〜</span>
+
+        <input
+            type="date"
+            id="chartEnd"
+        >
+
+    </div>
+
+    <canvas id="learningChart"></canvas>
 
 </section>
 
@@ -408,6 +434,164 @@ document.getElementById(
 ).addEventListener(
     "change",
     loadLearningPeriod
+);
+
+async function loadLearningChart(){
+
+    const start =
+        document.getElementById(
+            "chartStart"
+        ).value;
+
+    const end =
+        document.getElementById(
+            "chartEnd"
+        ).value;
+
+
+    if(!start || !end){
+
+        return;
+    }
+
+
+    if(start > end){
+
+        return;
+    }
+
+
+    const response =
+        await fetch(
+            `${SUPABASE_URL}/rest/v1/rpc/get_learning_daily_stats`,
+            {
+                method:"POST",
+
+                headers:{
+                    "Content-Type":
+                        "application/json",
+
+                    "apikey":
+                        SUPABASE_KEY,
+
+                    "Authorization":
+                        `Bearer ${token}`
+                },
+
+                body:JSON.stringify({
+                    start_date:start,
+                    end_date:end
+                })
+            }
+        );
+
+
+    const data =
+        await response.json();
+
+
+    if(!response.ok){
+
+        console.error(
+            "学習推移取得エラー：",
+            data
+        );
+
+        return;
+    }
+
+
+    const canvas =
+        document.getElementById(
+            "learningChart"
+        );
+
+    const ctx =
+        canvas.getContext("2d");
+
+
+    if(window.learningChartInstance){
+
+        window.learningChartInstance.destroy();
+
+    }
+
+
+    window.learningChartInstance =
+        new Chart(
+            ctx,
+            {
+                type:"line",
+
+                data:{
+                    labels:
+                        data.map(
+                            item =>
+                                item.study_date
+                        ),
+
+                    datasets:[
+
+                        {
+                            label:"総問題数",
+
+                            data:
+                                data.map(
+                                    item =>
+                                        item.questions
+                                ),
+
+                            borderWidth:2,
+
+                            tension:0.3
+                        },
+
+                        {
+                            label:"総正解数",
+
+                            data:
+                                data.map(
+                                    item =>
+                                        item.correct
+                                ),
+
+                            borderWidth:2,
+
+                            tension:0.3
+                        }
+
+                    ]
+                },
+
+                options:{
+                    responsive:true,
+
+                    maintainAspectRatio:true,
+
+                    scales:{
+                        y:{
+                            beginAtZero:true
+                        }
+                    }
+                }
+            }
+        );
+}
+
+
+document.getElementById(
+    "chartStart"
+).addEventListener(
+    "change",
+    loadLearningChart
+);
+
+
+document.getElementById(
+    "chartEnd"
+).addEventListener(
+    "change",
+    loadLearningChart
 );
 
 </script>
