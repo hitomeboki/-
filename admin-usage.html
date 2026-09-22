@@ -130,15 +130,6 @@ content="width=device-width, initial-scale=1.0">
 
 </div>
 
-<div style="margin-top:25px;">
-
-    <label>
-        月：
-        <input type="month" id="usageMonth">
-    </label>
-
-</div>
-
 <div id="monthlyResult">
 
     <p>月を選択してください。</p>
@@ -195,111 +186,6 @@ const SUPABASE_KEY =
 
 const token =
     localStorage.getItem("admin_access_token");
-
-
-document.getElementById(
-    "usageMonth"
-).addEventListener(
-    "change",
-    async function(){
-
-        const selectedMonth = this.value;
-
-        if(!selectedMonth){
-            return;
-        }
-
-        const [year, month] =
-            selectedMonth.split("-");
-
-        const response =
-            await fetch(
-                `${SUPABASE_URL}/rest/v1/rpc/get_monthly_usage`,
-                {
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type":
-                            "application/json",
-
-                        "apikey":
-                            SUPABASE_KEY,
-
-                        "Authorization":
-                            `Bearer ${token}`
-                    },
-
-                    body: JSON.stringify({
-                        target_year:
-                            Number(year),
-
-                        target_month:
-                            Number(month)
-                    })
-                }
-            );
-
-        const data =
-            await response.json();
-
-        if(!response.ok){
-
-            document.getElementById(
-                "monthlyResult"
-            ).innerHTML =
-                "<p>データ取得に失敗しました。</p>";
-
-            console.error(data);
-
-            return;
-        }
-
-        const result = data[0];
-
-        const accuracy =
-            result.questions > 0
-            ? (
-                result.correct /
-                result.questions *
-                100
-              ).toFixed(1)
-            : "0.0";
-
-
-        document.getElementById(
-            "monthlyResult"
-        ).innerHTML = `
-
-            <h2>${year}年${Number(month)}月</h2>
-
-            <p>
-                利用者数：
-                ${result.users}
-            </p>
-
-            <p>
-                学習記録：
-                ${result.records}
-            </p>
-
-            <p>
-                問題数：
-                ${result.questions}
-            </p>
-
-            <p>
-                正解数：
-                ${result.correct}
-            </p>
-
-            <p>
-                正解率：
-                ${accuracy}%
-            </p>
-
-        `;
-
-    });
 
 document.getElementById(
     "periodEnd"
@@ -495,6 +381,94 @@ async function loadAllTimeRecords(){
     `;
 }
 
+async function loadMonthlyUsage(year, month){
+
+    const response =
+        await fetch(
+            `${SUPABASE_URL}/rest/v1/rpc/get_monthly_usage`,
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/json",
+
+                    "apikey":
+                        SUPABASE_KEY,
+
+                    "Authorization":
+                        `Bearer ${token}`
+                },
+
+                body: JSON.stringify({
+                    target_year:
+                        year,
+
+                    target_month:
+                        month
+                })
+            }
+        );
+
+    const data =
+        await response.json();
+
+    if(!response.ok){
+
+        document.getElementById(
+            "monthlyResult"
+        ).innerHTML =
+            "<p>月間データの取得に失敗しました。</p>";
+
+        console.error(data);
+
+        return;
+    }
+
+    const result = data[0];
+
+    const accuracy =
+        result.questions > 0
+        ? (
+            result.correct /
+            result.questions *
+            100
+          ).toFixed(1)
+        : "0.0";
+
+    document.getElementById(
+        "monthlyResult"
+    ).innerHTML = `
+
+        <h2>${year}年${month}月</h2>
+
+        <p>
+            利用者数：
+            ${result.users}人
+        </p>
+
+        <p>
+            学習記録：
+            ${result.records}回
+        </p>
+
+        <p>
+            問題数：
+            ${result.questions}問
+        </p>
+
+        <p>
+            正解数：
+            ${result.correct}問
+        </p>
+
+        <p>
+            正解率：
+            ${accuracy}%
+        </p>
+
+    `;
+}
 
 loadAllTimeRecords();
 
@@ -517,6 +491,11 @@ function renderCalendar(){
 
     calendarTitle.textContent =
         `${year}年${month + 1}月`;
+
+    loadMonthlyUsage(
+    year,
+    month + 1
+);
 
     calendarDays.innerHTML = "";
 
