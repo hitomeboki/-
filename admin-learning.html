@@ -106,6 +106,34 @@
 
 </section>
 
+<section class="learning-card">
+
+    <h2>📅 期間指定</h2>
+
+    <div class="period-inputs">
+
+        <input
+            type="date"
+            id="learningStart"
+        >
+
+        <span>〜</span>
+
+        <input
+            type="date"
+            id="learningEnd"
+        >
+
+    </div>
+
+    <div id="learningPeriodResult">
+
+        <p>期間を選択してください。</p>
+
+    </div>
+
+</section>
+
 <script>
 
 const SUPABASE_URL =
@@ -256,6 +284,131 @@ async function loadLearningAverage(){
 loadLearningAverage();
 
 loadLearningStats();
+
+async function loadLearningPeriod(){
+
+    const start =
+        document.getElementById(
+            "learningStart"
+        ).value;
+
+    const end =
+        document.getElementById(
+            "learningEnd"
+        ).value;
+
+
+    if(!start || !end){
+
+        return;
+    }
+
+
+    if(start > end){
+
+        document.getElementById(
+            "learningPeriodResult"
+        ).innerHTML =
+            "<p>開始日は終了日より前にしてください。</p>";
+
+        return;
+    }
+
+
+    const response =
+        await fetch(
+            `${SUPABASE_URL}/rest/v1/rpc/get_learning_period`,
+            {
+                method:"POST",
+
+                headers:{
+                    "Content-Type":
+                        "application/json",
+
+                    "apikey":
+                        SUPABASE_KEY,
+
+                    "Authorization":
+                        `Bearer ${token}`
+                },
+
+                body:JSON.stringify({
+                    start_date:start,
+                    end_date:end
+                })
+            }
+        );
+
+
+    const data =
+        await response.json();
+
+
+    if(!response.ok){
+
+        console.error(
+            "期間学習状況取得エラー：",
+            data
+        );
+
+        return;
+    }
+
+
+    const result =
+        data[0];
+
+
+    document.getElementById(
+        "learningPeriodResult"
+    ).innerHTML = `
+
+        <p>
+            総問題数：
+            <strong>
+                ${result.total_questions}問
+            </strong>
+        </p>
+
+        <p>
+            総正解数：
+            <strong>
+                ${result.total_correct}問
+            </strong>
+        </p>
+
+        <p>
+            総不正解数：
+            <strong>
+                ${result.total_incorrect}問
+            </strong>
+        </p>
+
+        <p>
+            正解率：
+            <strong>
+                ${Number(result.total_accuracy).toFixed(1)}%
+            </strong>
+        </p>
+
+    `;
+}
+
+
+document.getElementById(
+    "learningStart"
+).addEventListener(
+    "change",
+    loadLearningPeriod
+);
+
+
+document.getElementById(
+    "learningEnd"
+).addEventListener(
+    "change",
+    loadLearningPeriod
+);
 
 </script>
 </body>
