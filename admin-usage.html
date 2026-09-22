@@ -77,6 +77,73 @@ content="width=device-width, initial-scale=1.0">
     outline:2px solid #222;
 }
 
+/* =========================
+   利用状況レイアウト
+========================= */
+
+.usage-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+    max-width:1000px;
+    margin:30px auto;
+}
+
+.usage-card{
+    background:white;
+    padding:25px;
+    border-radius:16px;
+    box-shadow:0 3px 12px rgba(0,0,0,0.08);
+}
+
+.usage-card h2{
+    margin-top:0;
+    margin-bottom:20px;
+}
+
+.period-section{
+    max-width:1000px;
+    margin:30px auto;
+    background:white;
+    padding:25px;
+    border-radius:16px;
+    box-shadow:0 3px 12px rgba(0,0,0,0.08);
+}
+
+.period-inputs{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:15px;
+    margin:20px 0;
+}
+
+.period-inputs input{
+    width:220px;
+    height:50px;
+    padding:0 12px;
+    font-size:17px;
+    box-sizing:border-box;
+}
+
+.period-inputs span{
+    font-size:24px;
+    font-weight:bold;
+}
+
+.record-section{
+    max-width:1000px;
+    margin:30px auto;
+    background:white;
+    padding:25px;
+    border-radius:16px;
+    box-shadow:0 3px 12px rgba(0,0,0,0.08);
+}
+
+.record-section h2{
+    margin-top:0;
+}
+
 </style>
 
 </head>
@@ -85,6 +152,9 @@ content="width=device-width, initial-scale=1.0">
 
 <h1>📊 利用状況</h1>
 
+<h1>📊 利用状況</h1>
+
+<!-- カレンダー -->
 <div class="calendar">
 
     <div class="calendar-header">
@@ -116,51 +186,68 @@ content="width=device-width, initial-scale=1.0">
 
 </div>
 
-<div
-    id="dailyResult"
-    style="margin-top:20px;">
 
-    <p>日付を選択してください。</p>
+<!-- 月別・日別 -->
+<div class="usage-grid">
 
-</div>
+    <div class="usage-card">
 
-<div id="usageResult">
+        <h2>📅 月別</h2>
 
-    <p>日付を選択してください。</p>
+        <div id="monthlyResult">
 
-</div>
+            <p>読み込み中...</p>
 
-<div id="monthlyResult">
+        </div>
 
-    <p>月を選択してください。</p>
+    </div>
 
-</div>
 
-<div style="margin-top:30px;">
+    <div class="usage-card">
 
-    <h2>期間指定</h2>
+        <h2>📅 日別</h2>
 
-    <label>
-        開始日：
-        <input type="date" id="periodStart">
-    </label>
+        <div id="dailyResult">
 
-    <br><br>
+            <p>日付を選択してください。</p>
 
-    <label>
-        終了日：
-        <input type="date" id="periodEnd">
-    </label>
+        </div>
+
+    </div>
 
 </div>
 
-<div id="periodResult">
 
-    <p>期間を選択してください。</p>
+<!-- 期間指定 -->
+<div class="period-section">
+
+    <h2>📆 期間指定</h2>
+
+    <div class="period-inputs">
+
+        <input
+            type="date"
+            id="periodStart">
+
+        <span>〜</span>
+
+        <input
+            type="date"
+            id="periodEnd">
+
+    </div>
+
+    <div id="periodResult">
+
+        <p>期間を選択してください。</p>
+
+    </div>
 
 </div>
 
-<div style="margin-top:30px;">
+
+<!-- 過去最高 -->
+<div class="record-section">
 
     <h2>🏆 過去最高</h2>
 
@@ -171,6 +258,7 @@ content="width=device-width, initial-scale=1.0">
     </div>
 
 </div>
+
 
 <a href="admin-dashboard.html">
     ← 管理メニューに戻る
