@@ -723,6 +723,9 @@ function renderCalendar(){
 const data =
     await response.json();
 
+console.log("取得データ：", data);
+console.log("HTTPステータス：", response.status);
+
 console.log("daily response:", response.status);
 console.log("daily data:", data);
 
