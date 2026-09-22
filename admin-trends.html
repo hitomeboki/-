@@ -241,12 +241,27 @@ async function loadTrendData(start, end){
         await response.json();
 
     if(!response.ok){
-        console.error(
-            "利用推移取得エラー：",
-            data
-        );
-        return;
-    }
+
+    alert(
+        "利用推移データの取得に失敗しました。\n" +
+        "HTTPステータス：" +
+        response.status +
+        "\n" +
+        JSON.stringify(data)
+    );
+
+    return;
+}
+
+if(data.length === 0){
+
+    alert(
+        "データが0件です。\n" +
+        "この期間には学習記録がありません。"
+    );
+
+    return;
+}
 
     const labels =
     data.map(row => row.study_date);
