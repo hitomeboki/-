@@ -400,6 +400,69 @@ window.questionsChartInstance =
                }
     );
 
+const accuracy =
+    data.map(row => {
+
+        if(row.questions === 0){
+            return 0;
+        }
+
+        return (
+            row.correct /
+            row.questions
+        ) * 100;
+    });
+
+if(window.accuracyChartInstance){
+    window.accuracyChartInstance.destroy();
+}
+
+const accuracyCtx =
+    document
+        .getElementById("accuracyChart")
+        .getContext("2d");
+
+window.accuracyChartInstance =
+    new Chart(
+        accuracyCtx,
+        {
+            type:"line",
+
+            data:{
+                labels:labels,
+
+                datasets:[
+                    {
+                        label:"正解率",
+
+                        data:accuracy,
+
+                        borderWidth:2,
+
+                        tension:0.3
+                    }
+                ]
+            },
+
+            options:{
+                responsive:true,
+
+                scales:{
+                    y:{
+                        beginAtZero:true,
+                        max:100,
+
+                        ticks:{
+                            callback:function(value){
+                                return value + "%";
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    );
+
 }
     
 // 期間を指定してグラフを読み込む
@@ -495,6 +558,38 @@ document.getElementById("customBtn").addEventListener(
 
         document.getElementById("customPeriod").style.display =
             "flex";
+    }
+);
+
+document.getElementById("trendStart").addEventListener(
+    "change",
+    function(){
+
+        const start =
+            document.getElementById("trendStart").value;
+
+        const end =
+            document.getElementById("trendEnd").value;
+
+        if(start && end){
+            loadTrendData(start, end);
+        }
+    }
+);
+
+document.getElementById("trendEnd").addEventListener(
+    "change",
+    function(){
+
+        const start =
+            document.getElementById("trendStart").value;
+
+        const end =
+            document.getElementById("trendEnd").value;
+
+        if(start && end){
+            loadTrendData(start, end);
+        }
     }
 );
 
