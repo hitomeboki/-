@@ -1,11 +1,631 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
+
 <head>
+
     <meta charset="UTF-8">
-    <title>ひとめぼき道場 管理画面</title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>苦手分析 | ひとめぼき道場</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+
+        body{
+            font-family:Arial,sans-serif;
+            background:#f7f7f7;
+            margin:0;
+            padding:30px;
+        }
+
+        h1{
+            text-align:center;
+            margin-bottom:30px;
+        }
+
+        .weak-card{
+            max-width:1000px;
+            margin:30px auto;
+            padding:30px;
+            background:white;
+            border-radius:16px;
+            box-shadow:0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .weak-card h2{
+            margin-top:0;
+            margin-bottom:20px;
+        }
+
+        .period-section{
+            max-width:1000px;
+            margin:30px auto;
+            padding:25px;
+            background:white;
+            border-radius:16px;
+            box-shadow:0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .period-inputs{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:15px;
+        }
+
+        .period-inputs input{
+            width:220px;
+            height:48px;
+            padding:0 12px;
+            font-size:16px;
+            box-sizing:border-box;
+            border:1px solid #ccc;
+            border-radius:10px;
+        }
+
+        .period-inputs span{
+            font-size:20px;
+            font-weight:bold;
+        }
+
+        .chart-box{
+            width:100%;
+            height:350px;
+        }
+
+        .chart-box canvas{
+            width:100% !important;
+            height:100% !important;
+        }
+
+        .weak-table{
+            width:100%;
+            border-collapse:collapse;
+            margin-top:20px;
+        }
+
+        .weak-table th,
+        .weak-table td{
+            padding:14px 10px;
+            text-align:center;
+            border-bottom:1px solid #eee;
+        }
+
+        .weak-table th{
+            background:#f5f5f5;
+        }
+
+        .back-btn{
+            display:block;
+            width:300px;
+            margin:40px auto 20px;
+            padding:16px;
+            background:#222;
+            color:white;
+            text-align:center;
+            text-decoration:none;
+            font-size:17px;
+            font-weight:bold;
+            border-radius:12px;
+        }
+
+        .back-btn:active{
+            transform:scale(0.98);
+        }
+
+        @media(max-width:700px){
+
+            body{
+                padding:15px;
+            }
+
+            .period-inputs{
+                flex-direction:column;
+            }
+
+            .period-inputs input{
+                width:100%;
+            }
+
+            .weak-table{
+                font-size:14px;
+            }
+
+            .weak-table th,
+            .weak-table td{
+                padding:10px 5px;
+            }
+
+        }
+
+    </style>
+
 </head>
 
 <body>
 
+<h1>📕 苦手分析</h1>
+
+
+<section class="period-section">
+
+    <h2>📆 期間指定</h2>
+
+    <div class="period-inputs">
+
+        <input
+            type="date"
+            id="weakStart">
+
+        <span>〜</span>
+
+        <input
+            type="date"
+            id="weakEnd">
+
+    </div>
+
+</section>
+
+
+<section class="weak-card">
+
+    <h2>📊 分類別正解率</h2>
+
+    <div class="chart-box">
+
+        <canvas id="categoryChart"></canvas>
+
+    </div>
+
+</section>
+
+
+<section class="weak-card">
+
+    <h2>📋 分類別詳細</h2>
+
+    <table class="weak-table">
+
+        <thead>
+
+            <tr>
+
+                <th>分類</th>
+
+                <th>問題数</th>
+
+                <th>正解</th>
+
+                <th>不正解</th>
+
+                <th>正解率</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="categoryTableBody">
+
+            <tr>
+
+                <td colspan="5">
+                    読み込み中...
+                </td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</section>
+
+
+<a
+    href="admin-dashboard.html"
+    class="back-btn"
+>
+    ← 管理メニューに戻る
+</a>
+
+
+<script>
+
+const SUPABASE_URL =
+    "https://atntpiskoizpysukygcb.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_y1wlMl-CRMTt-6us0M-P4Q_8OPouULn";
+
+
+// =========================
+// 日付設定
+// =========================
+
+const today = new Date();
+
+const thirtyDaysAgo = new Date();
+
+thirtyDaysAgo.setDate(
+    today.getDate() - 29
+);
+
+
+function formatDate(date){
+
+    const year =
+        date.getFullYear();
+
+    const month =
+        String(date.getMonth() + 1)
+            .padStart(2,"0");
+
+    const day =
+        String(date.getDate())
+            .padStart(2,"0");
+
+    return `${year}-${month}-${day}`;
+
+}
+
+
+document.getElementById("weakStart").value =
+    formatDate(thirtyDaysAgo);
+
+document.getElementById("weakEnd").value =
+    formatDate(today);
+
+
+// =========================
+// グラフ
+// =========================
+
+let categoryChart = null;
+
+
+// =========================
+// データ取得
+// =========================
+
+async function loadWeakData(){
+
+    const startDate =
+        document.getElementById("weakStart").value;
+
+    const endDate =
+        document.getElementById("weakEnd").value;
+
+
+    if(!startDate || !endDate){
+
+        return;
+
+    }
+
+
+    if(startDate > endDate){
+
+        alert(
+            "開始日は終了日以前にしてください"
+        );
+
+        return;
+
+    }
+
+
+    const token =
+        localStorage.getItem(
+            "admin_access_token"
+        );
+
+
+    if(!token){
+
+        alert(
+            "ログイン情報がありません"
+        );
+
+        location.href =
+            "admin.html";
+
+        return;
+
+    }
+
+
+    const response =
+        await fetch(
+            `${SUPABASE_URL}/rest/v1/rpc/get_weak_category_stats`,
+            {
+                method:"POST",
+
+                headers:{
+
+                    "Content-Type":
+                        "application/json",
+
+                    "apikey":
+                        SUPABASE_KEY,
+
+                    "Authorization":
+                        `Bearer ${token}`
+
+                },
+
+                body:JSON.stringify({
+
+                    start_date:
+                        startDate,
+
+                    end_date:
+                        endDate
+
+                })
+
+            }
+        );
+
+
+    const data =
+        await response.json();
+
+
+    if(!response.ok){
+
+        alert(
+            "苦手分析データの取得に失敗しました。\n" +
+            "HTTPステータス：" +
+            response.status +
+            "\n" +
+            JSON.stringify(data)
+        );
+
+        return;
+
+    }
+
+
+    updateCategoryTable(data);
+
+    updateCategoryChart(data);
+
+}
+
+
+// =========================
+// 表
+// =========================
+
+function updateCategoryTable(data){
+
+    const tbody =
+        document.getElementById(
+            "categoryTableBody"
+        );
+
+
+    const categories = [
+
+        "資産",
+        "負債",
+        "純資産",
+        "費用",
+        "収益",
+        "その他"
+
+    ];
+
+
+    let html = "";
+
+
+    for(const category of categories){
+
+        const item =
+            data.find(
+                row =>
+                    row.category === category
+            );
+
+
+        if(item){
+
+            html += `
+
+            <tr>
+
+                <td>${category}</td>
+
+                <td>
+                    ${Number(item.questions).toLocaleString()}
+                </td>
+
+                <td>
+                    ${Number(item.correct).toLocaleString()}
+                </td>
+
+                <td>
+                    ${Number(item.incorrect).toLocaleString()}
+                </td>
+
+                <td>
+                    ${Number(item.accuracy).toFixed(1)}%
+                </td>
+
+            </tr>
+
+            `;
+
+        }else{
+
+            html += `
+
+            <tr>
+
+                <td>${category}</td>
+
+                <td>0</td>
+
+                <td>0</td>
+
+                <td>0</td>
+
+                <td>0.0%</td>
+
+            </tr>
+
+            `;
+
+        }
+
+    }
+
+
+    tbody.innerHTML =
+        html;
+
+}
+
+
+// =========================
+// グラフ
+// =========================
+
+function updateCategoryChart(data){
+
+    const categories = [
+
+        "資産",
+        "負債",
+        "純資産",
+        "費用",
+        "収益",
+        "その他"
+
+    ];
+
+
+    const accuracyData =
+        categories.map(category => {
+
+            const item =
+                data.find(
+                    row =>
+                        row.category === category
+                );
+
+            return item
+                ? Number(item.accuracy)
+                : 0;
+
+        });
+
+
+    if(categoryChart){
+
+        categoryChart.destroy();
+
+    }
+
+
+    const canvas =
+        document.getElementById(
+            "categoryChart"
+        );
+
+
+    categoryChart =
+        new Chart(
+            canvas,
+            {
+
+                type:"bar",
+
+                data:{
+
+                    labels:categories,
+
+                    datasets:[{
+
+                        label:"正解率",
+
+                        data:accuracyData
+
+                    }]
+
+                },
+
+                options:{
+
+                    responsive:true,
+
+                    maintainAspectRatio:false,
+
+                    scales:{
+
+                        y:{
+
+                            beginAtZero:true,
+
+                            max:100,
+
+                            ticks:{
+
+                                callback:
+                                    function(value){
+
+                                        return value + "%";
+
+                                    }
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        );
+
+}
+
+
+// =========================
+// 日付変更
+// =========================
+
+document
+    .getElementById("weakStart")
+    .addEventListener(
+        "change",
+        loadWeakData
+    );
+
+
+document
+    .getElementById("weakEnd")
+    .addEventListener(
+        "change",
+        loadWeakData
+    );
+
+
+// =========================
+// 初回読み込み
+// =========================
+
+loadWeakData();
+
+</script>
+
 </body>
+
 </html>
