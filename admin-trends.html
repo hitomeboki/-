@@ -155,18 +155,6 @@
 
 <section class="trends-card">
 
-    <h2>📚 学習記録数の推移</h2>
-
-    <div class="chart-box">
-
-        <canvas id="recordsChart"></canvas>
-
-    </div>
-
-</section>
-
-<section class="trends-card">
-
     <h2>📝 問題数の推移</h2>
 
     <div class="chart-box">
@@ -292,55 +280,6 @@ window.usersChartInstance =
                         label:"利用者数",
 
                         data:users,
-
-                        borderWidth:2,
-
-                        tension:0.3
-                    }
-                ]
-            },
-
-            options:{
-                responsive:true,
-
-                scales:{
-                    y:{
-                        beginAtZero:true,
-
-                        ticks:{
-                            stepSize:1
-                        }
-                    }
-                }
-            }
-        }
-    );
-const records =
-    data.map(row => row.records);
-
-if(window.recordsChartInstance){
-    window.recordsChartInstance.destroy();
-}
-
-const recordsCtx =
-    document
-        .getElementById("recordsChart")
-        .getContext("2d");
-
-window.recordsChartInstance =
-    new Chart(
-        recordsCtx,
-        {
-            type:"line",
-
-            data:{
-                labels:labels,
-
-                datasets:[
-                    {
-                        label:"学習記録数",
-
-                        data:records,
 
                         borderWidth:2,
 
