@@ -276,7 +276,11 @@ return;
 
 }
 
-saveStudyRecord(solved, score);
+saveStudyRecord(
+    solved,
+    score,
+    "分類"
+);
 
 let percentage = Math.round(score / selectedItems.length * 100);
 
