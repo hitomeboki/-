@@ -454,7 +454,13 @@ new Date().toLocaleString("ja-JP");
 
 }
 
-loadDashboard();
+checkAdminSession().then(function(isValid){
+
+    if(isValid){
+        loadDashboard();
+    }
+
+});
 
 </script>
 
