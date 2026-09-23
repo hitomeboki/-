@@ -337,13 +337,19 @@ async function loadDashboard(){
         );
 
 
-        if(!response.ok){
+if(!response.ok){
 
-            throw new Error(
-                "データ取得に失敗しました"
-            );
+    const errorText =
+        await response.text();
 
-        }
+    throw new Error(
+        "HTTP " +
+        response.status +
+        "\n" +
+        errorText
+    );
+
+}
 
 
         const data =
@@ -440,8 +446,9 @@ new Date().toLocaleString("ja-JP");
         console.error(error);
 
         alert(
-            "データの読み込みに失敗しました"
-        );
+    "データの読み込みに失敗しました\n\n" +
+    error.message
+);
 
     }
 
