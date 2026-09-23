@@ -262,6 +262,405 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
     "USER PUBLISHABLE KEY";
 
+
+// =========================
+// 日付を設定
+// =========================
+
+const today = new Date();
+
+const thirtyDaysAgo = new Date();
+thirtyDaysAgo.setDate(
+    today.getDate() - 29
+);
+
+function formatDate(date){
+
+    const year =
+        date.getFullYear();
+
+    const month =
+        String(date.getMonth() + 1)
+            .padStart(2, "0");
+
+    const day =
+        String(date.getDate())
+            .padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+
+}
+
+
+document.getElementById("modeStart").value =
+    formatDate(thirtyDaysAgo);
+
+document.getElementById("modeEnd").value =
+    formatDate(today);
+
+
+// =========================
+// グラフ
+// =========================
+
+let usageChart = null;
+let questionChart = null;
+
+
+// =========================
+// データ取得
+// =========================
+
+async function loadModeData(){
+
+    const startDate =
+        document.getElementById("modeStart").value;
+
+    const endDate =
+        document.getElementById("modeEnd").value;
+
+
+    if(!startDate || !endDate){
+
+        return;
+
+    }
+
+
+    if(startDate > endDate){
+
+        alert("開始日は終了日以前にしてください");
+
+        return;
+
+    }
+
+
+    const token =
+        localStorage.getItem(
+            "admin_access_token"
+        );
+
+
+    if(!token){
+
+        alert("ログイン情報がありません");
+
+        location.href = "admin.html";
+
+        return;
+
+    }
+
+
+    const url =
+        `${SUPABASE_URL}/rest/v1/rpc/get_mode_stats`;
+
+
+    const response =
+        await fetch(url, {
+
+            method:"POST",
+
+            headers:{
+
+                "Content-Type":
+                    "application/json",
+
+                "apikey":
+                    SUPABASE_KEY,
+
+                "Authorization":
+                    `Bearer ${token}`
+
+            },
+
+            body:JSON.stringify({
+
+                start_date:
+                    startDate,
+
+                end_date:
+                    endDate
+
+            })
+
+        });
+
+
+    const data =
+        await response.json();
+
+
+    if(!response.ok){
+
+        alert(
+            "モード別データの取得に失敗しました。\n" +
+            "HTTPステータス：" +
+            response.status +
+            "\n" +
+            JSON.stringify(data)
+        );
+
+        return;
+
+    }
+
+
+    updateTable(data);
+
+    updateCharts(data);
+
+}
+
+
+// =========================
+// 表
+// =========================
+
+function updateTable(data){
+
+    const tbody =
+        document.getElementById(
+            "modeTableBody"
+        );
+
+
+    const modes = [
+
+        "一問一答",
+        "分類",
+        "苦手克服"
+
+    ];
+
+
+    let html = "";
+
+
+    for(const mode of modes){
+
+        const item =
+            data.find(
+                row => row.mode === mode
+            );
+
+
+        if(item){
+
+            html += `
+
+            <tr>
+
+                <td>${mode}</td>
+
+                <td>
+                    ${Number(item.usage_count).toLocaleString()}
+                </td>
+
+                <td>
+                    ${Number(item.questions).toLocaleString()}
+                </td>
+
+                <td>
+                    ${Number(item.accuracy).toFixed(1)}%
+                </td>
+
+            </tr>
+
+            `;
+
+        }else{
+
+            html += `
+
+            <tr>
+
+                <td>${mode}</td>
+
+                <td>0</td>
+
+                <td>0</td>
+
+                <td>0.0%</td>
+
+            </tr>
+
+            `;
+
+        }
+
+    }
+
+
+    tbody.innerHTML = html;
+
+}
+
+
+// =========================
+// グラフ
+// =========================
+
+function updateCharts(data){
+
+    const modes = [
+
+        "一問一答",
+        "分類",
+        "苦手克服"
+
+    ];
+
+
+    const usageData =
+        modes.map(mode => {
+
+            const item =
+                data.find(
+                    row => row.mode === mode
+                );
+
+            return item
+                ? Number(item.usage_count)
+                : 0;
+
+        });
+
+
+    const questionData =
+        modes.map(mode => {
+
+            const item =
+                data.find(
+                    row => row.mode === mode
+                );
+
+            return item
+                ? Number(item.questions)
+                : 0;
+
+        });
+
+
+    if(usageChart){
+
+        usageChart.destroy();
+
+    }
+
+
+    if(questionChart){
+
+        questionChart.destroy();
+
+    }
+
+
+    const usageCanvas =
+        document.getElementById(
+            "usageChart"
+        );
+
+
+    const questionCanvas =
+        document.getElementById(
+            "questionChart"
+        );
+
+
+    usageChart =
+        new Chart(
+            usageCanvas,
+            {
+
+                type:"pie",
+
+                data:{
+
+                    labels:modes,
+
+                    datasets:[{
+
+                        data:usageData
+
+                    }]
+
+                },
+
+                options:{
+
+                    responsive:true,
+
+                    maintainAspectRatio:false
+
+                }
+
+            }
+
+        );
+
+
+    questionChart =
+        new Chart(
+            questionCanvas,
+            {
+
+                type:"pie",
+
+                data:{
+
+                    labels:modes,
+
+                    datasets:[{
+
+                        data:questionData
+
+                    }]
+
+                },
+
+                options:{
+
+                    responsive:true,
+
+                    maintainAspectRatio:false
+
+                }
+
+            }
+
+        );
+
+}
+
+
+// =========================
+// 日付変更
+// =========================
+
+document
+    .getElementById("modeStart")
+    .addEventListener(
+        "change",
+        loadModeData
+    );
+
+
+document
+    .getElementById("modeEnd")
+    .addEventListener(
+        "change",
+        loadModeData
+    );
+
+
+// =========================
+// 初回読み込み
+// =========================
+
+loadModeData();
+
 </script>
 
 </body>
