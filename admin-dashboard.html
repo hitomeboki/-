@@ -326,7 +326,7 @@ async function loadDashboard(){
 
         const response =
         await fetch(
-            `${SUPABASE_URL}/rest/v1/admin_period_stats?select=*`,
+            `${SUPABASE_URL}/rest/v1/rpc/get_admin_period_stats`,
             {
                 headers:{
                     "apikey":SUPABASE_KEY,
