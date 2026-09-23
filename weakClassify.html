@@ -208,7 +208,17 @@ for(let item of selectedItems){
 
 if(userAnswers[item] !== undefined){
 
-if(userAnswers[item] === accounts[item].category){
+const isCorrect =
+    userAnswers[item] === accounts[item].category;
+
+sendAnswerToSupabase(
+    item,
+    accounts[item].category,
+    isCorrect,
+    "苦手克服"
+);
+
+if(isCorrect){
 
 score++;
 // 苦手克服カウント
