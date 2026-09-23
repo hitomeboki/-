@@ -259,7 +259,7 @@ const SUPABASE_URL =
 "https://atntpiskoizpysukygcb.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_y1wlMl-CRMTt-6us0M-P4Q_8OPouULn";
+"USER PUBLISHABLE KEY";
 
 
 const token =
@@ -269,6 +269,53 @@ localStorage.getItem("admin_access_token");
 if(!token){
 
     location.href = "admin.html";
+
+}
+
+
+// =========================
+// ログイン状態確認
+// =========================
+
+async function checkAdminSession(){
+
+    try{
+
+        const response =
+        await fetch(
+            `${SUPABASE_URL}/auth/v1/user`,
+            {
+                headers:{
+                    "apikey":SUPABASE_KEY,
+                    "Authorization":
+                    `Bearer ${token}`
+                }
+            }
+        );
+
+
+        if(!response.ok){
+
+            localStorage.removeItem(
+                "admin_access_token"
+            );
+
+            location.href =
+                "admin.html";
+
+            return false;
+
+        }
+
+        return true;
+
+    }catch(error){
+
+        console.error(error);
+
+        return false;
+
+    }
 
 }
 
