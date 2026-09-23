@@ -27,7 +27,7 @@ if(!userId){
 
 
 // Supabaseへ学習記録を送信
-async function sendToSupabase(answered, correct){
+async function sendToSupabase(answered, correct, mode){
 
     try{
 
@@ -47,7 +47,7 @@ async function sendToSupabase(answered, correct){
 
                     id: crypto.randomUUID(),
                     user_id: userId,
-                    mode: "unknown",
+                    mode: mode,
                     questions: answered,
                     correct: correct,
                     accessed_at: new Date().toISOString()
@@ -68,7 +68,7 @@ async function sendToSupabase(answered, correct){
 
 }
 
-function saveStudyRecord(answered, correct){
+function saveStudyRecord(answered, correct, mode){
 
     let totalAnswered =
     Number(localStorage.getItem("totalAnswered")) || 0;
@@ -230,7 +230,7 @@ function saveStudyRecord(answered, correct){
         JSON.stringify(studyData)
     );
 
-    sendToSupabase(answered, correct);
+    sendToSupabase(answered, correct, mode);
 
 }
 

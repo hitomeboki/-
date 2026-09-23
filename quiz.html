@@ -245,7 +245,8 @@ function checkAnswer(answer) {
 // 学習記録
 saveStudyRecord(
     1,
-    correct ? 1 : 0
+    correct ? 1 : 0,
+    "一問一答"
 );
 
     sendAnswerToSupabase(
