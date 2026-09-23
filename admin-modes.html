@@ -1,11 +1,269 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
+
 <head>
+
     <meta charset="UTF-8">
-    <title>ひとめぼき道場 管理画面</title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>モード別分析 | ひとめぼき道場</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+
+        body{
+            font-family:Arial,sans-serif;
+            background:#f7f7f7;
+            margin:0;
+            padding:30px;
+        }
+
+        h1{
+            text-align:center;
+            margin-bottom:30px;
+        }
+
+        .modes-card{
+            max-width:1000px;
+            margin:30px auto;
+            padding:30px;
+            background:white;
+            border-radius:16px;
+            box-shadow:0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .modes-card h2{
+            margin-top:0;
+            margin-bottom:20px;
+        }
+
+        .period-section{
+            max-width:1000px;
+            margin:30px auto;
+            padding:25px;
+            background:white;
+            border-radius:16px;
+            box-shadow:0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .period-inputs{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:15px;
+        }
+
+        .period-inputs input{
+            width:220px;
+            height:48px;
+            padding:0 12px;
+            font-size:16px;
+            box-sizing:border-box;
+            border:1px solid #ccc;
+            border-radius:10px;
+        }
+
+        .period-inputs span{
+            font-size:20px;
+            font-weight:bold;
+        }
+
+        .chart-grid{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:30px;
+        }
+
+        .chart-box{
+            min-width:0;
+        }
+
+        .chart-box h3{
+            text-align:center;
+            margin-bottom:20px;
+        }
+
+        .chart-box canvas{
+            max-height:350px;
+        }
+
+        .mode-table{
+            width:100%;
+            border-collapse:collapse;
+            margin-top:20px;
+        }
+
+        .mode-table th,
+        .mode-table td{
+            padding:14px 10px;
+            text-align:center;
+            border-bottom:1px solid #eee;
+        }
+
+        .mode-table th{
+            background:#f5f5f5;
+        }
+
+        .back-btn{
+            display:block;
+            width:300px;
+            margin:40px auto 20px;
+            padding:16px;
+            background:#222;
+            color:white;
+            text-align:center;
+            text-decoration:none;
+            font-size:17px;
+            font-weight:bold;
+            border-radius:12px;
+        }
+
+        .back-btn:active{
+            transform:scale(0.98);
+        }
+
+        @media(max-width:700px){
+
+            body{
+                padding:15px;
+            }
+
+            .chart-grid{
+                grid-template-columns:1fr;
+            }
+
+            .period-inputs{
+                flex-direction:column;
+            }
+
+            .period-inputs input{
+                width:100%;
+            }
+
+            .mode-table{
+                font-size:14px;
+            }
+
+        }
+
+    </style>
+
 </head>
 
 <body>
 
+<h1>🎯 モード別分析</h1>
+
+
+<section class="period-section">
+
+    <h2>📆 期間指定</h2>
+
+    <div class="period-inputs">
+
+        <input
+            type="date"
+            id="modeStart">
+
+        <span>〜</span>
+
+        <input
+            type="date"
+            id="modeEnd">
+
+    </div>
+
+</section>
+
+
+<section class="modes-card">
+
+    <h2>📊 モード別利用割合</h2>
+
+    <div class="chart-grid">
+
+        <div class="chart-box">
+
+            <h3>利用回数</h3>
+
+            <canvas id="usageChart"></canvas>
+
+        </div>
+
+
+        <div class="chart-box">
+
+            <h3>問題数</h3>
+
+            <canvas id="questionChart"></canvas>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="modes-card">
+
+    <h2>📋 モード別詳細</h2>
+
+    <table class="mode-table">
+
+        <thead>
+
+            <tr>
+
+                <th>モード</th>
+
+                <th>利用回数</th>
+
+                <th>問題数</th>
+
+                <th>正解率</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="modeTableBody">
+
+            <tr>
+
+                <td colspan="4">
+                    読み込み中...
+                </td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</section>
+
+
+<a
+    href="admin-dashboard.html"
+    class="back-btn"
+>
+    ← 管理メニューに戻る
+</a>
+
+
+<script>
+
+const SUPABASE_URL =
+    "https://atntpiskoizpysukygcb.supabase.co";
+
+const SUPABASE_KEY =
+    "USER PUBLISHABLE KEY";
+
+</script>
+
 </body>
+
 </html>
