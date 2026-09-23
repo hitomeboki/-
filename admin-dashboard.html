@@ -110,12 +110,7 @@ h1{
         padding:20px 14px;
     }
 
-    .stats{
-        grid-template-columns:1fr;
-    }
-
 }
-
 </style>
 
 </head>
@@ -145,8 +140,6 @@ h1{
     データを読み込み中…
 </p>
 
-<div class="stats">
-
 <div class="menu">
 
     <a href="admin-usage.html" class="menu-btn">
@@ -168,88 +161,6 @@ h1{
     <a href="admin-weak.html" class="menu-btn">
         📕 苦手分析
     </a>
-
-</div>
-
-<div class="card">
-<h2>今日の利用者</h2>
-<div class="number" id="todayUsers">-</div>
-</div>
-
-
-<div class="card">
-<h2>今日の学習記録</h2>
-<div class="number" id="todayRecords">-</div>
-</div>
-
-
-<div class="card">
-<h2>昨日の利用者</h2>
-<div class="number" id="yesterdayUsers">-</div>
-</div>
-
-
-<div class="card">
-<h2>昨日の学習記録</h2>
-<div class="number" id="yesterdayRecords">-</div>
-</div>
-
-
-<div class="card">
-<h2>今週の利用者</h2>
-<div class="number" id="weekUsers">-</div>
-</div>
-
-
-<div class="card">
-<h2>今週の学習記録</h2>
-<div class="number" id="weekRecords">-</div>
-</div>
-
-
-<div class="card">
-<h2>今月の利用者</h2>
-<div class="number" id="monthUsers">-</div>
-</div>
-
-
-<div class="card">
-<h2>今月の学習記録</h2>
-<div class="number" id="monthRecords">-</div>
-</div>
-
-
-<div class="card">
-<h2>累計利用者</h2>
-<div class="number" id="totalUsers">-</div>
-</div>
-
-
-<div class="card">
-<h2>累計問題数</h2>
-<div class="number" id="totalQuestions">-</div>
-</div>
-
-
-<div class="card">
-<h2>累計正解数</h2>
-<div class="number" id="totalCorrect">-</div>
-</div>
-
-<div class="card">
-<h2>累計正解率</h2>
-<div class="number" id="totalAccuracy">-</div>
-</div>
-
-</div>
-
-<div style="text-align:center; margin-top:30px;">
-
-<button id="logoutBtn">
-    ログアウト
-</button>
-
-</div>
 
 </div>
 
@@ -319,141 +230,6 @@ async function checkAdminSession(){
 
 }
 
-
-async function loadDashboard(){
-
-    try{
-
-        const response =
-        await fetch(
-            `${SUPABASE_URL}/rest/v1/rpc/get_admin_period_stats`,
-            {
-                headers:{
-                    "apikey":SUPABASE_KEY,
-                    "Authorization":
-                    `Bearer ${token}`
-                }
-            }
-        );
-
-
-if(!response.ok){
-
-    const errorText =
-        await response.text();
-
-    throw new Error(
-        "HTTP " +
-        response.status +
-        "\n" +
-        errorText
-    );
-
-}
-
-
-        const data =
-        await response.json();
-
-
-        const stats =
-        data[0];
-
-
-        document.getElementById(
-            "todayUsers"
-        ).textContent =
-        stats.today_users;
-
-
-        document.getElementById(
-            "todayRecords"
-        ).textContent =
-        stats.today_records;
-
-
-        document.getElementById(
-            "yesterdayUsers"
-        ).textContent =
-        stats.yesterday_users;
-
-
-        document.getElementById(
-            "yesterdayRecords"
-        ).textContent =
-        stats.yesterday_records;
-
-
-        document.getElementById(
-            "weekUsers"
-        ).textContent =
-        stats.week_users;
-
-
-        document.getElementById(
-            "weekRecords"
-        ).textContent =
-        stats.week_records;
-
-
-        document.getElementById(
-            "monthUsers"
-        ).textContent =
-        stats.month_users;
-
-
-        document.getElementById(
-            "monthRecords"
-        ).textContent =
-        stats.month_records;
-
-
-        document.getElementById(
-            "totalUsers"
-        ).textContent =
-        stats.total_users;
-
-
-        document.getElementById(
-            "totalQuestions"
-        ).textContent =
-        stats.total_questions;
-
-
-        document.getElementById(
-            "totalCorrect"
-        ).textContent =
-        stats.total_correct;
-
-        const accuracy =
-stats.total_questions > 0
-? (stats.total_correct / stats.total_questions * 100).toFixed(1)
-: 0;
-
-document.getElementById(
-    "totalAccuracy"
-).textContent =
-accuracy + "%";
-
-document.getElementById(
-    "lastUpdated"
-).textContent =
-"最終更新：" +
-new Date().toLocaleString("ja-JP");
-
-    }catch(error){
-
-        console.error(error);
-
-        alert(
-    "データの読み込みに失敗しました\n\n" +
-    error.message
-);
-
-    }
-
-}
-
 checkAdminSession().then(function(isValid){
 
     if(isValid){
@@ -461,26 +237,6 @@ checkAdminSession().then(function(isValid){
     }
 
 });
-
-</script>
-
-<script>
-
-document.getElementById(
-    "logoutBtn"
-).addEventListener(
-    "click",
-    function(){
-
-        localStorage.removeItem(
-            "admin_access_token"
-        );
-
-        location.href =
-        "admin.html";
-
-    }
-);
 
 </script>
 
