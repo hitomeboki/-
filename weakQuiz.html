@@ -354,27 +354,33 @@ function checkAnswer(answer){
 
         if(weakCorrect[name] >= 3){
 
-            let currentWeakQuiz =
-                JSON.parse(
-                    localStorage.getItem("weakQuiz")
-                ) || [];
+    // 苦手克服をSupabaseに記録
+    sendWeakOvercomeToSupabase(
+        name,
+        q.answer
+    );
+
+    let currentWeakQuiz =
+        JSON.parse(
+            localStorage.getItem("weakQuiz")
+        ) || [];
 
 
-            currentWeakQuiz =
-                currentWeakQuiz.filter(
-                    item => item !== name
-                );
+    currentWeakQuiz =
+        currentWeakQuiz.filter(
+            item => item !== name
+        );
 
 
-            localStorage.setItem(
-                "weakQuiz",
-                JSON.stringify(currentWeakQuiz)
-            );
+    localStorage.setItem(
+        "weakQuiz",
+        JSON.stringify(currentWeakQuiz)
+    );
 
 
-            delete weakCorrect[name];
+    delete weakCorrect[name];
 
-        }
+}
 
 
         localStorage.setItem(

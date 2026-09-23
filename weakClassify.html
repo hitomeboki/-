@@ -219,6 +219,12 @@ weakCorrectClassify[item] =
 // 3回正解したら分類の苦手から削除
 if(weakCorrectClassify[item] >= 3){
 
+    // 苦手克服をSupabaseに記録
+    sendWeakOvercomeToSupabase(
+        item,
+        accounts[item].category
+    );
+
     let weakClassify =
     JSON.parse(localStorage.getItem("weakClassify")) || [];
 

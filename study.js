@@ -25,6 +25,75 @@ if(!userId){
 
 }
 
+// =========================
+// 苦手克服記録
+// =========================
+
+async function sendWeakOvercomeToSupabase(
+    question,
+    category
+){
+    try{
+
+        const response =
+            await fetch(
+                `${SUPABASE_URL}/rest/v1/weak_overcome_records`,
+                {
+                    method:"POST",
+
+                    headers:{
+                        "Content-Type":
+                            "application/json",
+
+                        "apikey":
+                            SUPABASE_KEY,
+
+                        "Prefer":
+                            "return=minimal"
+                    },
+
+                    body:JSON.stringify({
+
+                        id:
+                            crypto.randomUUID(),
+
+                        user_id:
+                            userId,
+
+                        question:
+                            question,
+
+                        category:
+                            category,
+
+                        mode:
+                            "苦手克服",
+
+                        created_at:
+                            new Date().toISOString()
+
+                    })
+                }
+            );
+
+        if(!response.ok){
+
+            console.error(
+                "苦手克服記録エラー:",
+                response.status
+            );
+
+        }
+
+    }catch(error){
+
+        console.error(
+            "苦手克服記録エラー:",
+            error
+        );
+
+    }
+}
 
 // Supabaseへ学習記録を送信
 async function sendToSupabase(answered, correct, mode){
