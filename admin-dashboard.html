@@ -34,17 +34,20 @@ body{
 
 h1{
     text-align:center;
-    margin-bottom:30px;
+    margin-bottom:10px;
 }
 
 .menu{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:repeat(6, 1fr);
     gap:18px;
+    max-width:700px;
     margin:35px auto 0;
 }
 
 .menu-btn{
+    grid-column:span 2;
+
     display:flex;
     align-items:center;
     justify-content:center;
@@ -52,7 +55,6 @@ h1{
     min-height:90px;
 
     background:white;
-
     border-radius:16px;
 
     box-shadow:
@@ -60,7 +62,6 @@ h1{
         rgba(0,0,0,0.08);
 
     text-decoration:none;
-
     color:#222;
 
     font-size:18px;
@@ -71,16 +72,17 @@ h1{
         box-shadow 0.15s ease;
 }
 
-.menu-btn:active{
-    transform:scale(0.98);
-}
-
+/* 2段目の2つを中央に配置 */
 .menu-btn:nth-child(4){
-    grid-column:1 / 2;
+    grid-column:2 / 4;
 }
 
 .menu-btn:nth-child(5){
-    grid-column:2 / 3;
+    grid-column:4 / 6;
+}
+
+.menu-btn:active{
+    transform:scale(0.98);
 }
 
 @media(max-width:600px){
@@ -122,7 +124,7 @@ h1{
 <h1>ひとめぼき道場 管理ダッシュボード</h1>
 
 <p id="lastUpdated" style="text-align:center;color:#666;margin-bottom:25px;">
-    データを読み込み中…
+    最終アクセス：読み込み中…
 </p>
 
 <div class="menu">
