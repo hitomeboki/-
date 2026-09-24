@@ -191,14 +191,17 @@ loginBtn.addEventListener(
             await response.json();
 
 
-            if(!response.ok){
+if(!response.ok){
 
-                loginMessage.textContent =
-                "メールアドレスまたはパスワードが違います。";
+    loginMessage.textContent =
+    "ログインエラー：" +
+    (data.error_description || data.msg || data.message || "不明なエラー");
 
-                return;
+    console.error("Supabaseログインエラー:", data);
 
-            }
+    return;
+
+}
 
 
             localStorage.setItem(
@@ -210,14 +213,14 @@ loginBtn.addEventListener(
             "admin-dashboard.html";
 
 
-        }catch(error){
+       }catch(error){
 
-            loginMessage.textContent =
-            "ログインに失敗しました。";
+    loginMessage.textContent =
+    "通信エラー：" + error.message;
 
-            console.error(error);
+    console.error(error);
 
-        }
+}
 
     }
 );

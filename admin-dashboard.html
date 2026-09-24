@@ -37,35 +37,6 @@ h1{
     margin-bottom:30px;
 }
 
-.stats{
-    display:grid;
-
-    grid-template-columns:
-    repeat(2,1fr);
-
-    gap:16px;
-}
-
-.card{
-    background:white;
-
-    border-radius:16px;
-
-    padding:22px;
-
-    box-shadow:
-    0 3px 12px
-    rgba(0,0,0,0.08);
-}
-
-.card h2{
-    font-size:16px;
-
-    margin:0 0 10px;
-
-    color:#666;
-}
-
 .menu{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -131,19 +102,6 @@ h1{
     }
 
 }
-@media(max-width:600px){
-
-    .menu{
-        grid-template-columns:1fr;
-    }
-
-}
-
-.number{
-    font-size:32px;
-
-    font-weight:bold;
-}
 
 @media(max-width:600px){
 
@@ -162,20 +120,6 @@ h1{
 <div class="container">
 
 <h1>ひとめぼき道場 管理ダッシュボード</h1>
-
-<style>
-
-#logoutBtn{
-    padding:10px 24px;
-    border:1px solid #ccc;
-    border-radius:10px;
-    background:white;
-    color:#555;
-    font-size:14px;
-    cursor:pointer;
-}
-
-</style>
 
 <p id="lastUpdated" style="text-align:center;color:#666;margin-bottom:25px;">
     データを読み込み中…
