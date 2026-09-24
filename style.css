@@ -4368,3 +4368,48 @@ and (orientation:portrait){
         line-height:1.5;
     }
 }
+
+#finishBtn{
+    display:block;
+    width:90%;
+    max-width:500px;
+    margin:25px auto;
+
+    padding:18px 20px;
+
+    background:#4A90E2;
+    color:white;
+
+    border:none;
+    border-radius:14px;
+
+    font-size:20px;
+    font-weight:bold;
+
+    box-shadow:0 4px 10px rgba(0,0,0,0.15);
+
+    cursor:pointer;
+}
+
+#finishBtn:active{
+    transform:scale(0.98);
+}
+
+.step-number{
+    width:42px;
+    height:42px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    flex-shrink:0;
+
+    background:#4A90E2;
+    color:white;
+
+    border-radius:50%;
+
+    font-size:18px;
+    font-weight:bold;
+}
