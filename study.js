@@ -96,35 +96,48 @@ async function sendWeakOvercomeToSupabase(
 }
 
 // Supabaseへ学習記録を送信
-async function sendToSupabase(answered, correct, mode){
+async function sendToSupabase(
+    answered,
+    correct,
+    mode,
+    accessedAt
+){
+    const record = {
+        id: crypto.randomUUID(),
+        user_id: userId,
+        mode: mode,
+        questions: answered,
+        correct: correct,
+        accessed_at: accessedAt
+    };
 
     try{
 
         const response = await fetch(
             `${SUPABASE_URL}/rest/v1/study_records`,
             {
-                method: "POST",
+                method:"POST",
 
-                headers: {
-                    "Content-Type": "application/json",
-                    "apikey": SUPABASE_KEY,
-                    "Authorization": `Bearer ${SUPABASE_KEY}`,
-                    "Prefer": "return=minimal"
+                headers:{
+                    "Content-Type":"application/json",
+                    "apikey":SUPABASE_KEY,
+                    "Authorization":
+                        `Bearer ${SUPABASE_KEY}`,
+                    "Prefer":"return=minimal"
                 },
 
-                body: JSON.stringify({
-
-                    id: crypto.randomUUID(),
-                    user_id: userId,
-                    mode: mode,
-                    questions: answered,
-                    correct: correct,
-                    accessed_at: new Date().toISOString()
-
-                })
-
+                body:JSON.stringify(record)
             }
         );
+
+        if(!response.ok){
+            throw new Error(
+                "Supabase送信失敗: " +
+                response.status
+            );
+        }
+
+        return true;
 
     }catch(error){
 
@@ -133,9 +146,154 @@ async function sendToSupabase(answered, correct, mode){
             error
         );
 
+        // 送信できなかった記録を端末に保存
+        let pendingRecords =
+            JSON.parse(
+                localStorage.getItem(
+                    "pendingStudyRecords"
+                )
+            ) || [];
+
+        pendingRecords.push(record);
+
+        localStorage.setItem(
+            "pendingStudyRecords",
+            JSON.stringify(pendingRecords)
+        );
+
+        return false;
+    }
+}
+
+// =========================
+// 未送信の学習記録を再送
+// =========================
+
+async function sendPendingStudyRecords(){
+
+    let pendingRecords =
+        JSON.parse(
+            localStorage.getItem(
+                "pendingStudyRecords"
+            )
+        ) || [];
+
+    if(pendingRecords.length === 0){
+        return;
     }
 
+    const remainingRecords = [];
+
+    for(const record of pendingRecords){
+
+        try{
+
+            const response = await fetch(
+                `${SUPABASE_URL}/rest/v1/study_records`,
+                {
+                    method:"POST",
+
+                    headers:{
+                        "Content-Type":"application/json",
+                        "apikey":SUPABASE_KEY,
+                        "Authorization":
+                            `Bearer ${SUPABASE_KEY}`,
+                        "Prefer":"return=minimal"
+                    },
+
+                    body:JSON.stringify(record)
+                }
+            );
+
+            if(!response.ok){
+                remainingRecords.push(record);
+            }
+
+        }catch(error){
+
+            remainingRecords.push(record);
+
+        }
+    }
+
+    localStorage.setItem(
+        "pendingStudyRecords",
+        JSON.stringify(remainingRecords)
+    );
 }
+
+sendPendingStudyRecords();
+
+// =========================
+// 未送信の回答記録を再送
+// =========================
+
+async function sendPendingAnswerRecords(){
+
+    let pendingRecords =
+        JSON.parse(
+            localStorage.getItem(
+                "pendingAnswerRecords"
+            )
+        ) || [];
+
+    if(pendingRecords.length === 0){
+        return;
+    }
+
+    const remainingRecords = [];
+
+    for(const record of pendingRecords){
+
+        try{
+
+            const response = await fetch(
+                `${SUPABASE_URL}/rest/v1/answer_records`,
+                {
+                    method:"POST",
+
+                    headers:{
+                        "Content-Type":
+                            "application/json",
+
+                        "apikey":
+                            SUPABASE_KEY,
+
+                        "Prefer":
+                            "return=minimal"
+                    },
+
+                    body:
+                        JSON.stringify(record)
+                }
+            );
+
+            if(!response.ok){
+
+                remainingRecords.push(
+                    record
+                );
+
+            }
+
+        }catch(error){
+
+            remainingRecords.push(
+                record
+            );
+
+        }
+    }
+
+    localStorage.setItem(
+        "pendingAnswerRecords",
+        JSON.stringify(
+            remainingRecords
+        )
+    );
+}
+
+sendPendingAnswerRecords();
 
 function saveStudyRecord(answered, correct, mode){
 
@@ -299,7 +457,14 @@ function saveStudyRecord(answered, correct, mode){
         JSON.stringify(studyData)
     );
 
-    sendToSupabase(answered, correct, mode);
+    const accessedAt = new Date().toISOString();
+
+sendToSupabase(
+    answered,
+    correct,
+    mode,
+    accessedAt
+);
 
 }
 
@@ -310,40 +475,89 @@ async function sendAnswerToSupabase(
     mode
 ){
 
+    const record = {
+
+        id:
+            crypto.randomUUID(),
+
+        user_id:
+            userId,
+
+        mode:
+            mode,
+
+        question:
+            question,
+
+        category:
+            category,
+
+        is_correct:
+            isCorrect,
+
+        created_at:
+            new Date().toISOString()
+
+    };
+
     try{
 
         const response = await fetch(
-    `${SUPABASE_URL}/rest/v1/answer_records`,
+            `${SUPABASE_URL}/rest/v1/answer_records`,
             {
-                method: "POST",
+                method:"POST",
 
-                headers: {
-                    "Content-Type": "application/json",
-                    "apikey": SUPABASE_KEY,
-                    "Prefer": "return=minimal"
+                headers:{
+                    "Content-Type":
+                        "application/json",
+
+                    "apikey":
+                        SUPABASE_KEY,
+
+                    "Prefer":
+                        "return=minimal"
                 },
 
-                body: JSON.stringify({
-
-                    id: crypto.randomUUID(),
-                    user_id: userId,
-                    mode: mode,
-                    question: question,
-                    category: category,
-                    is_correct: isCorrect
-
-                })
-
+                body:
+                    JSON.stringify(record)
             }
         );
 
-}catch(error){
+        if(!response.ok){
 
-    alert(
-        "answer_records送信エラー:\n" +
-        error
-    );
+            throw new Error(
+                "Supabase送信失敗: " +
+                response.status
+            );
 
-}
+        }
 
+        return true;
+
+    }catch(error){
+
+        console.error(
+            "answer_records送信エラー:",
+            error
+        );
+
+        // 未送信記録として保存
+        let pendingRecords =
+            JSON.parse(
+                localStorage.getItem(
+                    "pendingAnswerRecords"
+                )
+            ) || [];
+
+        pendingRecords.push(record);
+
+        localStorage.setItem(
+            "pendingAnswerRecords",
+            JSON.stringify(
+                pendingRecords
+            )
+        );
+
+        return false;
+    }
 }
