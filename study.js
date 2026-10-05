@@ -33,6 +33,29 @@ async function sendWeakOvercomeToSupabase(
     question,
     category
 ){
+
+    const record = {
+
+        id:
+            crypto.randomUUID(),
+
+        user_id:
+            userId,
+
+        question:
+            question,
+
+        category:
+            category,
+
+        mode:
+            "苦手克服",
+
+        created_at:
+            new Date().toISOString()
+
+    };
+
     try{
 
         const response =
@@ -52,38 +75,21 @@ async function sendWeakOvercomeToSupabase(
                             "return=minimal"
                     },
 
-                    body:JSON.stringify({
-
-                        id:
-                            crypto.randomUUID(),
-
-                        user_id:
-                            userId,
-
-                        question:
-                            question,
-
-                        category:
-                            category,
-
-                        mode:
-                            "苦手克服",
-
-                        created_at:
-                            new Date().toISOString()
-
-                    })
+                    body:
+                        JSON.stringify(record)
                 }
             );
 
         if(!response.ok){
 
-            console.error(
-                "苦手克服記録エラー:",
+            throw new Error(
+                "Supabase送信失敗: " +
                 response.status
             );
 
         }
+
+        return true;
 
     }catch(error){
 
@@ -92,6 +98,24 @@ async function sendWeakOvercomeToSupabase(
             error
         );
 
+        // 未送信記録として保存
+        let pendingRecords =
+            JSON.parse(
+                localStorage.getItem(
+                    "pendingWeakOvercomeRecords"
+                )
+            ) || [];
+
+        pendingRecords.push(record);
+
+        localStorage.setItem(
+            "pendingWeakOvercomeRecords",
+            JSON.stringify(
+                pendingRecords
+            )
+        );
+
+        return false;
     }
 }
 
@@ -294,6 +318,77 @@ async function sendPendingAnswerRecords(){
 }
 
 sendPendingAnswerRecords();
+
+// =========================
+// 未送信の苦手克服記録を再送
+// =========================
+
+async function sendPendingWeakOvercomeRecords(){
+
+    let pendingRecords =
+        JSON.parse(
+            localStorage.getItem(
+                "pendingWeakOvercomeRecords"
+            )
+        ) || [];
+
+    if(pendingRecords.length === 0){
+        return;
+    }
+
+    const remainingRecords = [];
+
+    for(const record of pendingRecords){
+
+        try{
+
+            const response = await fetch(
+                `${SUPABASE_URL}/rest/v1/weak_overcome_records`,
+                {
+                    method:"POST",
+
+                    headers:{
+                        "Content-Type":
+                            "application/json",
+
+                        "apikey":
+                            SUPABASE_KEY,
+
+                        "Prefer":
+                            "return=minimal"
+                    },
+
+                    body:
+                        JSON.stringify(record)
+                }
+            );
+
+            if(!response.ok){
+
+                remainingRecords.push(
+                    record
+                );
+
+            }
+
+        }catch(error){
+
+            remainingRecords.push(
+                record
+            );
+
+        }
+    }
+
+    localStorage.setItem(
+        "pendingWeakOvercomeRecords",
+        JSON.stringify(
+            remainingRecords
+        )
+    );
+}
+
+sendPendingWeakOvercomeRecords();
 
 function saveStudyRecord(answered, correct, mode){
 
