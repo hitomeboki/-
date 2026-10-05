@@ -4461,3 +4461,10 @@ and (orientation:portrait){
     top:23px;
     transform:rotate(27deg);
 }
+
+.share-text{
+    font-size:14px;
+    font-weight:bold;
+    color:#333;
+    white-space:nowrap;
+}
