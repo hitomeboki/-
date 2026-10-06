@@ -57,10 +57,10 @@
         <h2>📱 ホーム画面への追加方法</h2>
 
         <div class="add-step">
-<div class="step-number share-text">共有</div>
+<div class="step-number share-text">①</div>
             <div>
                 <strong>「共有」ボタンをタップ</strong>
-<p>画面上部にある共有ボタンをタップします。<</p>
+<p>画面上部にある共有ボタンをタップします。</p>
             </div>
         </div>
 
@@ -298,7 +298,10 @@ const isHomeScreen =
     window.matchMedia("(display-mode: standalone)").matches ||
     window.navigator.standalone === true;
 
-if(!isHomeScreen){
+const homeOverlayClosed =
+    localStorage.getItem("homeOverlayClosed");
+
+if(!isHomeScreen && homeOverlayClosed !== "true"){
     addHomeOverlay.style.display = "flex";
 }
 
@@ -306,6 +309,11 @@ if(!isHomeScreen){
 closeAddHomeBtn.addEventListener("click", function(){
 
     addHomeOverlay.style.display = "none";
+
+    localStorage.setItem(
+        "homeOverlayClosed",
+        "true"
+    );
 
 });
 
