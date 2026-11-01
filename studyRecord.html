@@ -140,17 +140,20 @@ document.getElementById("studyRecordPage").innerHTML=`
 <script>
 
 function resetData(){
-
     if(confirm("本当に学習データをすべてリセットしますか？")){
 
-        localStorage.clear();
+        // 学習データだけ削除
+        localStorage.removeItem("studyData");
+        localStorage.removeItem("weakQuiz");
+        localStorage.removeItem("weakClassify");
+        localStorage.removeItem("weakCorrect");
+        localStorage.removeItem("weakCorrectClassify");
+
+        // userId・未送信データ・その他の設定は残す
 
         alert("学習データをリセットしました！");
-
         location.href="index.html";
-
     }
-
 }
 
 </script>
