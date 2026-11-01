@@ -229,9 +229,9 @@ async function sendPendingStudyRecords(){
                 }
             );
 
-            if(!response.ok){
-                remainingRecords.push(record);
-            }
+if(!response.ok && response.status !== 409){
+    remainingRecords.push(record);
+}
 
         }catch(error){
 
@@ -292,13 +292,13 @@ async function sendPendingAnswerRecords(){
                 }
             );
 
-            if(!response.ok){
+            if(!response.ok && response.status !== 409){
 
-                remainingRecords.push(
-                    record
-                );
+    remainingRecords.push(
+        record
+    );
 
-            }
+}
 
         }catch(error){
 
@@ -362,14 +362,13 @@ async function sendPendingWeakOvercomeRecords(){
                         JSON.stringify(record)
                 }
             );
+if(!response.ok && response.status !== 409){
 
-            if(!response.ok){
+    remainingRecords.push(
+        record
+    );
 
-                remainingRecords.push(
-                    record
-                );
-
-            }
+}
 
         }catch(error){
 
