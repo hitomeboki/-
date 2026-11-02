@@ -279,6 +279,8 @@ function toggleMenu(){
 
 </script>
 
+<script src="study.js"></script>
+
 <script>
 
 // ========================================
@@ -434,11 +436,15 @@ if(settings.maintenance_enabled){
 
 }
 
-checkMaintenance();
+isAdmin().then(function(admin){
+
+    if(!admin){
+        checkMaintenance();
+    }
+
+});
 
 </script>
-
-<script src="study.js"></script>
 
 <div
     id="maintenanceOverlay"
