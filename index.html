@@ -477,6 +477,11 @@ if(overlay){
 
 alert("メンテナンス確認コードは読み込まれています");
 
+alert(
+    "管理者トークン：" +
+    !!localStorage.getItem("admin_access_token")
+);
+
 isAdmin().then(function(admin){
 
     alert("管理者判定：" + admin);
