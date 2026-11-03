@@ -411,7 +411,9 @@ if(!response.ok){
             return;
         }
 
-        const settings = data[0];
+const settings = data[0];
+
+alert("メンテナンス設定：" + settings.maintenance_enabled);
 
 if(settings.maintenance_enabled){
 
