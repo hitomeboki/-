@@ -441,6 +441,8 @@ alert("メンテナンス確認コードは読み込まれています");
 
 isAdmin().then(function(admin){
 
+    alert("管理者判定：" + admin);
+
     if(!admin){
         checkMaintenance();
     }
