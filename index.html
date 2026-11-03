@@ -279,6 +279,42 @@ function toggleMenu(){
 
 </script>
 
+<div
+    id="maintenanceOverlay"
+    style="
+        display:none;
+        position:fixed;
+        inset:0;
+        background:#f5f5f5;
+        z-index:99999;
+        align-items:center;
+        justify-content:center;
+        padding:20px;
+        text-align:center;
+    "
+>
+    <div>
+
+        <div style="font-size:50px;">
+            🔧
+        </div>
+
+        <h1>
+            メンテナンス中です
+        </h1>
+
+        <p>
+            現在、ひとめぼき道場は<br>
+            メンテナンスを行っています。
+        </p>
+
+        <p>
+            終了までしばらくお待ちください。
+        </p>
+
+    </div>
+</div>
+
 <script src="study.js"></script>
 
 <script>
@@ -452,42 +488,6 @@ isAdmin().then(function(admin){
 });
 
 </script>
-
-<div
-    id="maintenanceOverlay"
-    style="
-        display:none;
-        position:fixed;
-        inset:0;
-        background:#f5f5f5;
-        z-index:99999;
-        align-items:center;
-        justify-content:center;
-        padding:20px;
-        text-align:center;
-    "
->
-    <div>
-
-        <div style="font-size:50px;">
-            🔧
-        </div>
-
-        <h1>
-            メンテナンス中です
-        </h1>
-
-        <p>
-            現在、ひとめぼき道場は<br>
-            メンテナンスを行っています。
-        </p>
-
-        <p>
-            終了までしばらくお待ちください。
-        </p>
-
-    </div>
-</div>
 
 </body>
 </html>
