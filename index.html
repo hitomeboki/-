@@ -484,6 +484,11 @@ alert(
 
 isAdmin().then(function(admin){
 
+    alert(
+    "トップページのトークン：" +
+    !!localStorage.getItem("admin_access_token")
+);
+
     alert("管理者判定：" + admin);
 
     if(!admin){
