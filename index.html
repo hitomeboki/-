@@ -399,9 +399,10 @@ async function checkMaintenance(){
             }
         );
 
-        if(!response.ok){
-            return;
-        }
+if(!response.ok){
+    alert("メンテナンス取得エラー：" + response.status);
+    return;
+}
 
         const data =
             await response.json();
