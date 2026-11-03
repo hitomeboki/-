@@ -490,6 +490,11 @@ isAdmin().then(function(admin){
 );
 
 alert(
+    "保存キー：" +
+    Object.keys(localStorage).join(", ")
+);
+
+alert(
     "トップページの保存データ：" +
     localStorage.length
 );
