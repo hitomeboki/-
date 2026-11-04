@@ -299,9 +299,9 @@ function toggleMenu(){
             🔧
         </div>
 
-        <h1>
-            メンテナンス中です
-        </h1>
+<h1 id="maintenanceTitle">
+    メンテナンス中です
+</h1>
 
         <p>
             現在、ひとめぼき道場は<br>
@@ -449,8 +449,6 @@ if(!response.ok){
 
 const settings = data[0];
 
-alert("メンテナンス設定：" + settings.maintenance_enabled);
-
 if(settings.maintenance_enabled){
 
     const overlay =
@@ -485,6 +483,35 @@ isAdmin().then(function(admin){
     }
 
 });
+
+</script>
+
+<script>
+
+const maintenanceTitle =
+    document.getElementById("maintenanceTitle");
+
+let maintenancePressTimer = null;
+
+maintenanceTitle.addEventListener("pointerdown", function(){
+
+    maintenancePressTimer = setTimeout(function(){
+
+        alert("長押しを検知しました！");
+
+    }, 10000);
+
+});
+
+function cancelMaintenancePress(){
+
+    clearTimeout(maintenancePressTimer);
+
+}
+
+maintenanceTitle.addEventListener("pointerup", cancelMaintenancePress);
+maintenanceTitle.addEventListener("pointerleave", cancelMaintenancePress);
+maintenanceTitle.addEventListener("pointercancel", cancelMaintenancePress);
 
 </script>
 
