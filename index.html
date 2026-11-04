@@ -295,9 +295,9 @@ function toggleMenu(){
 >
     <div>
 
-        <div style="font-size:50px;">
-            🔧
-        </div>
+<div id="maintenanceSecret" style="font-size:50px;">
+    🔧
+</div>
 
 <h1 id="maintenanceTitle">
     メンテナンス中です
@@ -489,7 +489,7 @@ isAdmin().then(function(admin){
 <script>
 
 const maintenanceTitle =
-    document.getElementById("maintenanceTitle");
+    document.getElementById("maintenanceSecret");
 
 let maintenancePressTimer = null;
 
@@ -499,7 +499,7 @@ maintenanceTitle.addEventListener("pointerdown", function(){
 
         alert("長押しを検知しました！");
 
-    }, 10000);
+    }, 7000);
 
 });
 
