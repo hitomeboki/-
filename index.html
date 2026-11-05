@@ -527,7 +527,25 @@ function cancelMaintenancePress(){
 
 maintenanceTitle.addEventListener("pointerup", cancelMaintenancePress);
 maintenanceTitle.addEventListener("pointerleave", cancelMaintenancePress);
-maintenanceTitle.addEventListener("pointercancel", cancelMaintenancePress);
+document.getElementById("adminCodeInput").addEventListener("keydown", function(event){
+
+    if(event.key === "Enter"){
+
+        if(this.value === "hirakegoma"){
+
+            alert("合言葉が一致しました！");
+
+        }else{
+
+            alert("合言葉が違います。");
+
+            this.value = "";
+
+        }
+
+    }
+
+});
 
 </script>
 
