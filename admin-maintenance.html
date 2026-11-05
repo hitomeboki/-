@@ -222,6 +222,32 @@ saveBtn.addEventListener(
         message.textContent =
             "保存中...";
 
+            // メンテナンスがONの場合は日時を必須にする
+if(maintenanceEnabled.checked){
+
+    if(!startAt.value || !endAt.value){
+
+        message.textContent =
+            "開始日時と終了日時を入力してください。";
+
+        return;
+
+    }
+
+    const startDate = new Date(startAt.value);
+    const endDate = new Date(endAt.value);
+
+    if(endDate <= startDate){
+
+        message.textContent =
+            "終了日時は開始日時より後に設定してください。";
+
+        return;
+
+    }
+
+}
+
         const startValue =
             startAt.value
             ? new Date(startAt.value).toISOString()
