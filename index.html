@@ -539,11 +539,13 @@ document.getElementById("adminCodeInput").addEventListener("keydown", function(e
 
     if(event.key === "Enter"){
 
-        if(this.value === "hirakegoma"){
+if(this.value === "hirakegoma"){
 
-            alert("合言葉が一致しました！");
+    document.getElementById("adminCodeArea").style.display = "none";
 
-        }else{
+    document.getElementById("adminLoginArea").style.display = "block";
+
+}else{
 
             alert("合言葉が違います。");
 
