@@ -548,16 +548,33 @@ if(!response.ok){
 
 const settings = data[0];
 
-if(settings.maintenance_enabled){
+const now = new Date();
+
+const startAt = settings.start_at
+    ? new Date(settings.start_at)
+    : null;
+
+const endAt = settings.end_at
+    ? new Date(settings.end_at)
+    : null;
+
+const isMaintenance =
+    settings.maintenance_enabled &&
+    startAt &&
+    endAt &&
+    now >= startAt &&
+    now < endAt;
+
+if(isMaintenance){
 
     const overlay =
         document.getElementById(
             "maintenanceOverlay"
         );
 
-if(overlay){
-    overlay.style.display = "flex";
-}
+    if(overlay){
+        overlay.style.display = "flex";
+    }
 
 }
 
