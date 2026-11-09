@@ -592,7 +592,11 @@ if(isMaintenance){
 
 isAdmin().then(function(admin){
 
-    alert("管理者判定：" + admin);
+    alert(
+    "Access：" + localStorage.getItem("admin_access_token") +
+    "\nRefresh：" + localStorage.getItem("admin_refresh_token") +
+    "\n管理者判定：" + admin
+);
 
     if(!admin){
         checkMaintenance();
