@@ -88,6 +88,27 @@ h1{
 
     <br><br>
 
+    <hr>
+
+<h2>メンテナンス予告</h2>
+
+<label>
+    <input type="checkbox" id="noticeEnabled">
+    メンテナンス予告を有効にする
+</label>
+
+<br><br>
+
+<label>
+    予告開始日時
+    <input
+        type="datetime-local"
+        id="noticeStartAt"
+    >
+</label>
+
+<br><br>
+
     <button id="saveBtn">
         設定を保存
     </button>
@@ -120,6 +141,12 @@ if(!token){
 
 const maintenanceEnabled =
     document.getElementById("maintenanceEnabled");
+
+const noticeEnabled =
+    document.getElementById("noticeEnabled");
+
+const noticeStartAt =
+    document.getElementById("noticeStartAt");
 
 const startAt =
     document.getElementById("startAt");
@@ -174,6 +201,23 @@ if(!response.ok){
 
         maintenanceEnabled.checked =
             settings.maintenance_enabled;
+
+        noticeEnabled.checked =
+    settings.notice_enabled;
+
+if(settings.notice_start_at){
+
+    noticeStartAt.value =
+        new Date(settings.notice_start_at)
+        .toLocaleString(
+            "sv-SE",
+            {
+                timeZone:"Asia/Tokyo"
+            }
+        )
+        .replace(" ","T");
+
+}
 
         if(settings.start_at){
 
