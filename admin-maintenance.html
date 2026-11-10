@@ -329,6 +329,14 @@ if(maintenanceEnabled.checked){
                         maintenance_enabled:
                             maintenanceEnabled.checked,
 
+                        notice_enabled:
+    noticeEnabled.checked,
+
+notice_start_at:
+    noticeStartAt.value
+    ? new Date(noticeStartAt.value).toISOString()
+    : null,
+
                         start_at:
                             startValue,
 
