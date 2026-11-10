@@ -266,6 +266,19 @@ saveBtn.addEventListener(
         message.textContent =
             "保存中...";
 
+            if(noticeEnabled.checked){
+
+    if(!noticeStartAt.value){
+
+        message.textContent =
+            "予告開始日時を入力してください。";
+
+        return;
+
+    }
+
+}
+
             // メンテナンスがONの場合は日時を必須にする
 if(maintenanceEnabled.checked){
 
