@@ -308,6 +308,9 @@ function toggleMenu(){
             メンテナンスを行っています。
         </p>
 
+        <p id="maintenanceTime">
+</p>
+
         <p>
             終了までしばらくお待ちください。
         </p>
@@ -575,6 +578,55 @@ if(isMaintenance){
     if(overlay){
         overlay.style.display = "flex";
     }
+
+    const timeDisplay =
+        document.getElementById("maintenanceTime");
+
+    const formatDate = function(date){
+
+        return date.toLocaleString("ja-JP", {
+            timeZone: "Asia/Tokyo",
+            month: "numeric",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+        });
+
+    };
+
+    timeDisplay.textContent =
+        "開始日時：" + formatDate(startAt) +
+        "\n終了予定日時：" + formatDate(endAt);
+
+}if(isMaintenance){
+
+    const overlay =
+        document.getElementById(
+            "maintenanceOverlay"
+        );
+
+    if(overlay){
+        overlay.style.display = "flex";
+    }
+
+    const timeDisplay =
+        document.getElementById("maintenanceTime");
+
+    const formatDate = function(date){
+
+        return date.toLocaleString("ja-JP", {
+            timeZone: "Asia/Tokyo",
+            month: "numeric",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+        });
+
+    };
+
+    timeDisplay.textContent =
+        "開始日時：" + formatDate(startAt) +
+        "\n終了予定日時：" + formatDate(endAt);
 
 }
 
