@@ -277,6 +277,7 @@ saveBtn.addEventListener(
 
     }
 
+
 }
 
             // メンテナンスがONの場合は日時を必須にする
@@ -293,11 +294,22 @@ if(maintenanceEnabled.checked){
 
     const startDate = new Date(startAt.value);
     const endDate = new Date(endAt.value);
-
     if(endDate <= startDate){
 
         message.textContent =
             "終了日時は開始日時より後に設定してください。";
+
+        return;
+
+    }
+
+    if(
+        noticeEnabled.checked &&
+        new Date(noticeStartAt.value) >= startDate
+    ){
+
+        message.textContent =
+            "予告開始日時はメンテナンス開始日時より前に設定してください。";
 
         return;
 
