@@ -629,8 +629,9 @@ const isNotice =
     startAt &&
     endAt &&
     now >= noticeStartAt &&
-    now < startAt;
-
+    now < startAt &&
+    localStorage.getItem("maintenanceNoticeClosed") !== "true";
+    
 if(isNotice){
 
     const noticeOverlay =
