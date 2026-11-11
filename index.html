@@ -455,6 +455,11 @@ document.getElementById("closeMaintenanceNotice")
         document.getElementById("maintenanceNoticeOverlay")
             .style.display = "none";
 
+        localStorage.setItem(
+            "maintenanceNoticeClosed",
+            "true"
+        );
+
     });
 
 async function isAdmin(){
