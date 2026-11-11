@@ -266,7 +266,16 @@ saveBtn.addEventListener(
         message.textContent =
             "保存中...";
 
-            if(noticeEnabled.checked){
+if(noticeEnabled.checked){
+
+    if(!maintenanceEnabled.checked){
+
+        message.textContent =
+            "予告を有効にするには、メンテナンスも有効にしてください。";
+
+        return;
+
+    }
 
     if(!noticeStartAt.value){
 
@@ -276,7 +285,6 @@ saveBtn.addEventListener(
         return;
 
     }
-
 
 }
 
