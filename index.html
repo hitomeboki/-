@@ -622,6 +622,23 @@ const noticeStartAt = settings.notice_start_at
     ? new Date(settings.notice_start_at)
     : null;
 
+// メンテナンス予定が変わったら閉じた記録をリセット
+const noticeSchedule =
+    settings.start_at + "_" + settings.end_at;
+
+if(
+    localStorage.getItem("maintenanceNoticeSchedule") !== noticeSchedule
+){
+
+    localStorage.removeItem("maintenanceNoticeClosed");
+
+    localStorage.setItem(
+        "maintenanceNoticeSchedule",
+        noticeSchedule
+    );
+
+}
+
 const isNotice =
     settings.maintenance_enabled &&
     settings.notice_enabled &&
@@ -666,6 +683,9 @@ if(isMaintenance){
 
     const overlay =
         document.getElementById("maintenanceOverlay");
+
+    document.getElementById("maintenanceNoticeOverlay")
+        .style.display = "none";
 
     if(overlay){
         overlay.style.display = "flex";
