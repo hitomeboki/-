@@ -722,11 +722,18 @@ if(isMaintenance){
 
 }
 
-
 isAdmin().then(function(admin){
 
     if(!admin){
+
         checkMaintenance();
+
+        setInterval(function(){
+
+            checkMaintenance();
+
+        }, 10000);
+
     }
 
 });
