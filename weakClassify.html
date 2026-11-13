@@ -397,6 +397,109 @@ ${wrongList}
 
 }
 
+// =========================
+// メンテナンス開始時の終了処理
+// =========================
+
+let maintenanceFinishing = false;
+
+window.handleMaintenanceStart = async function(){
+
+    if(maintenanceFinishing){
+        return;
+    }
+
+    maintenanceFinishing = true;
+
+    document.getElementById("finishBtn").disabled = true;
+
+    let score = 0;
+
+    let solved = Object.keys(userAnswers).length;
+
+    for(let item of selectedItems){
+
+        if(userAnswers[item] === undefined){
+            continue;
+        }
+
+        const isCorrect =
+            userAnswers[item] === accounts[item].category;
+
+        await sendAnswerToSupabase(
+            item,
+            accounts[item].category,
+            isCorrect,
+            "苦手克服"
+        );
+
+        if(isCorrect){
+
+            score++;
+
+            weakCorrectClassify[item] =
+                (weakCorrectClassify[item] || 0) + 1;
+
+            if(weakCorrectClassify[item] >= 3){
+
+                await sendWeakOvercomeToSupabase(
+                    item,
+                    accounts[item].category
+                );
+
+                let weakClassify =
+                    JSON.parse(localStorage.getItem("weakClassify")) || [];
+
+                weakClassify =
+                    weakClassify.filter(name => name !== item);
+
+                localStorage.setItem(
+                    "weakClassify",
+                    JSON.stringify(weakClassify)
+                );
+
+                delete weakCorrectClassify[item];
+            }
+
+        }else{
+
+            weakCorrectClassify[item] = 0;
+
+            let weakClassify =
+                JSON.parse(localStorage.getItem("weakClassify")) || [];
+
+            if(!weakClassify.includes(item)){
+                weakClassify.push(item);
+            }
+
+            localStorage.setItem(
+                "weakClassify",
+                JSON.stringify(weakClassify)
+            );
+
+        }
+
+        localStorage.setItem(
+            "weakCorrectClassify",
+            JSON.stringify(weakCorrectClassify)
+        );
+
+    }
+
+    if(solved > 0){
+
+        await saveStudyRecord(
+            solved,
+            score,
+            "苦手克服"
+        );
+
+    }
+
+    location.replace("index.html");
+
+};
+
 </script>
 
 </body>

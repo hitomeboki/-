@@ -551,9 +551,9 @@ function saveStudyRecord(answered, correct, mode){
         JSON.stringify(studyData)
     );
 
-    const accessedAt = new Date().toISOString();
+const accessedAt = new Date().toISOString();
 
-sendToSupabase(
+return sendToSupabase(
     answered,
     correct,
     mode,
@@ -654,4 +654,101 @@ async function sendAnswerToSupabase(
 
         return false;
     }
+}
+
+// =========================
+// メンテナンス開始の監視
+// =========================
+
+let maintenanceCheckTimer = null;
+
+async function checkMaintenanceDuringStudy(){
+
+    try{
+
+        const response = await fetch(
+            `${SUPABASE_URL}/rest/v1/maintenance_settings?id=eq.1`,
+            {
+                headers:{
+                    "apikey":SUPABASE_KEY
+                }
+            }
+        );
+
+        if(!response.ok){
+            return;
+        }
+
+        const data = await response.json();
+
+        if(data.length === 0){
+            return;
+        }
+
+        const settings = data[0];
+
+        const now = new Date();
+
+        const startAt = settings.start_at
+            ? new Date(settings.start_at)
+            : null;
+
+        const endAt = settings.end_at
+            ? new Date(settings.end_at)
+            : null;
+
+        const isMaintenance =
+            settings.maintenance_enabled &&
+            startAt &&
+            endAt &&
+            now >= startAt &&
+            now < endAt;
+
+if(isMaintenance){
+
+    clearInterval(maintenanceCheckTimer);
+
+    if(typeof window.handleMaintenanceStart === "function"){
+
+        await window.handleMaintenanceStart();
+
+    }else{
+
+        location.replace("index.html");
+
+    }
+
+}
+
+    }catch(error){
+
+        console.error(
+            "学習中のメンテナンス確認エラー:",
+            error
+        );
+
+    }
+
+}
+
+// 学習モードでのみメンテナンスを監視
+const currentPage = location.pathname.split("/").pop();
+
+const learningPages = [
+    "quiz.html",
+    "classify.html",
+    "weakQuiz.html",
+    "weakClassify.html"
+];
+
+if(learningPages.includes(currentPage)){
+
+    checkMaintenanceDuringStudy();
+
+    maintenanceCheckTimer = setInterval(function(){
+
+        checkMaintenanceDuringStudy();
+
+    }, 5000);
+
 }

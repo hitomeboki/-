@@ -474,6 +474,16 @@ function finishQuiz() {
 
 }
 
+// =========================
+// メンテナンス開始時の終了処理
+// =========================
+
+window.handleMaintenanceStart = async function(){
+
+    // 回答済みの記録はすでに保存されている
+    location.replace("index.html");
+
+};
 
 // =========================
 // 結果発表

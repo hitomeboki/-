@@ -331,6 +331,80 @@ ${wrongList}
 
 }
 
+// =========================
+// メンテナンス開始時の終了処理
+// =========================
+
+let maintenanceFinishing = false;
+
+window.handleMaintenanceStart = async function(){
+
+    if(maintenanceFinishing){
+        return;
+    }
+
+    maintenanceFinishing = true;
+
+    document.getElementById("finishBtn").disabled = true;
+
+    let score = 0;
+
+    let solved = Object.keys(userAnswers).length;
+
+    for(let item of selectedItems){
+
+        if(userAnswers[item] === undefined){
+            continue;
+        }
+
+        if(userAnswers[item] === accounts[item].category){
+
+            score++;
+
+        }else{
+
+            let weakClassify =
+                JSON.parse(localStorage.getItem("weakClassify")) || [];
+
+            if(!weakClassify.includes(item)){
+                weakClassify.push(item);
+            }
+
+            localStorage.setItem(
+                "weakClassify",
+                JSON.stringify(weakClassify)
+            );
+
+            let weakQuiz =
+                JSON.parse(localStorage.getItem("weakQuiz")) || [];
+
+            if(!weakQuiz.includes(item)){
+                weakQuiz.push(item);
+            }
+
+            localStorage.setItem(
+                "weakQuiz",
+                JSON.stringify(weakQuiz)
+            );
+
+        }
+
+    }
+
+    if(solved > 0){
+
+        await saveStudyRecord(
+            solved,
+            score,
+            "分類"
+        );
+
+    }
+
+    location.replace("index.html");
+
+};
+
 </script>
 
 </body>
