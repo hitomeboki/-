@@ -4468,3 +4468,20 @@ and (orientation:portrait){
     color:#333;
     white-space:nowrap;
 }
+
+/* ========================================
+   分類モード：スマホの勘定科目ボタン
+======================================== */
+
+@media (max-width: 600px) {
+
+    #items button {
+        font-size: 18px;
+        padding: 14px 18px;
+        min-height: 55px;
+        margin: 6px;
+        border-radius: 12px;
+
+    }
+
+}
