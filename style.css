@@ -268,8 +268,12 @@ button.other{
 /* ========================= */
 
 #items{
-
     margin-top:30px;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:stretch;
+    gap:12px;
 }
 
 #items button{
@@ -610,19 +614,12 @@ h3{
 /* 勘定科目 */
 
 #items button{
-
-    min-height:70px;
-
-    font-size:26px;
-
+    min-height:85px;
+    font-size:28px;
     font-weight:bold;
-
-    padding:20px;
-
-    margin:8px;
-
+    padding:24px;
+    margin:10px;
     border-radius:15px;
-
 }
 
 /* 採点ボタン */
