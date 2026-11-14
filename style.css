@@ -611,19 +611,15 @@ h3{
 
 #items button{
 
-    width:95%;
+    min-height:70px;
 
-    min-height:65px;
-
-    font-size:24px;
+    font-size:26px;
 
     font-weight:bold;
 
-    padding:18px;
+    padding:20px;
 
-    margin:10px auto;
-
-    display:block;
+    margin:8px;
 
     border-radius:15px;
 
@@ -4467,20 +4463,4 @@ and (orientation:portrait){
     font-weight:bold;
     color:#333;
     white-space:nowrap;
-}
-
-/* ========================================
-   分類モード：スマホの勘定科目ボタン
-======================================== */
-
-@media (max-width: 600px) {
-
-    #items button {
-        font-size: 20px;
-        padding: 14px 18px;
-        min-height: 55px;
-        margin: 6px;
-        border-radius: 12px;
-    }
-
 }
