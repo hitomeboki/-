@@ -4476,12 +4476,15 @@ and (orientation:portrait){
 @media (max-width: 600px) {
 
     #items button {
-        font-size: 18px;
-        padding: 14px 18px;
-        min-height: 55px;
-        margin: 6px;
-        border-radius: 12px;
-
+        width: 95%;
+        font-size: 24px;
+        font-weight: bold;
+        padding: 18px;
+        min-height: 65px;
+        margin: 10px auto;
+        display: block;
+        border-radius: 15px;
+        box-sizing: border-box;
     }
 
 }
