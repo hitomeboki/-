@@ -706,6 +706,10 @@ async function checkMaintenanceDuringStudy(){
 
 if(isMaintenance){
 
+    if(localStorage.getItem("admin_access_token")){
+    return;
+}
+
     clearInterval(maintenanceCheckTimer);
 
     if(typeof window.handleMaintenanceStart === "function"){
