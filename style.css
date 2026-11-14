@@ -273,7 +273,7 @@ button.other{
     flex-wrap:wrap;
     justify-content:center;
     align-items:stretch;
-    gap:12px;
+    gap:16px;
 }
 
 #items button{
@@ -620,6 +620,15 @@ h3{
     padding:24px;
     margin:10px;
     border-radius:15px;
+    flex: 1 1 180px;
+    max-width: 220px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow-wrap:anywhere;
+    min-width:0;
+    box-sizing:border-box;
+    
 }
 
 /* 採点ボタン */
