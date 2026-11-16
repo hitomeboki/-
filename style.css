@@ -268,21 +268,32 @@ button.other{
 /* ========================= */
 
 #items{
-    margin-top:30px;
+    margin:30px auto 0;
     display:flex;
     flex-wrap:wrap;
     justify-content:center;
     align-items:stretch;
     gap:16px;
+    width:100%;
+    box-sizing:border-box;
 }
 
 #items button{
-
-    margin:8px;
-
-    background:white;
-
-    border:1px solid #ccc;
+    min-height:85px;
+    font-size:28px;
+    font-weight:bold;
+    padding:24px;
+    margin:10px;
+    border-radius:15px;
+    flex: 1 1 180px;
+    max-width: 220px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow-wrap:anywhere;
+    min-width:0;
+    box-sizing:border-box;
+    
 }
 
 /* ========================= */
@@ -610,27 +621,6 @@ h3{
     padding:20px;
 
 }
-
-/* 勘定科目 */
-
-#items button{
-    min-height:85px;
-    font-size:28px;
-    font-weight:bold;
-    padding:24px;
-    margin:10px;
-    border-radius:15px;
-    flex: 1 1 180px;
-    max-width: 220px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    overflow-wrap:anywhere;
-    min-width:0;
-    box-sizing:border-box;
-    
-}
-
 /* 採点ボタン */
 
 #finishBtn{
