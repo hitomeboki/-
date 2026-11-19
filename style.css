@@ -4464,3 +4464,61 @@ and (orientation:portrait){
     color:#333;
     white-space:nowrap;
 }
+
+
+/* ========================================
+   通常モード・分類画面
+   iPhone専用レイアウト調整
+   苦手克服モードには影響させない
+======================================== */
+
+@media (max-width: 767px) {
+
+    /* 5つの箱の配置 */
+    body:not(.weak-mode) .normal-layout {
+        display: grid !important;
+        grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+        gap: 12px !important;
+        width: 95% !important;
+        max-width: 500px !important;
+        margin: 24px auto !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 箱の共通設定 */
+    body:not(.weak-mode) .normal-layout .box {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: none !important;
+        min-height: 180px !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    /* その他なし：上3個・下2個 */
+    body:not(.weak-mode) .normal-layout.easy-layout .asset {
+        grid-column: 1 / 3 !important;
+    }
+
+    body:not(.weak-mode) .normal-layout.easy-layout .liability {
+        grid-column: 3 / 5 !important;
+    }
+
+    body:not(.weak-mode) .normal-layout.easy-layout .equity {
+        grid-column: 5 / 7 !important;
+    }
+
+    body:not(.weak-mode) .normal-layout.easy-layout .expense {
+        grid-column: 2 / 4 !important;
+    }
+
+    body:not(.weak-mode) .normal-layout.easy-layout .revenue {
+        grid-column: 4 / 6 !important;
+    }
+
+    /* その他あり：3列×2段 */
+    body:not(.weak-mode) .normal-layout:not(.easy-layout) .box {
+        grid-column: auto !important;
+    }
+
+}
