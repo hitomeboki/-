@@ -92,17 +92,17 @@ if(mode === "easy"){
     selectedItems = allItems.slice(0,25);
 }
 
-// その他が出題されるか判定
-if(mode === "hard"){
+// その他が実際に出題されるか判定
+let hasOther = selectedItems.some(item =>
+    accounts[item].category === "その他"
+);
 
-    // 発展モードは「その他」を常に表示
+const boxes = document.querySelector(".boxes");
+
+if(hasOther){
     document.getElementById("otherArea").style.display = "block";
-
 }else{
-
-    // 簡単モードは「その他」を表示しない
-    document.querySelector(".boxes").classList.add("easy-layout");
-
+    boxes.classList.add("easy-layout");
 }
 
 let userAnswers = {};
