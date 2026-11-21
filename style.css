@@ -4522,3 +4522,54 @@ and (orientation:portrait){
     }
 
 }
+
+/* ========================================
+   通常モード分類：iPhone
+   苦手克服モードと同じ配置
+======================================== */
+
+@media screen and (max-width: 767px) {
+
+    body:not(.weak-mode) .boxes.normal-layout {
+        display: grid !important;
+        grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+        gap: 15px !important;
+        width: 95% !important;
+        max-width: 500px !important;
+        margin: 30px auto !important;
+    }
+
+    body:not(.weak-mode) .boxes.normal-layout .box {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: none !important;
+        min-height: 180px !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    body:not(.weak-mode) .boxes.normal-layout.easy-layout .asset {
+        grid-column: 1 / 3 !important;
+    }
+
+    body:not(.weak-mode) .boxes.normal-layout.easy-layout .liability {
+        grid-column: 3 / 5 !important;
+    }
+
+    body:not(.weak-mode) .boxes.normal-layout.easy-layout .equity {
+        grid-column: 5 / 7 !important;
+    }
+
+    body:not(.weak-mode) .boxes.normal-layout.easy-layout .expense {
+        grid-column: 2 / 4 !important;
+    }
+
+    body:not(.weak-mode) .boxes.normal-layout.easy-layout .revenue {
+        grid-column: 4 / 6 !important;
+    }
+
+    body:not(.weak-mode) .boxes.normal-layout:not(.easy-layout) .box {
+        grid-column: auto !important;
+    }
+}
+
