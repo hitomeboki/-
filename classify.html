@@ -2,16 +2,17 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>分類モード</title>
 <link rel="stylesheet" href="style.css">
 </head>
+
+<body>
 
 <h1>分類モード</h1>
 
 <h2>勘定科目を選択してください</h2>
 
-<div class="boxes normal-layout">
+<div class="boxes">
 
     <div class="box asset">
         <h3 onclick="classify('資産')">資産</h3>
@@ -90,17 +91,17 @@ if(mode === "easy"){
     selectedItems = allItems.slice(0,25);
 }
 
-// その他が実際に出題されるか判定
-let hasOther = selectedItems.some(item =>
-    accounts[item].category === "その他"
-);
+// その他が出題されるか判定
+if(mode === "hard"){
 
-const boxes = document.querySelector(".boxes");
-
-if(hasOther){
+    // 発展モードは「その他」を常に表示
     document.getElementById("otherArea").style.display = "block";
+
 }else{
-    boxes.classList.add("easy-layout");
+
+    // 簡単モードは「その他」を表示しない
+    document.querySelector(".boxes").classList.add("easy-layout");
+
 }
 
 let userAnswers = {};
